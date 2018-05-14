@@ -83,7 +83,7 @@ public class ToastUtil {
     public static void showErrorToast(Activity activity, String title, String content) {
         TopToast.with(activity)
                 .setTitle(title, R.color.black)
-                .setMessage(content, TextUtils.isEmpty(title) ? R.color.black : R.color.gray)
+                .setMessage(content, TextUtils.isEmpty(title) ? R.color.black : R.color.color_black_23)
                 .setIcon(R.drawable.icon_warn)
                 .setBackgroundColor(R.color.white)
                 .setDuration(3000)

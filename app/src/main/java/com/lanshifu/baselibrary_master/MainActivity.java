@@ -1,9 +1,17 @@
 package com.lanshifu.baselibrary_master;
 
+import android.widget.ListView;
+
 import com.lanshifu.baselibrary.base.BaseActivity;
+import com.lanshifu.baselibrary_master.ui.MainFragment;
 
 public class MainActivity extends BaseActivity {
 
+
+    @Override
+    protected int setContentViewId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -12,6 +20,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+        addFragment(R.id.fl_container,new MainFragment());
 
     }
 }

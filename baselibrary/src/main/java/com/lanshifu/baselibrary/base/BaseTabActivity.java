@@ -12,7 +12,7 @@ import com.lanshifu.baselibrary.R;
  * Created by lanxiaobin on 2017/8/1.
  */
 
-public  abstract class BaseTabActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public  abstract class BaseTabActivity extends BaseTitleBarActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -22,7 +22,7 @@ public  abstract class BaseTabActivity extends BaseActivity implements ViewPager
     protected void doAfterSetContentView() {
         super.doAfterSetContentView();
         mTabLayout = (TabLayout) findViewById(R.id.comm_tab_layout);
-        mTabLayout.setTabTextColors(R.color.colorPrimary, R.color.main_color);
+        mTabLayout.setTabTextColors(R.color.colorPrimary, R.color.colorPrimaryDark);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 //        mTabLayout.setSelectedTabIndicatorColor(R.color.green);
     }

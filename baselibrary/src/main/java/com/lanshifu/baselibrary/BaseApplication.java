@@ -9,6 +9,7 @@ import com.lanshifu.baselibrary.base.AppManager;
 import com.lanshifu.baselibrary.log.LogHandler;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.FileUtil;
+import com.lanshifu.baselibrary.utils.SharedPreUtils;
 import com.lanshifu.baselibrary.utils.StorageUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 
@@ -36,6 +37,7 @@ public class BaseApplication extends Application {
         ToastUtil.init(context);
         StorageUtil.init(context);
         FileUtil.init(context);
+        SharedPreUtils.init(context);
 
         //注册自己的Activity的生命周期回调接口。
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
