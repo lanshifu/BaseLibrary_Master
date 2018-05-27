@@ -30,8 +30,11 @@ dependencies {
     })
 
     testCompile 'junit:junit:4.12'
-    compile project(':baselibrary')
+    api project(':baselibrary')
 
     //butterknife 必须
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile "com.github.yjfnypeu:UpdatePlugin:3.0.1"
+    compile 'org.litepal.android:core:1.6.0'
 }

@@ -8,6 +8,7 @@
     <attr name="colorDivider" format="color|reference" />
     <attr name="colorBackgroundAccent" format="color|reference" />
     <attr name="colorHint" format="color|reference" />
+    <attr name="layout_background" format="color|reference" />
     <attr name="menuBackground" format="reference" />
     <attr name="btnBackground" format="reference" />
     <attr name="btnLineBackground" format="reference" />

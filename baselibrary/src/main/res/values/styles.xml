@@ -42,6 +42,8 @@
         <item name="menuBackground">@drawable/blue_background</item>
         <item name="btnBackground">@drawable/shape_rect_theme_blue</item>
         <item name="btnLineBackground">@drawable/shape_rect_line_theme_blue</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle_Blue</item>
+        <item name="layout_background">@color/white</item>
         <!--<item name="md_title_color">@color/colorBluePrimary</item>-->
         <!--<item name="md_link_color">@color/colorBluePrimary</item>-->
         <!--<item name="md_positive_color">@color/colorBluePrimary</item>-->
@@ -56,6 +58,7 @@
         <item name="menuBackground">@drawable/red_background</item>
         <item name="btnBackground">@drawable/shape_rect_theme_red</item>
         <item name="btnLineBackground">@drawable/shape_rect_line_theme_red</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle_Red</item>
         <!--<item name="md_title_color">@color/colorRedPrimary</item>-->
         <!--<item name="md_link_color">@color/colorRedPrimary</item>-->
         <!--<item name="md_positive_color">@color/colorRedPrimary</item>-->
@@ -229,6 +232,8 @@
         <item name="menuBackground">@drawable/blue_grey_background</item>
         <item name="btnBackground">@drawable/shape_rect_theme_blue_grey</item>
         <item name="btnLineBackground">@drawable/shape_rect_line_theme_blue_grey</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle_Gray</item>
+        <item name="layout_background">@color/colorBlueGreyPrimary</item>
         <!--<item name="md_title_color">@color/colorBlueGreyPrimary</item>-->
         <!--<item name="md_link_color">@color/colorBlueGreyPrimary</item>-->
         <!--<item name="md_positive_color">@color/colorBlueGreyPrimary</item>-->
@@ -260,14 +265,29 @@
         <!-- 用于替换菜单的三个小白点，换成自已的图片-->
         <!--<item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Menu</item>-->
         <!--用于控制menu弹出的位置，位于toolbar的下面，而不是上面-->
-        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle_Gray</item>
         <!-- 用于修改item默认的分割线-->
         <!--<item name="android:dropDownListViewStyle">@style/dropDownStyle</item>-->
         <!--<item name="dropDownListViewStyle">@style/dropDownStyle</item>-->
     </style>
 
-    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+    <style name="OverflowMenuStyle_Blue" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">4dp</item>
+        <item name="android:popupBackground">@color/colorBluePrimary</item>
+    </style>
+
+   <style name="OverflowMenuStyle_Red" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">4dp</item>
+        <item name="android:popupBackground">@color/colorRedPrimary</item>
+    </style>
+
+    <style name="OverflowMenuStyle_Gray" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:popupBackground">@color/colorBlueGreyPrimary</item>
     </style>
 
 

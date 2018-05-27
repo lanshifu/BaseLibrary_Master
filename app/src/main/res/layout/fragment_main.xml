@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.lanshifu.baselibrary.widget.theme.ColorLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
 
-    <Button
+    <com.lanshifu.baselibrary.widget.theme.ColorButton
         android:id="@+id/btn_switch_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="更换主题"/>
+        android:background="?attr/colorPrimary"
+        android:text="更换主题" />
+
+    <com.lanshifu.baselibrary.widget.theme.ColorButton
+        android:id="@+id/btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:text="跳转activity" />
 
 
-</LinearLayout>
+</com.lanshifu.baselibrary.widget.theme.ColorLinearLayout>

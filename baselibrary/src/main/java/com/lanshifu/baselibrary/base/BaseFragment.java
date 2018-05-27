@@ -15,6 +15,7 @@ import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by 蓝师傅 on 2017/1/2.
@@ -25,6 +26,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment{
     protected View mRootView;
     protected RxManager mRxManage;
     protected P mPresenter;
+    private Unbinder unbinder;
 
 
     @Nullable
@@ -39,7 +41,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment{
         if (parent != null) {
             parent.removeView(mRootView);
         }
-        ButterKnife.bind(this,mRootView);
+        unbinder = ButterKnife.bind(this, mRootView);
         mRxManage = new RxManager();
         mPresenter = TUtil.getT(this,0);
         if(mPresenter !=null){
@@ -138,6 +140,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment{
             mPresenter.onDestory();
         }
 
+        unbinder.unbind();
     }
 
     /**

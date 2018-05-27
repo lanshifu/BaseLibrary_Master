@@ -1,8 +1,7 @@
-package com.lanshifu.baselibrary_master;
-
-import android.widget.ListView;
+package com.lanshifu.baselibrary_master.ui;
 
 import com.lanshifu.baselibrary.base.BaseActivity;
+import com.lanshifu.baselibrary_master.R;
 import com.lanshifu.baselibrary_master.ui.MainFragment;
 
 public class MainActivity extends BaseActivity {

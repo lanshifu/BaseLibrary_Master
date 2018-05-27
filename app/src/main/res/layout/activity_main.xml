@@ -92,6 +92,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.lanshifu.baselibrary.widget.theme.ColorView
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="?attr/colorPrimary"/>
+
 
         <FrameLayout
             android:id="@+id/fl_container"

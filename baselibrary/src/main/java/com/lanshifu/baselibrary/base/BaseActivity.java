@@ -1,24 +1,30 @@
 package com.lanshifu.baselibrary.base;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.SharedPreUtils;
+import com.lanshifu.baselibrary.utils.SystemUtil;
 import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
 import com.lanshifu.baselibrary.widget.StatusBarCompat;
+import com.lanshifu.baselibrary.widget.theme.ColorView;
 import com.lanshifu.baselibrary.widget.theme.Theme;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -34,7 +40,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public P mPresenter;
     public Context mContext;
     public RxManager mRxManager;
-
+    private ColorView mStatusBar;
     private Unbinder mUnbinder;
 
     @Override
@@ -65,16 +71,49 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         AppManager.getInstance().addActivity(this);
         // 无标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
         //设置主题
         initTheme();
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // 默认着色状态栏
-        SetStatusBarColor();
+//        setStatusBarColor();
+        initStatusBar();
 
     }
 
     protected void doAfterSetContentView() {
+    }
+
+    private void initStatusBar() {
+        mStatusBar = (ColorView) findViewById(R.id.status_bar);
+        if (mStatusBar == null){
+            LogHelper.e("mStatusBar == null");
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mStatusBar.setVisibility(View.VISIBLE);
+            mStatusBar.getLayoutParams().height = SystemUtil.getStatusHeight(this);
+            mStatusBar.setLayoutParams(mStatusBar.getLayoutParams());
+        } else {
+            mStatusBar.setVisibility(View.GONE);
+        }
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     /**
@@ -139,21 +178,21 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     /**
      * 着色状态栏（4.4以上系统有效）
      */
-    protected void SetStatusBarColor() {
-//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+    protected void setStatusBarColor() {
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     /**
      * 着色状态栏（4.4以上系统有效）
      */
-    protected void SetStatusBarColor(int color) {
+    public void setStatusBarColor(int color) {
         StatusBarCompat.setStatusBarColor(this, color);
     }
 
     /**
      * 沉浸状态栏（4.4以上系统有效）
      */
-    protected void SetTranslanteBar() {
+    protected void setTranslanteBar() {
         StatusBarCompat.translucentStatusBar(this);
     }
 
