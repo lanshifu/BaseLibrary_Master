@@ -10,22 +10,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
-import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.baselibrary.utils.SharedPreUtils;
-import com.lanshifu.baselibrary.utils.SystemUtil;
 import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
 import com.lanshifu.baselibrary.widget.StatusBarCompat;
-import com.lanshifu.baselibrary.widget.theme.ColorView;
-import com.lanshifu.baselibrary.widget.theme.Theme;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -36,11 +30,9 @@ import butterknife.Unbinder;
  */
 public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity {
 
-
     public P mPresenter;
     public Context mContext;
     public RxManager mRxManager;
-    private ColorView mStatusBar;
     private Unbinder mUnbinder;
 
     @Override
@@ -75,32 +67,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
-        //设置主题
-        initTheme();
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // 默认着色状态栏
-//        setStatusBarColor();
-        initStatusBar();
+        setStatusBarColor();
 
     }
 
     protected void doAfterSetContentView() {
-    }
-
-    private void initStatusBar() {
-        mStatusBar = (ColorView) findViewById(R.id.status_bar);
-        if (mStatusBar == null){
-            LogHelper.e("mStatusBar == null");
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mStatusBar.setVisibility(View.VISIBLE);
-            mStatusBar.getLayoutParams().height = SystemUtil.getStatusHeight(this);
-            mStatusBar.setLayoutParams(mStatusBar.getLayoutParams());
-        } else {
-            mStatusBar.setVisibility(View.GONE);
-        }
     }
 
     @TargetApi(19)
@@ -114,64 +88,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
-    }
-
-    /**
-     * 设置主题
-     */
-    private void initTheme() {
-        Theme theme = SharedPreUtils.getInstance().getCurrentTheme();
-        LogHelper.d("theme "+theme);
-        switch (theme) {
-            case Blue:
-                setTheme(R.style.BlueTheme);
-                break;
-            case Red:
-                setTheme(R.style.RedTheme);
-                break;
-            case Brown:
-                setTheme(R.style.BrownTheme);
-                break;
-            case Green:
-                setTheme(R.style.GreenTheme);
-                break;
-            case Purple:
-                setTheme(R.style.PurpleTheme);
-                break;
-            case Teal:
-                setTheme(R.style.TealTheme);
-                break;
-            case Pink:
-                setTheme(R.style.PinkTheme);
-                break;
-            case DeepPurple:
-                setTheme(R.style.DeepPurpleTheme);
-                break;
-            case Orange:
-                setTheme(R.style.OrangeTheme);
-                break;
-            case Indigo:
-                setTheme(R.style.IndigoTheme);
-                break;
-            case LightGreen:
-                setTheme(R.style.LightGreenTheme);
-                break;
-            case Lime:
-                setTheme(R.style.LimeTheme);
-                break;
-            case DeepOrange:
-                setTheme(R.style.DeepOrangeTheme);
-                break;
-            case Cyan:
-                setTheme(R.style.CyanTheme);
-                break;
-            case BlueGrey:
-                setTheme(R.style.BlueGreyTheme);
-                break;
-            default:
-                setTheme(R.style.BlueTheme);
-                break;
-        }
     }
 
 
@@ -298,7 +214,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         }
     }
 
-    protected abstract int getLayoutId();
+
 
     protected void initPresenter() {
     }

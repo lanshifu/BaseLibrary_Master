@@ -5,7 +5,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.lanshifu.baselibrary.BaseApplication;
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.widget.TopToast;
 
@@ -83,7 +82,7 @@ public class ToastUtil {
     public static void showErrorToast(Activity activity, String title, String content) {
         TopToast.with(activity)
                 .setTitle(title, R.color.black)
-                .setMessage(content, TextUtils.isEmpty(title) ? R.color.black : R.color.color_black_23)
+                .setMessage(content, TextUtils.isEmpty(title) ? R.color.black : R.color.black)
                 .setIcon(R.drawable.icon_warn)
                 .setBackgroundColor(R.color.white)
                 .setDuration(3000)

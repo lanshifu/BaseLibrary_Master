@@ -1,8 +1,7 @@
 package com.lanshifu.baselibrary_master.ui;
 
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,13 +12,12 @@ import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
 import com.lanshifu.baselibrary_master.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.lang.reflect.Method;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2018\5\19 0019.
@@ -50,16 +48,16 @@ public class SecondActivity extends BaseTitleBarActivity {
 
             }
         });
-        recyclerView.setOnLoadmoreListener(new OnLoadmoreListener() {
+        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
 
             }
         });
 
-        adapter.addData("数据1");
-        adapter.addData("数据2");
-        adapter.addData("数据3");
+        for (int i = 0; i < 20; i++) {
+            adapter.addData("数据" +i);
+        }
     }
 
     @Override

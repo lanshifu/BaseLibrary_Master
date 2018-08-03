@@ -2,6 +2,8 @@ package com.lanshifu.baselibrary.baserxjava;
 
 import android.util.Log;
 
+import com.lanshifu.baselibrary.network.RxScheduler;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ public class RxManager {
         Observable<T> observable = mRxBus.register(eventName);
         mObservables.put(eventName, observable);
         /*订阅管理*/
-        Disposable disposable = observable.compose(RxSchedulers.<T>io_main())
+        Disposable disposable = observable.compose(RxScheduler.<T>io_main())
                 .subscribe(action1, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {

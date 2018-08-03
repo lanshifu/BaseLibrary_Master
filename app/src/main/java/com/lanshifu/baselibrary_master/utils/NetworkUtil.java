@@ -9,7 +9,7 @@ import android.net.NetworkInfo.State;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
-import com.lanshifu.baselibrary_master.MainApplication;
+import com.lanshifu.baselibrary.app.MainApplication;
 
 public class NetworkUtil {
     /** 网络状态未初始化。请调用init(Context)方法 */

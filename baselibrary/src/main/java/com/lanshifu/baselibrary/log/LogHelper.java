@@ -1,10 +1,15 @@
 
 package com.lanshifu.baselibrary.log;
 
-import android.content.Context;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.lanshifu.baselibrary.utils.StorageUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -32,6 +37,11 @@ public final class LogHelper implements ILogger {
     private static SimpleDateFormat bakLogSdf = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
     private static int logFileBackupNumber = 1;
     private static int logFileBackupSize = 50;
+
+    /**
+     * It is used for json pretty print
+     */
+    private static final int JSON_INDENT = 2;
 
 
     public static void trace(String str) {
@@ -121,8 +131,9 @@ public final class LogHelper implements ILogger {
         String className = traceElement.getClassName();
         String simpleClzName = className.substring(className.lastIndexOf(".") + 1,
                 className.length());
-        String logText = String.format(CLASS_METHOD_LINE_FORMAT, threadId, simpleClzName,
-                traceElement.getMethodName(), traceElement.getLineNumber(), str);
+//        String logText = String.format(CLASS_METHOD_LINE_FORMAT, threadId, simpleClzName,
+//                traceElement.getMethodName(), traceElement.getLineNumber(), str);
+        String logText = logText = str;
         // ERROR, WARN, INFO, LOAD_LOCAL_DEBUG, VERBOSE
         String logTag = "";
         if (level == Log.VERBOSE) {
@@ -262,5 +273,30 @@ public final class LogHelper implements ILogger {
     @Override
     public void warn(String arg0) {
         w(arg0);
+    }
+
+    public static void json(@Nullable String json) {
+        if (TextUtils.isEmpty(json)) {
+            d("Empty/Null json content");
+            return;
+        }
+        try {
+            json = json.trim();
+            if (json.startsWith("{")) {
+                JSONObject jsonObject = new JSONObject(json);
+                String message = jsonObject.toString(JSON_INDENT);
+                d(message);
+                return;
+            }
+            if (json.startsWith("[")) {
+                JSONArray jsonArray = new JSONArray(json);
+                String message = jsonArray.toString(JSON_INDENT);
+                d(message);
+                return;
+            }
+            e("Invalid Json");
+        } catch (JSONException e) {
+            e("Invalid Json");
+        }
     }
 }

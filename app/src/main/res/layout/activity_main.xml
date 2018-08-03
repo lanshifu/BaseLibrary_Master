@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lanshifu.baselibrary_master.widget.ResideLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.lanshifu.baselibrary_master.widget.ResideLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/resideLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <com.lanshifu.baselibrary.widget.theme.ColorRelativeLayout
+    <RelativeLayout
         android:id="@+id/menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/menuBackground">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/top_menu"
@@ -84,20 +80,13 @@
                 android:textSize="16sp"/>
 
         </LinearLayout>
-    </com.lanshifu.baselibrary.widget.theme.ColorRelativeLayout>
+    </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <com.lanshifu.baselibrary.widget.theme.ColorView
-            android:id="@+id/status_bar"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="?attr/colorPrimary"/>
-
 
         <FrameLayout
             android:id="@+id/fl_container"

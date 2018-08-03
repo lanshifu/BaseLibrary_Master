@@ -265,7 +265,6 @@ public class SystemUtil {
 
     /**
      * @param activity
-     * @return > 0 success; <= 0 fail
      */
     public static int getStatusHeight(Activity activity) {
         int statusHeight = 0;

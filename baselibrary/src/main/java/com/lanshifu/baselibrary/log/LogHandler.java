@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 
-import com.lanshifu.baselibrary.BaseApplication;
+import com.lanshifu.baselibrary.app.BaseApplication;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -75,6 +75,7 @@ public class LogHandler extends Thread {
         return queue.size();
     }
 
+   @Override
     public void run() {
         while (this.getRunning()) {
             try {
