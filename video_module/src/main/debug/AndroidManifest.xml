@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lanshifu.video_module">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -11,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name="com.lanshifu.baselibrary.app.MainApplication"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.VideoMainActivity"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label"
+        >
+        <activity android:name=".ui.activity.VideoMainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -21,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.VideoDownLoadDetailActivity"/>
     </application>
 
 </manifest>

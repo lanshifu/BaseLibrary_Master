@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/type_all"
+        android:title="全部类型" />
+
+    <item
+        android:id="@+id/type_long"
+        android:title="10分钟以上" />
+
+   <item
+        android:id="@+id/type_top"
+        android:title="本月最热" />
+
+  <item
+        android:id="@+id/type_mf"
+        android:title="收藏最多" />
+
+  <item
+        android:id="@+id/type_tf"
+        android:title="本月收藏" />
+
+  <item
+        android:id="@+id/type_rf"
+        android:title="最近加精" />
+
+  <item
+        android:id="@+id/download_dwtail"
+       android:title="下载详情页" />
+
+
+</menu>

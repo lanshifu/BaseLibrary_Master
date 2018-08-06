@@ -4,10 +4,11 @@
 
     <application>
 
-        <activity android:name=".ui.VideoMainActivity"
+        <activity android:name=".ui.activity.VideoMainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".ui.activity.VideoDownLoadDetailActivity"/>
     </application>
 
 </manifest>

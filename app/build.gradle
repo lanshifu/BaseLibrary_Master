@@ -66,6 +66,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     if (!isBuildModule.toBoolean()) {
         implementation project(":video_module")
+        implementation project(":picture_module")
     } else {
         implementation project(':baselibrary')
         implementation project(":CommonService")

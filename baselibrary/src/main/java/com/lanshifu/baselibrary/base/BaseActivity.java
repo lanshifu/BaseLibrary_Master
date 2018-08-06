@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
+import com.lanshifu.baselibrary.utils.ScreenUtils;
 import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
@@ -49,7 +50,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
             mPresenter.mContext = this;
         }
         initPresenter();
-        initView();
+        initView(savedInstanceState);
     }
 
     protected abstract int setContentViewId();
@@ -59,8 +60,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
      */
     protected void doBeforeSetcontentView() {
 
-        // 把actvity放到application栈中管理
-        AppManager.getInstance().addActivity(this);
         // 无标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -69,6 +68,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         }
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //屏幕适配
+        ScreenUtils.adaptScreen4VerticalSlide(this,360);
         // 默认着色状态栏
         setStatusBarColor();
 
@@ -204,7 +205,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManager.getInstance().finishActivity(this);
         mRxManager.clear();
         if (mPresenter != null) {
             mPresenter.onDestory();
@@ -219,6 +219,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     protected void initPresenter() {
     }
 
-    protected abstract void initView();
+    protected abstract void initView(Bundle savedInstanceState);
 
 }

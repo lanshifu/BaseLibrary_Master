@@ -1,11 +1,16 @@
-package com.lanshifu.video_module.ui;
+package com.lanshifu.video_module.ui.fragment;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lanshifu.baselibrary.base.BaseFragment;
 import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
@@ -24,9 +29,10 @@ import java.util.List;
 import butterknife.BindView;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
-@Route(path = RouterHub.VIDEO_MAIN_ACTIVITY)
-public class VideoMainActivity extends BaseTitleBarActivity<VideoMainPresenter> implements VideoMainView {
+@Route(path = RouterHub.VIDEO_MAIN_FRAGMENT)
+public class VideoMainFragment extends BaseFragment<VideoMainPresenter> implements VideoMainView {
 
     @BindView(R2.id.recyclerView)
     CommRecyclerView recyclerView;
@@ -34,19 +40,19 @@ public class VideoMainActivity extends BaseTitleBarActivity<VideoMainPresenter> 
 
     private int mCurrentPage = 1;
     private int mPageCount = 20;
+    private int mType = -1;
 
     @Override
     protected void initView() {
 
-        setTitleText("91视频");
         initRecyclerView();
 
-        mPresenter.getVideoList(mCurrentPage, mPageCount);
+        refresh();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.video_activity_main;
+        return R.layout.video_fragment_main;
     }
 
     @Override
@@ -59,43 +65,69 @@ public class VideoMainActivity extends BaseTitleBarActivity<VideoMainPresenter> 
                 BaseViewHolder>(R.layout.video_video_list_item) {
             @Override
             protected void convert(BaseViewHolder baseViewHolder, VideoListItemBean data) {
+                String title = TextUtils.isEmpty(data.getTitle()) ? "" : data.getTitle();
                 JZVideoPlayerStandard jzVideoPlayerStandard = baseViewHolder.getView(R.id.videoplayer);
                 jzVideoPlayerStandard.setUp(data.getUrl(),
                         JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL,
-                        data.getTitle());
-                Glide.with(VideoMainActivity.this)
+                        title);
+                Glide.with(VideoMainFragment.this)
                         .load(data.getImg())
                         .into(jzVideoPlayerStandard.thumbImageView);
+//                jzVideoPlayerStandard.widthRatio = 4;//播放比例
+//                jzVideoPlayerStandard.heightRatio = 3;
+                baseViewHolder.getView(R.id.btn_download).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDownloadDialog(data.getTitle(),data.getUrl());
+                    }
+                });
             }
         };
         recyclerView.setAdapter(mAdapter);
         recyclerView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mCurrentPage = 1;
-                mPresenter.getVideoList(mCurrentPage, mPageCount);
+                refresh();
             }
         });
         recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 mCurrentPage++;
-                mPresenter.getVideoList(mCurrentPage, mPageCount);
+                mPresenter.getVideoList(mCurrentPage, mPageCount,mType);
             }
         });
         recyclerView.autoRefresh();
 
     }
 
+    private void showDownloadDialog(String title, String url) {
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage("下载" + title +" ?")
+                .setPositiveButton("下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RetrofitUrlManager.getInstance().setRun(false);
+                        mPresenter.downLoad(title + ".mp4",url);
+                    }
+                }).show();
+    }
+
     @Override
     public void getVideoListSuccess(List<VideoListItemBean> list) {
+        recyclerView.finishLoadMore();
+        recyclerView.finishRefresh();
+        if (list.size() == 0){
+            recyclerView.setNoMoreData(false);
+            return;
+        }
         if (mCurrentPage == 1) {
             mAdapter.replaceData(list);
         } else {
             mAdapter.addData(list);
         }
-        recyclerView.finishLoadMore();
-        recyclerView.finishRefresh();
+
     }
 
     @Override
@@ -117,16 +149,25 @@ public class VideoMainActivity extends BaseTitleBarActivity<VideoMainPresenter> 
     }
 
 
+
     @Override
-    public void onBackPressed() {
-        if (JZVideoPlayer.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         JZVideoPlayer.releaseAllVideos();
+    }
+
+
+    public void setType(int type){
+        mType = type;
+        refresh();
+    }
+
+
+
+    private void refresh(){
+        RetrofitUrlManager.getInstance().setRun(true);
+        recyclerView.setNoMoreData(false);
+        mCurrentPage = 1;
+        mPresenter.getVideoList(mCurrentPage,mPageCount,mType);
     }
 }

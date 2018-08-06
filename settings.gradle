@@ -1,1 +1,1 @@
-include ':app',':baselibrary',':CommonService', ':video_module'
+include ':app',':baselibrary',':CommonService', ':video_module', ':picture_module'

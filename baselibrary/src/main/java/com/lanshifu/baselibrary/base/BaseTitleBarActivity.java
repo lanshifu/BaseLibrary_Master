@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
+import com.lanshifu.baselibrary.utils.ScreenUtils;
 import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
@@ -54,7 +55,7 @@ public abstract class BaseTitleBarActivity<P extends BasePresenter> extends RxAp
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doBeforeSetcontentView();
-        setContentView(setContentViewId());
+        setContentView(R.layout.base_activity);
         doAfterSetContentView();
         mUnbinder = ButterKnife.bind(this);
         mRxManager = new RxManager();
@@ -73,7 +74,6 @@ public abstract class BaseTitleBarActivity<P extends BasePresenter> extends RxAp
     protected void doBeforeSetcontentView() {
 
         // 把actvity放到application栈中管理
-        AppManager.getInstance().addActivity(this);
         // 无标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -82,14 +82,13 @@ public abstract class BaseTitleBarActivity<P extends BasePresenter> extends RxAp
         }
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //屏幕适配
+        ScreenUtils.adaptScreen4VerticalSlide(this,360);
         // 默认着色状态栏
         setStatusBarColor();
 
     }
 
-    protected int setContentViewId(){
-        return R.layout.base_activity;
-    }
 
     protected void doAfterSetContentView() {
         mToolBarTitle = (TextView) findViewById(R.id.comm_toolbar_title);// 自定义的标题TextView
@@ -336,7 +335,6 @@ public abstract class BaseTitleBarActivity<P extends BasePresenter> extends RxAp
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManager.getInstance().finishActivity(this);
         mRxManager.clear();
         if (mPresenter != null) {
             mPresenter.onDestory();

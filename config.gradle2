@@ -10,7 +10,7 @@ ext {
     ]
 
      version = [
-                   androidSupportSdkVersion: "27.1.0",
+                   androidSupportSdkVersion: "27.1.1",
                    retrofitSdkVersion      : "2.4.0",
                    dagger2SdkVersion       : "2.15",
                    glideSdkVersion         : "4.6.1",
@@ -47,7 +47,7 @@ ext {
                 "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
                 "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
                 "pickerview"               : "com.contrarywind:Android-PickerView:3.2.5",
-                "photoview"                : "com.github.chrisbanes.photoview:library:1.2.3",
+                "photoview"                : "com.github.chrisbanes:PhotoView:2.1.4",
                 "numberprogressbar"        : "com.daimajia.numberprogressbar:library:1.2@aar",
                 "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
                 "paginate"                 : "com.github.markomilos:paginate:0.5.1",

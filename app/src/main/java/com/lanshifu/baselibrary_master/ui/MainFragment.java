@@ -99,7 +99,7 @@ public class MainFragment extends BaseFragment {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 //        getActivity().getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
-//        getActivity().recreate();
+        getActivity().recreate();
     }
 
 

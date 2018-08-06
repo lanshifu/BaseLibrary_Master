@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.base.AppManager;
@@ -179,4 +180,9 @@ public class UIUtil {
     public static void navigation(Context context, String path) {
         ARouter.getInstance().build(path).navigation(context);
     }
+
+    public static Fragment navigationFragment(String path){
+        return (Fragment)ARouter.getInstance().build(path).navigation();
+    }
+
 }

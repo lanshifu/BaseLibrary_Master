@@ -15,12 +15,11 @@
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingBottom="@dimen/dp_4"
-            android:paddingTop="@dimen/dp_4"
-            android:src="@drawable/ic_back" />
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_back_24dp" />
 
         <TextView
             android:id="@+id/comm_toolbar_title"
@@ -32,7 +31,8 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="setTitle()设置标题"
-            android:textColor="@color/white" />
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/common_title" />
 
     </FrameLayout>
 

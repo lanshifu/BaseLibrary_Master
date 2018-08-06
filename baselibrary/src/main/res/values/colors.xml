@@ -4,14 +4,17 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="transparent">#00000000</color>
-
+    <color name="layout_background">#fafafa</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 
     <color name="default_background">#ffffff</color>
 
+    <color name="common_title">#ffffff</color>
+    <color name="common_back_arrow">#ffffff</color>
+
     <!--通用一级标题的颜色-->
-    <color name="text.common_h1">#212121</color>
+    <color name="text.common_h1">#ffffff</color>
     <!--通用二级标题的颜色-->
     <color name="text.common_h2">#727272</color>
     <!--通用三级标题的颜色-->
@@ -23,7 +26,7 @@
     <color name="divider.wide">#eeeeee</color>
 
 
-    <!--theme colors-->
+    <color name="colorNavItemUnselected">#a5a5a5</color>
 
     <!--blue-->
     <color name="colorBluePrimary">#2196F3</color>

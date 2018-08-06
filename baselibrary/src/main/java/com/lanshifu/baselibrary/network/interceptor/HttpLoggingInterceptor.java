@@ -249,9 +249,8 @@ public final class HttpLoggingInterceptor implements Interceptor {
         String bodySize = contentLength != -1 ? contentLength + "-byte" : "unknown-length";
 
         MediaType contentType = responseBody.contentType();
-        String content = responseBody.string();
+        String content = null;
         String subtype = null;
-        ResponseBody body = responseBody;
         if (contentType != null) {
             subtype = contentType.subtype();
         }
@@ -262,6 +261,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
         logResp.append(" \n");
         logResp.append("<-- 响应开始\n");
         if (isJsonResp) {
+            content= responseBody.string();
             logResp.append("<-- " + response.code() + ' ' + response.message() + ' '
                     + response.request().url() + " (" + tookMs + "ms" + (!logHeaders ? ", "
                     + bodySize + " body" : "") + ')' + "\n");

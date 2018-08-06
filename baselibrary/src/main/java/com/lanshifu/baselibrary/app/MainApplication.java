@@ -6,6 +6,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.BuildConfig;
 import com.lanshifu.baselibrary.utils.SPUtils;
 
+import org.litepal.LitePal;
+
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 /**
@@ -36,7 +38,7 @@ public class MainApplication extends BaseApplication {
         }
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
 
-        //视频库初始化
+        LitePal.initialize(this);
 
     }
 }

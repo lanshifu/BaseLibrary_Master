@@ -1,4 +1,4 @@
-package com.lanshifu.video_module.ui;
+package com.lanshifu.video_module.ui.activity;
 
 import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
 import com.lanshifu.video_module.R;

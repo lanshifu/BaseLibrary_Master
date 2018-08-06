@@ -38,6 +38,15 @@ public class StorageUtil {
 		return path;
 	}
 
+	public static String getDownloadDir() {
+		String path = getAppRootDir() + "download/";
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		return path;
+	}
+
 	private static String getTakePhotoDir() {
 		String path = getAppRootDir() + "camera/";
 		File file = new File(path);
