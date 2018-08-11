@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -30,19 +31,23 @@ import static okhttp3.internal.Util.closeQuietly;
 public abstract class DownLoadObserver<T> implements Observer<T> {
 
     private String mFilepath; //保存路径
+    private long mRange; //保存路径
 
     /**
      * 封装了下载
      *
      * @param url       下载地址
      * @param filePath  保存的地址
+     * @param range  断点续传位置  没有传0
      */
-    public DownLoadObserver(String url, String filePath) {
+    public DownLoadObserver(String url, String filePath,long range) {
        this.mFilepath = filePath;
+       this.mRange = range;
         LogHelper.d("lxb ->url " +url);
         ProgressManager.getInstance().addDownLoadListener(url, new ProgressListener() {
             @Override
             public void onProgress(ProgressInfo progressInfo) {
+                //如果是断点续传，这里的进度从0开始，就不正确
                 DownLoadObserver.this.onProgress(progressInfo);
             }
 
@@ -71,7 +76,7 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
             return;
         }
         responseBody = (ResponseBody) t;
-        saveToSD(responseBody);
+        saveToSD(responseBody,mRange);
 
     }
 
@@ -87,19 +92,13 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
 
     }
 
-    private void saveToSD(final ResponseBody responseBody) {
+    private void saveToSD(final ResponseBody responseBody, final long range) {
         final File file = new File(mFilepath);
+
         Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-                boolean success = writeFile2Disk(responseBody, file);
-                long fileSize = FileUtil.getFileSize(file);
-                LogHelper.d("lxb ->getFileSize" +fileSize);
-                //ResponseBody.string  调用一次就失效了,所以这里通过文件大小大小判断是否下载失败
-                //如果接口报错,返回的报错信息小于1k
-                if(fileSize < 1024){
-                    success = false;
-                }
+                boolean success = writeFile2Disk(responseBody, file,range);
                 e.onNext(success);
                 e.onComplete();
             }
@@ -111,7 +110,7 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
                         if (success) {
                             onDownLoadSuccess();
                         } else {
-                            onDownFailed("保下载失败,保存sd卡出错或者服务端文件不存在");
+                            onDownFailed("下载失败");
                         }
                     }
                 });
@@ -119,32 +118,84 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
 
     }
 
-    public static boolean writeFile2Disk(final ResponseBody response, final File file) {
-        OutputStream os = null;
-        InputStream is = response.byteStream();
+    /**
+     * 写入文件
+     * @param responseBody
+     * @param file
+     * @param range 从哪个位置开始，默认0
+     * @return
+     */
+    public boolean writeFile2Disk(final ResponseBody responseBody, final File file, long range) {
+        RandomAccessFile randomAccessFile = null;
+        InputStream inputStream = null;
+        long total = range;
+        long responseLength = 0;
         try {
-            os = new FileOutputStream(file);
-            int len;
-            byte[] buff = new byte[1024];
+            byte[] buf = new byte[2048];
+            int len = 0;
+            responseLength = responseBody.contentLength();
+            inputStream = responseBody.byteStream();
+            randomAccessFile = new RandomAccessFile(file, "rwd");
+            if (range == 0) {
+                randomAccessFile.setLength(responseLength);
+            }
+            randomAccessFile.seek(range);
+            int progress = 0;
+            long currentIime = System.currentTimeMillis();
+            while ((len = inputStream.read(buf)) != -1) {
+                randomAccessFile.write(buf, 0, len);
+                total += len;
+                progress = (int) (total * 100 / randomAccessFile.length());
 
-            while ((len = is.read(buff)) != -1) {
-                os.write(buff, 0, len);
+                //通知太频繁,1秒发一次通知
+                if (System.currentTimeMillis() - currentIime > 1000){
+                    currentIime = System.currentTimeMillis();
+                    LogHelper.d("保存进度 total =" + (total*100) +",randomAccessFile.length() = " +randomAccessFile.length() );
+                    LogHelper.d("保存进度 " + progress);
+                    LogHelper.d("保存进度 " + progress);
+                    DownLoadObserver.this.onContinueDownloadProgress(false,progress);
+                }
             }
             return true;
-
         } catch (Exception e) {
-            LogHelper.e("lxb ->Exception :" + e);
+            LogHelper.e("下载失败 ：receipts " +e.getMessage());
             return false;
         } finally {
-            closeQuietly(os);
-            closeQuietly(is);
+            closeQuietly(randomAccessFile);
+            closeQuietly(inputStream);
+
         }
+
+//        OutputStream os = null;
+//        InputStream is = response.byteStream();
+//        try {
+//            os = new FileOutputStream(file);
+//            int len;
+//            byte[] buff = new byte[1024];
+//
+//            while ((len = is.read(buff)) != -1) {
+//                os.write(buff, 0, len);
+//            }
+//            return true;
+//
+//        } catch (Exception e) {
+//            LogHelper.e("lxb ->Exception :" + e);
+//            return false;
+//        } finally {
+//            closeQuietly(os);
+//            closeQuietly(is);
+//        }
 
     }
 
 
 
     protected abstract void onProgress(ProgressInfo progressInfo);
+
+    /**
+     * 断电续传进度
+     */
+    protected abstract void onContinueDownloadProgress(boolean downloadSuccess,int progress);
 
     protected abstract void onDownLoadSuccess();
 

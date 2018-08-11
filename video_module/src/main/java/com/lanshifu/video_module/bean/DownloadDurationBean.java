@@ -1,14 +1,12 @@
 package com.lanshifu.video_module.bean;
 
-import com.lanshifu.baselibrary.network.progress.body.ProgressInfo;
-
 public class DownloadDurationBean {
 
-    public DownloadDurationBean(String url, ProgressInfo progressInfo) {
+    public DownloadDurationBean(String url, int progress) {
         this.url = url;
-        this.progressInfo = progressInfo;
+        this.progress = progress;
     }
 
     public String url;
-    public ProgressInfo progressInfo;
+    public int progress;
 }

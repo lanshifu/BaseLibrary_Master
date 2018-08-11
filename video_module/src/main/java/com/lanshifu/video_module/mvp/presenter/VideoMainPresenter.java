@@ -10,26 +10,27 @@ import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.baselibrary.network.ServerResponseFunc;
 import com.lanshifu.baselibrary.network.progress.body.ProgressInfo;
 import com.lanshifu.baselibrary.utils.StorageUtil;
+import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.video_module.bean.DownloadDurationBean;
 import com.lanshifu.video_module.bean.VideoListItemBean;
-import com.lanshifu.video_module.db.DownloadVideo;
+import com.lanshifu.video_module.db.DownloadVideoDB;
 import com.lanshifu.video_module.mvp.view.VideoMainView;
 import com.lanshifu.video_module.network.VideoApi;
 
 import org.litepal.LitePal;
-import org.litepal.crud.LitePalSupport;
 
+import java.io.File;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 
-public class VideoMainPresenter extends BasePresenter<VideoMainView>{
+public class VideoMainPresenter extends BasePresenter<VideoMainView> {
 
 
-    public void getVideoList(int page,int page_count,int type){
+    public void getVideoList(int page, int page_count, int type) {
         RetrofitHelper.getInstance().createApi(VideoApi.class)
-                .getVideoList(page,page_count,type)
+                .getVideoList(page, page_count, type)
                 .map(new ServerResponseFunc<List<VideoListItemBean>>())
                 .compose(RxScheduler.io_main())
                 .subscribe(new BaseObserver<List<VideoListItemBean>>() {
@@ -45,46 +46,86 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView>{
                 });
     }
 
-    public void downLoad(String title,String url){
-
-        DownloadVideo downloadVideo = new DownloadVideo();
-        downloadVideo.setTitle(title);
-        downloadVideo.setUrl(url);
-        downloadVideo.setDownload(false);
-        downloadVideo.save();
-
+    public void downLoad(String title, String url) {
+        long range = 0;
+        //文件名
         String path = StorageUtil.getDownloadDir() + title;
+        //文件存在，则获取断点续传时请求的总长度
+        File file = new File(path);
+        String totalLength = "-";
+        if (file.exists()) {
+            totalLength += file.length();
+        }
+
+        //查看数据库是否有保存
+        int downloadId = -1;
+        DownloadVideoDB downloadVideoDB = LitePal.where("url like ?", url)
+                .order("duration")
+                .findFirst(DownloadVideoDB.class);
+        if (downloadVideoDB != null) {
+            if (downloadVideoDB.isDownload_success()){
+                ToastUtil.showShortToast("该视频已下载");
+                return;
+            }
+            if (downloadVideoDB.isDownloading()){
+                ToastUtil.showShortToast("该视频正在下载中");
+                return;
+            }
+            range = downloadVideoDB.getDownload_size();
+            ToastUtil.showShortToast("继续下载: " + downloadVideoDB.getDuration() + "%");
+            LogHelper.d("range = " +range);
+        } else {
+            downloadVideoDB = new DownloadVideoDB();
+            downloadVideoDB.setTitle(title);
+            downloadVideoDB.setUrl(url);
+            downloadVideoDB.setDownloading(true);
+            downloadVideoDB.save();
+            downloadId = downloadVideoDB.getId();
+            ToastUtil.showShortToast("开始下载");
+        }
+
+        DownloadVideoDB finalDownloadVideoDB = downloadVideoDB;
         RetrofitHelper.getInstance().createApi(VideoApi.class)
-                .download(url)
+                .download("bytes=" + range + totalLength, url)
                 .compose(RxScheduler.io_main())
-                .subscribe(new DownLoadObserver<ResponseBody>(url,path) {
+                .subscribe(new DownLoadObserver<ResponseBody>(url, path,range) {
                     @Override
                     protected void onProgress(ProgressInfo progressInfo) {
                         LogHelper.d(progressInfo.toString());
-
-                        DownloadVideo downloadVideo = new DownloadVideo();
-                        downloadVideo.setDownload_size(progressInfo.getCurrentbytes());
-                        downloadVideo.setTotal_size(progressInfo.getContentLength());
-                        downloadVideo.setDuration(progressInfo.getPercent());
-                        downloadVideo.updateAll("url like ?", url);
+                        finalDownloadVideoDB.setDownload_size(progressInfo.getCurrentbytes());
+                        finalDownloadVideoDB.setTotal_size(progressInfo.getContentLength());
+                        finalDownloadVideoDB.setDuration(progressInfo.getPercent());
+                        finalDownloadVideoDB.setDownloading(true);
+                        finalDownloadVideoDB.setDownload_pause(false);
+                        finalDownloadVideoDB.save();
                         //进度通知
-                        mRxManager.post(RxTag.TAG_DOWNLOAD_DURAGION + url,new DownloadDurationBean(url,progressInfo));
+                    }
+
+                    @Override
+                    protected void onContinueDownloadProgress(boolean downloadSuccess, int progress) {
+                        mRxManager.post(RxTag.TAG_DOWNLOAD_DURAGION + url, new DownloadDurationBean(url, progress));
                     }
 
                     @Override
                     protected void onDownLoadSuccess() {
                         LogHelper.d("onDownLoadSuccess");
                         UIUtil.snackbarText("下载成功");
+                        if (finalDownloadVideoDB != null) {
+                            finalDownloadVideoDB.setDownload_success(true);
+                            finalDownloadVideoDB.setDownloading(false);
+                            finalDownloadVideoDB.setDownload_pause(true);
+                            finalDownloadVideoDB.save();
+                        }
 
-                        DownloadVideo downloadVideo = new DownloadVideo();
-                        downloadVideo.updateAll("url = ?", url);
                     }
 
                     @Override
                     protected void onDownFailed(String error) {
                         LogHelper.d("onDownFailed " + error);
-                        UIUtil.snackbarText("下载失败 " +error);
-                        LitePal.deleteAll(DownloadVideo.class, "url = ?", url);
+                        finalDownloadVideoDB.setDownload_success(false);
+                        finalDownloadVideoDB.setDownloading(false);
+                        finalDownloadVideoDB.setDownload_pause(true);
+                        finalDownloadVideoDB.save();
                     }
                 });
     }

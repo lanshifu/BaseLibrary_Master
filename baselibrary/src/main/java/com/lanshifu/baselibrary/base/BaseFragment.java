@@ -13,6 +13,7 @@ import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
+import com.trello.rxlifecycle2.components.RxFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,7 +22,7 @@ import butterknife.Unbinder;
  * Created by 蓝师傅 on 2017/1/2.
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment{
+public abstract class BaseFragment<P extends BasePresenter> extends RxFragment {
 
     protected View mRootView;
     protected RxManager mRxManage;

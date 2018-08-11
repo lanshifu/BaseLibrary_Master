@@ -6,11 +6,12 @@ import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.lanshifu.baselibrary.base.BaseActivity;
 import com.lanshifu.picture_module.R;
+import com.lanshifu.picture_module.R2;
 
 import butterknife.BindView;
 
 public class PictureDetailActivity extends BaseActivity {
-    @BindView(R.id.photo_view)
+    @BindView(R2.id.photo_view)
     PhotoView photoView;
 
     @Override

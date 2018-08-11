@@ -31,6 +31,7 @@ public interface RouterHub {
     String APP = "/app";//宿主 App 组件
     String VIDEO = "/video";//视频组件
     String PICTURE = "/picture";//视频组件
+    String DEMO = "/demo";//demo组件
 
     /**
      * 服务组件, 用于给每个组件暴露特有的服务
@@ -56,10 +57,18 @@ public interface RouterHub {
     /**
      * 图片分组
      */
-    String PICTURE_SERVICE_VIDEO_INFO_SERVICE = PICTURE + SERVICE + "/PictureInfoService";
+    String PICTURE_SERVICE_PICTURE_INFO_SERVICE = PICTURE + SERVICE + "/PictureInfoService";
 
     String PICTURE_MAIN_ACTIVITY = PICTURE + "/PictureMainActivity";
     String PICTURE_MAIN_FRAGMENT = PICTURE + "/PictureMainFragment";
+
+    /**
+     * demo组件
+     */
+    String DEMO_SERVICE_DEMO_INFO_SERVICE = DEMO + SERVICE + "/PictureInfoService";
+
+    String DEMO_MAIN_ACTIVITY = DEMO + "/PictureMainActivity";
+    String DEMO_MAIN_FRAGMENT = DEMO + "/PictureMainFragment";
 
 
 }

@@ -7,7 +7,7 @@ import com.lanshifu.commonservice.RouterHub;
 import com.lanshifu.commonservice.picture.PictureInfo;
 import com.lanshifu.commonservice.picture.PictureInfoService;
 
-@Route(path = RouterHub.PICTURE_SERVICE_VIDEO_INFO_SERVICE, name = "组件")
+@Route(path = RouterHub.PICTURE_SERVICE_PICTURE_INFO_SERVICE, name = "组件")
 public class PictureInfoServiceImpl implements PictureInfoService {
     private Context mContext;
 

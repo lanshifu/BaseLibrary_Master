@@ -11,4 +11,11 @@ dependencies {
 
 
 
+    //视频库
+    implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
+    if (isBuildModule.toBoolean()) {
+        //手机ip + 端口8080
+        debugImplementation rootProject.ext.dependencies["database_debug"]
+    }
+
 }

@@ -12,7 +12,7 @@ import com.lanshifu.baselibrary.R;
  * Created by lanxiaobin on 2017/8/1.
  */
 
-public  abstract class BaseTabActivity extends BaseTitleBarActivity implements ViewPager.OnPageChangeListener {
+public  abstract class BaseTabActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -28,7 +28,7 @@ public  abstract class BaseTabActivity extends BaseTitleBarActivity implements V
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int setContentViewId() {
         return R.layout.base_tab_activity;
     }
 

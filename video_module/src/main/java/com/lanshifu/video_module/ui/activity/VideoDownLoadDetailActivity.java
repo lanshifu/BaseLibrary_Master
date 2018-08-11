@@ -1,15 +1,15 @@
 package com.lanshifu.video_module.ui.activity;
 
+import android.os.Bundle;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.baserxjava.RxTag;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
 import com.lanshifu.video_module.R;
 import com.lanshifu.video_module.R2;
-import com.lanshifu.video_module.bean.DownloadDurationBean;
-import com.lanshifu.video_module.db.DownloadVideo;
+import com.lanshifu.video_module.db.DownloadVideoDB;
 import com.lanshifu.video_module.widget.VidwoDownLoadItemView;
 
 import org.litepal.LitePal;
@@ -17,13 +17,12 @@ import org.litepal.LitePal;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
 
 public class VideoDownLoadDetailActivity extends BaseTitleBarActivity {
 
     @BindView(R2.id.recyclerView)
     CommRecyclerView recyclerView;
-    private BaseQuickAdapter<DownloadVideo, BaseViewHolder> mAdapter;
+    private BaseQuickAdapter<DownloadVideoDB, BaseViewHolder> mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -31,35 +30,32 @@ public class VideoDownLoadDetailActivity extends BaseTitleBarActivity {
     }
 
     @Override
-    protected void initView() {
+    protected BaseView bindPresenterAndView() {
+        return null;
+    }
+
+    @Override
+    protected void initView(Bundle bundle) {
 
         setTitleText("下载任务详情");
         initRecyclerView();
 
         loadData();
 
-        initRxBus();
 
     }
 
-    private void initRxBus() {
-        mRxManager.on(RxTag.TAG_DOWNLOAD_DURAGION, new Consumer<DownloadDurationBean>() {
-            @Override
-            public void accept(DownloadDurationBean downloadDurationBean) throws Exception {
-                LogHelper.d("收到进度通知 ："+downloadDurationBean.progressInfo.getPercent());
-            }
-        });
-    }
+
 
     private void loadData() {
-        List<DownloadVideo> all = LitePal.findAll(DownloadVideo.class);
+        List<DownloadVideoDB> all = LitePal.findAll(DownloadVideoDB.class);
         mAdapter.replaceData(all);
     }
 
     private void initRecyclerView() {
-        mAdapter = new BaseQuickAdapter<DownloadVideo, BaseViewHolder>(R.layout.video_download_item) {
+        mAdapter = new BaseQuickAdapter<DownloadVideoDB, BaseViewHolder>(R.layout.video_download_item) {
             @Override
-            protected void convert(BaseViewHolder baseViewHolder, DownloadVideo data) {
+            protected void convert(BaseViewHolder baseViewHolder, DownloadVideoDB data) {
 
                 VidwoDownLoadItemView vidwoDownLoadItemView=  baseViewHolder.getView(R.id.video_item_view);
                 vidwoDownLoadItemView.setTitle(data.getTitle());
@@ -70,6 +66,7 @@ public class VideoDownLoadDetailActivity extends BaseTitleBarActivity {
         recyclerView.setAdapter(mAdapter);
         recyclerView.setEnableLoadMore(false);
         recyclerView.setEnableRefresh(false);
+        //
     }
 
 

@@ -14,10 +14,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lanshifu.baselibrary.R;
-import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.utils.ScreenUtils;
-import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
 import com.lanshifu.baselibrary.widget.StatusBarCompat;
@@ -29,9 +27,8 @@ import butterknife.Unbinder;
 /**
  * Created by 蓝师傅 on 2016/12/24.
  */
-public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
-    public P mPresenter;
     public Context mContext;
     public RxManager mRxManager;
     private Unbinder mUnbinder;
@@ -45,11 +42,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         mUnbinder = ButterKnife.bind(this);
         mRxManager = new RxManager();
         mContext = this;
-        mPresenter = TUtil.getT(this, 0);
-        if (mPresenter != null) {
-            mPresenter.mContext = this;
-        }
-        initPresenter();
         initView(savedInstanceState);
     }
 
@@ -206,18 +198,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     protected void onDestroy() {
         super.onDestroy();
         mRxManager.clear();
-        if (mPresenter != null) {
-            mPresenter.onDestory();
-        }
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
     }
 
-
-
-    protected void initPresenter() {
-    }
 
     protected abstract void initView(Bundle savedInstanceState);
 

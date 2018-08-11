@@ -26,10 +26,27 @@ public class RxManager {
 
     /**
      * RxBus注入监听
-     * @param eventName
+     *
      * @param action1
+     * @param eventNames
      */
-    public <T>void on(String eventName, Consumer<T> action1) {
+    public <T> void on(Consumer<T> action1, String... eventNames) {
+        Observable<T> observable = mRxBus.register(eventNames);
+        for (String eventName : eventNames) {
+            mObservables.put(eventName, observable);
+        }
+        /*订阅管理*/
+        Disposable disposable = observable.compose(RxScheduler.<T>io_main())
+                .subscribe(action1, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e("rxManager", "rxManager on 报错: " + throwable.toString());
+                    }
+                });
+        mCompositeSubscription.add(disposable);
+    }
+
+    public <T> void on(String eventName, Consumer<T> action1) {
         Observable<T> observable = mRxBus.register(eventName);
         mObservables.put(eventName, observable);
         /*订阅管理*/
@@ -37,21 +54,22 @@ public class RxManager {
                 .subscribe(action1, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.e("rxManager", "rxManager on 报错: "+throwable.toString());
+                        Log.e("rxManager", "rxManager on 报错: " + throwable.toString());
                     }
                 });
-
         mCompositeSubscription.add(disposable);
     }
 
     /**
      * 单纯的Observables 和 Subscribers管理
+     *
      * @param disposable
      */
     private void add(Disposable disposable) {
         /*订阅管理*/
         mCompositeSubscription.add(disposable);
     }
+
     /**
      * 单个presenter生命周期结束，取消订阅和所有rxbus观察
      */
@@ -61,6 +79,7 @@ public class RxManager {
             mRxBus.unregister(entry.getKey(), entry.getValue());// 移除rxbus观察
         }
     }
+
     //发送rxbus
     public void post(Object tag, Object content) {
         mRxBus.post(tag, content);

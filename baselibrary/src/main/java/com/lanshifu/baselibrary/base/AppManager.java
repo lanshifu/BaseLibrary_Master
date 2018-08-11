@@ -37,7 +37,7 @@ public class AppManager {
 
     private AppManager() {
         mMRxManager = new RxManager();
-        mMRxManager.on(RxTag.TAG_UI_UTIL, new Consumer<Message>() {
+        mMRxManager.on(new Consumer<Message>() {
             @Override
             public void accept(Message message) throws Exception {
                 switch (message.what) {
@@ -57,7 +57,7 @@ public class AppManager {
                         break;
                 }
             }
-        });
+        },RxTag.TAG_UI_UTIL);
     }
 
     /**

@@ -41,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_30"
-                android:background="@drawable/btn_blue_complete_s"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:text="重新启动应用" />
@@ -55,7 +54,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
-                android:background="@drawable/btn_blue_complete_s"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:text="查看错误日志" />

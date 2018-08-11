@@ -112,7 +112,11 @@ ext {
                 //数据库，
                 "litepal":"org.litepal.android:core:2.0.0",
                 //调试数据库，同一网段，访问 ip：端口  默认8080
-                "database_debug":"com.amitshekhar.android:debug-db:1.0.4"
+                "database_debug":"com.amitshekhar.android:debug-db:1.0.4",
+
+                //流布局
+                "flexbox":"com.google.android:flexbox:0.3.0"
+
 
     ]
 

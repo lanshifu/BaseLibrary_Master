@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/text_size_small"
-        android:textColor="@color/text.common_h2"
+        android:textColor="@color/text_color"
+        android:background="@color/default_background"
         android:text="下载进度"/>
 
 

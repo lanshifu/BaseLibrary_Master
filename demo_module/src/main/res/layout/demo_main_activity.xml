@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.flexbox.FlexboxLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap">
+
+        <Button
+            android:id="@+id/btn_app_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用信息" />
+
+        <Button
+            android:id="@+id/btn_wifi_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wifi密码查看" />
+
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+</ScrollView>

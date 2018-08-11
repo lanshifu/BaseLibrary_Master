@@ -26,7 +26,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.jzvd.JZVideoPlayer;
 
 @Route(path = RouterHub.PICTURE_MAIN_FRAGMENT)
 public class PictureMainFragment extends BaseFragment<PictureMainPresenter> implements PictureMainView {
@@ -130,7 +129,6 @@ public class PictureMainFragment extends BaseFragment<PictureMainPresenter> impl
     @Override
     public void onStop() {
         super.onStop();
-        JZVideoPlayer.releaseAllVideos();
     }
 
 }

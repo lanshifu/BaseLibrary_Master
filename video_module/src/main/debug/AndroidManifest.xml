@@ -26,6 +26,8 @@
         </activity>
 
         <activity android:name=".ui.activity.VideoDownLoadDetailActivity"/>
+
+        <service android:name=".download.DownloadIntentServie"/>
     </application>
 
 </manifest>

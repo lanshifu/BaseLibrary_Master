@@ -1,11 +1,7 @@
 package com.lanshifu.baselibrary.base;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,72 +19,36 @@ import android.widget.TextView;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
-import com.lanshifu.baselibrary.baserxjava.RxManager;
-import com.lanshifu.baselibrary.utils.ScreenUtils;
+import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.utils.TUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
 import com.lanshifu.baselibrary.widget.StatusBarCompat;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  *
  * Created by Administrator on 2018\4\29 0029.
  */
 
-public abstract class BaseTitleBarActivity<P extends BasePresenter> extends RxAppCompatActivity {
+public abstract class BaseTitleBarActivity<P extends BasePresenter> extends BaseActivity {
 
     public P mPresenter;
-    public Context mContext;
-    public RxManager mRxManager;
-    private Unbinder mUnbinder;
-
     private Menu mTBMenu;
     private TextView mToolBarTitle;
     private Toolbar mToolbar;
     private ImageView mIvBack;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        doBeforeSetcontentView();
-        setContentView(R.layout.base_activity);
-        doAfterSetContentView();
-        mUnbinder = ButterKnife.bind(this);
-        mRxManager = new RxManager();
-        mContext = this;
-        mPresenter = TUtil.getT(this, 0);
-        if (mPresenter != null) {
-            mPresenter.mContext = this;
-        }
-        initPresenter();
-        initView();
+    protected int setContentViewId(){
+        return R.layout.base_activity;
     }
 
-    /**
-     * 设置layout前配置
-     */
+    @Override
     protected void doBeforeSetcontentView() {
+        super.doBeforeSetcontentView();
 
-        // 把actvity放到application栈中管理
-        // 无标题
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-        // 设置竖屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //屏幕适配
-        ScreenUtils.adaptScreen4VerticalSlide(this,360);
-        // 默认着色状态栏
-        setStatusBarColor();
-
+        initPresenter();
     }
-
 
     protected void doAfterSetContentView() {
         mToolBarTitle = (TextView) findViewById(R.id.comm_toolbar_title);// 自定义的标题TextView
@@ -335,19 +295,24 @@ public abstract class BaseTitleBarActivity<P extends BasePresenter> extends RxAp
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRxManager.clear();
         if (mPresenter != null) {
             mPresenter.onDestory();
         }
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
+    }
+
+    protected void initPresenter(){
+        mPresenter = TUtil.getT(this, 0);
+        if (mPresenter != null) {
+            mPresenter.mContext = this;
+            mPresenter.setView(bindPresenterAndView());
         }
     }
 
-
-
-    protected void initPresenter() {
+    /**
+     * mvp的 presenter 和view 绑定
+     * @return this
+     */
+    protected BaseView bindPresenterAndView(){
+        return null;
     }
-
-    protected abstract void initView();
 }

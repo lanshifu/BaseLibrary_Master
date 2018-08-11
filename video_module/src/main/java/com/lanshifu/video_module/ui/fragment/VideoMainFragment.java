@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.base.BaseFragment;
-import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
 import com.lanshifu.commonservice.RouterHub;
@@ -135,6 +134,7 @@ public class VideoMainFragment extends BaseFragment<VideoMainPresenter> implemen
         recyclerView.finishLoadMore();
         recyclerView.finishRefresh();
         UIUtil.snackbarText(error);
+        showShortToast(error);
     }
 
     @Override

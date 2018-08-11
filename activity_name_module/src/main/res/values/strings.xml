@@ -1,0 +1,5 @@
+<resources>
+    <string name="activity_name_app_name">辅助查看类名</string>
+    <string name="accessibility_service_label">查看当前界面包名了类名</string>
+    <string name="desc">描述</string>
+</resources>

@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BaseLibrary_Master.iml" filepath="$PROJECT_DIR$/BaseLibrary_Master.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommonService/CommonService.iml" filepath="$PROJECT_DIR$/CommonService/CommonService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activity_name_module/activity_name_module.iml" filepath="$PROJECT_DIR$/activity_name_module/activity_name_module.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo_module/demo_module.iml" filepath="$PROJECT_DIR$/demo_module/demo_module.iml" />
       <module fileurl="file://$PROJECT_DIR$/picture_module/picture_module.iml" filepath="$PROJECT_DIR$/picture_module/picture_module.iml" />
       <module fileurl="file://$PROJECT_DIR$/video_module/video_module.iml" filepath="$PROJECT_DIR$/video_module/video_module.iml" />
     </modules>

@@ -1,10 +1,13 @@
 package com.lanshifu.baselibrary_master.ui;
 
-import android.support.v7.app.AppCompatDelegate;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
+import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.callback.NavigationCallback;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.lanshifu.baselibrary.base.BaseFragment;
 import com.lanshifu.baselibrary.log.LogHelper;
@@ -21,6 +24,8 @@ import com.lanshifu.baselibrary_master.bean.TempBean;
 import com.lanshifu.baselibrary_master.bean.TempReq;
 import com.lanshifu.baselibrary_master.network.api.DefaultApi;
 import com.lanshifu.commonservice.RouterHub;
+import com.lanshifu.commonservice.demo.DemoInfoService;
+import com.lanshifu.commonservice.picture.PictureInfoService;
 import com.lanshifu.commonservice.video.service.VideoInfoService;
 
 import java.util.List;
@@ -29,12 +34,14 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by Administrator on 2018\5\5 0005.
  */
 
 public class MainFragment extends BaseFragment {
+    private static final int REQUEST_CODE_DEMO_ACTIVITY = 10;
     @BindView(R.id.btn_switch_theme)
     Button btnSwitchTheme;
     @BindView(R.id.btn_2)
@@ -42,9 +49,20 @@ public class MainFragment extends BaseFragment {
 
     @BindView(R.id.btn_video)
     Button btn_video;
+    @BindView(R.id.btn_image)
+    Button btn_image;
+
+    @BindView(R.id.btn_demo)
+    Button btn_demo;
 
     @Autowired(name = RouterHub.VIDEO_SERVICE_VIDEO_INFO_SERVICE)
     VideoInfoService mVideoService;
+
+    @Autowired(name = RouterHub.PICTURE_SERVICE_PICTURE_INFO_SERVICE)
+    PictureInfoService mPictureService;
+
+    @Autowired(name = RouterHub.DEMO_SERVICE_DEMO_INFO_SERVICE)
+    DemoInfoService mDemoService;
 
     @Override
     protected int getLayoutId() {
@@ -54,16 +72,44 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void initView() {
 
+        //这里想展示组件向外提供服务的功能, 模拟下组件向宿主提供一些必要的信息,
+        // 这里为了简单就直接返回本地数据不请求网络了
+        //ARouter依赖注入
+        ARouter.getInstance().inject(this);
+        loadVideoInfo();
+        loadPictureInfo();
+        loadDemoInfo();
+    }
 
+    private void loadVideoInfo(){
         if (mVideoService != null) {
             btn_video.setText(mVideoService.getInfo().getName());
         }else {
-            btn_video.setText("91视频组件信息获取失败");
+            btn_video.setEnabled(false);
         }
-
     }
 
-    @OnClick({R.id.btn_switch_theme, R.id.btn_2, R.id.btn_post, R.id.btn_get, R.id.btn_video})
+    private void loadPictureInfo(){
+        if (mPictureService != null) {
+            btn_image.setText(mPictureService.getInfo().getName());
+        }else {
+            btn_image.setEnabled(false);
+        }
+    }
+
+
+    private void loadDemoInfo(){
+        if (mDemoService != null) {
+            btn_demo.setText(mDemoService.getInfo().getName());
+        }else {
+            btn_demo.setEnabled(false);
+        }
+    }
+
+
+
+    @OnClick({R.id.btn_switch_theme, R.id.btn_2, R.id.btn_post, R.id.btn_get,
+            R.id.btn_video, R.id.btn_image, R.id.btn_demo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_switch_theme:
@@ -85,6 +131,40 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_video:
                 UIUtil.navigation(getActivity(), RouterHub.VIDEO_MAIN_ACTIVITY);
                 break;
+            case R.id.btn_image:
+                UIUtil.navigation(getActivity(), RouterHub.PICTURE_MAIN_ACTIVITY);
+                break;
+            case R.id.btn_demo:
+
+                ARouter.getInstance().build(RouterHub.DEMO_MAIN_ACTIVITY)
+                        .withString("name", "lanshifu")
+                        .withInt("age", 20)
+                        .withBoolean("girl", true)
+//                        .withObject("key4", new Test("Jack", "Rose"))
+                        .withTransition(R.anim.slide_left_in, R.anim.slide_right_out) //动画
+                        .navigation(getActivity(),REQUEST_CODE_DEMO_ACTIVITY, new NavigationCallback() {
+
+                    @Override
+                    public void onFound(Postcard postcard) {
+                        LogHelper.d("onFound");
+                    }
+
+                    @Override
+                    public void onLost(Postcard postcard) {
+                        LogHelper.d("onLost");
+                    }
+
+                    @Override
+                    public void onArrival(Postcard postcard) {
+                        LogHelper.d("onArrival");
+                    }
+
+                    @Override
+                    public void onInterrupt(Postcard postcard) {
+                        LogHelper.d("onInterrupt");
+                    }
+                });
+                break;
         }
     }
 
@@ -93,13 +173,14 @@ public class MainFragment extends BaseFragment {
         boolean dayTheme = SPUtils.getBoolean(SPUtils.KEY_THEME_DAY);
         if (dayTheme) {
             SPUtils.putBoolean(SPUtils.KEY_THEME_DAY, false);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            // 恢复应用默认皮肤
+            SkinCompatManager.getInstance().restoreDefaultTheme();
         } else {
             SPUtils.putBoolean(SPUtils.KEY_THEME_DAY, true);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            // 后缀加载
+            SkinCompatManager.getInstance().loadSkin("night", SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN);
         }
-//        getActivity().getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
-        getActivity().recreate();
+
     }
 
 
@@ -162,5 +243,11 @@ public class MainFragment extends BaseFragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogHelper.d("onActivityResult requestCode = " + requestCode);
     }
 }

@@ -67,6 +67,7 @@ dependencies {
     if (!isBuildModule.toBoolean()) {
         implementation project(":video_module")
         implementation project(":picture_module")
+        implementation project(":demo_module")
     } else {
         implementation project(':baselibrary')
         implementation project(":CommonService")

@@ -9,6 +9,8 @@
         android:id="@+id/btn_switch_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:background="?attr/colorPrimary"
         android:text="更换主题" />
 
     <Button
@@ -16,6 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/text_color"
         android:text="跳转activity" />
 
     <Button
@@ -23,6 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/text_color"
         android:text="get请求" />
 
     <Button
@@ -30,6 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/text_color"
         android:text="post请求" />
 
     <Button
@@ -37,7 +48,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:text="91视频" />
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/text_color"
+        android:text="91视频组件不可用" />
+
+    <Button
+        android:id="@+id/btn_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/text_color"
+        android:text="图片组件不可用" />
+
+   <Button
+        android:id="@+id/btn_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/text_color"
+        android:text="demo组件不可用" />
 
 
 </LinearLayout>

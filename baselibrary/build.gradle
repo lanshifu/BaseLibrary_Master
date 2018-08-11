@@ -25,6 +25,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {main {res.srcDirs = ['src/main/res', 'src/main/res-night']}}
 }
 
 dependencies {
@@ -107,7 +109,7 @@ dependencies {
     implementation rootProject.ext.dependencies["lifecyclemodel"]
 
     api rootProject.ext.dependencies["SmartRefreshLayout"]
-    api rootProject.ext.dependencies["SmartRefreshHeader"]
+//    api rootProject.ext.dependencies["SmartRefreshHeader"]
     api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
 
 
@@ -116,9 +118,16 @@ dependencies {
 
     api rootProject.ext.dependencies["arouter"]
 
-    //视频库
-    api 'cn.jzvd:jiaozivideoplayer:6.2.12'
-
     api rootProject.ext.dependencies["litepal"]
+
+    //流布局
+    api rootProject.ext.dependencies["flexbox"]
+
+
+    //换肤框架
+    api 'skin.support:skin-support:3.1.0-beta1'                   // skin-support 基础控件支持
+    api 'skin.support:skin-support-design:3.1.0-beta1'            // skin-support-design material design 控件支持[可选]
+    api 'skin.support:skin-support-cardview:3.1.0-beta1'          // skin-support-cardview CardView 控件支持[可选]
+    api 'skin.support:skin-support-constraint-layout:3.1.0-beta1' // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 
 }

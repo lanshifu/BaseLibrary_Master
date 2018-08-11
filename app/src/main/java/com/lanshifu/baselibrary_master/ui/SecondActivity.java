@@ -1,5 +1,6 @@
 package com.lanshifu.baselibrary_master.ui;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.view.menu.MenuBuilder;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
+import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
 import com.lanshifu.baselibrary_master.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -33,7 +35,12 @@ public class SecondActivity extends BaseTitleBarActivity {
     }
 
     @Override
-    protected void initView() {
+    protected BaseView bindPresenterAndView() {
+        return null;
+    }
+
+    @Override
+    protected void initView(Bundle bundle) {
         setTitleText("第二个activity");
         BaseQuickAdapter<String, BaseViewHolder> adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_textview) {
             @Override

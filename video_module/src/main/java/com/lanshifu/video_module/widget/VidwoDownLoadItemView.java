@@ -62,11 +62,13 @@ public class VidwoDownLoadItemView extends FrameLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mRxManager = new RxManager();
+        if (mRxManager == null){
+            mRxManager = new RxManager();
+        }
         mRxManager.on(RxTag.TAG_DOWNLOAD_DURAGION + mUrl, new Consumer<DownloadDurationBean>() {
             @Override
             public void accept(DownloadDurationBean downloadDurationBean) throws Exception {
-                mTv_duration.setText(downloadDurationBean.progressInfo.getPercent() + "%");
+                mTv_duration.setText(downloadDurationBean.progress + "%");
             }
         });
     }
@@ -74,6 +76,6 @@ public class VidwoDownLoadItemView extends FrameLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mRxManager = null;
+        mRxManager.clear();
     }
 }

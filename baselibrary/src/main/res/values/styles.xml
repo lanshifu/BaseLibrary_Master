@@ -25,6 +25,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/loading_progress</item>
     </style>
 
 
