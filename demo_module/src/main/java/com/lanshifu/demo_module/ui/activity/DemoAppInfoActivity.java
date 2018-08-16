@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
+import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.BaseObserver;
@@ -52,7 +52,7 @@ public class DemoAppInfoActivity extends BaseTitleBarActivity {
     }
 
     @Override
-    protected BaseView bindPresenterAndView() {
+    protected BaseView bindView() {
         return null;
     }
 

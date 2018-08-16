@@ -9,30 +9,23 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lanshifu.baselibrary.base.BaseFragment;
+import com.lanshifu.baselibrary.RouterHub;
+import com.lanshifu.baselibrary.base.fragment.BaseListFragment;
+import com.lanshifu.baselibrary.basemvp.BaseView;
+import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
-import com.lanshifu.baselibrary.widget.CommRecyclerView;
-import com.lanshifu.commonservice.RouterHub;
 import com.lanshifu.picture_module.R;
-import com.lanshifu.picture_module.R2;
 import com.lanshifu.picture_module.bean.PictureListItemBean;
 import com.lanshifu.picture_module.mvp.presenter.PictureMainPresenter;
 import com.lanshifu.picture_module.mvp.view.PictureMainView;
 import com.lanshifu.picture_module.ui.activity.PictureDetailActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 @Route(path = RouterHub.PICTURE_MAIN_FRAGMENT)
-public class PictureMainFragment extends BaseFragment<PictureMainPresenter> implements PictureMainView {
-
-    @BindView(R2.id.recyclerView)
-    CommRecyclerView recyclerView;
-    private BaseQuickAdapter<PictureListItemBean, BaseViewHolder> mAdapter;
+public class PictureMainFragment extends BaseListFragment<PictureMainPresenter, PictureListItemBean>
+        implements PictureMainView {
 
     private int mCurrentPage = 1;
     private int mPageCount = 20;
@@ -40,59 +33,24 @@ public class PictureMainFragment extends BaseFragment<PictureMainPresenter> impl
     @Override
     protected void initView() {
 
-        initRecyclerView();
-
-        mPresenter.getVideoList(mCurrentPage, mPageCount);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.picture_fragment_main;
+    protected int getItemLayout() {
+        return R.layout.picture_picture_list_item;
     }
 
     @Override
-    protected void initPresenter() {
-        mPresenter.setView(this);
+    protected void convertData(BaseViewHolder baseViewHolder, PictureListItemBean data) {
+        ImageView imageView = baseViewHolder.getView(R.id.imageView);
+        Glide.with(PictureMainFragment.this)
+                .load(data.getUrl())
+                .into(imageView);
     }
 
-    private void initRecyclerView() {
-        mAdapter = new BaseQuickAdapter<PictureListItemBean,
-                BaseViewHolder>(R.layout.picture_picture_list_item) {
-            @Override
-            protected void convert(BaseViewHolder baseViewHolder, PictureListItemBean data) {
-                ImageView imageView = baseViewHolder.getView(R.id.imageView);
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(),PictureDetailActivity.class);
-                        intent.putExtra("url",data.getUrl());
-                        startActivity(intent);
-                    }
-                });
-
-                Glide.with(PictureMainFragment.this)
-                        .load(data.getUrl())
-                        .into(imageView);
-
-            }
-        };
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                mCurrentPage = 1;
-                mPresenter.getVideoList(mCurrentPage, mPageCount);
-            }
-        });
-        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                mCurrentPage++;
-                mPresenter.getVideoList(mCurrentPage, mPageCount);
-            }
-        });
-        recyclerView.autoRefresh();
-
+    @Override
+    protected BaseView bindView() {
+        return this;
     }
 
     @Override
@@ -102,15 +60,15 @@ public class PictureMainFragment extends BaseFragment<PictureMainPresenter> impl
         } else {
             mAdapter.addData(list);
         }
-        recyclerView.finishLoadMore();
-        recyclerView.finishRefresh();
+        mRecyclerView.finishLoadMore(true);
+        mRecyclerView.finishRefresh(true);
     }
 
     @Override
     public void getVideoListError(String error) {
-        recyclerView.finishLoadMore();
-        recyclerView.finishRefresh();
-        UIUtil.snackbarText(error);
+        mRecyclerView.finishLoadMore(false);
+        mRecyclerView.finishRefresh(false);
+        ToastUtil.showShortToast(error);
     }
 
     @Override
@@ -125,10 +83,27 @@ public class PictureMainFragment extends BaseFragment<PictureMainPresenter> impl
     }
 
 
-
     @Override
     public void onStop() {
         super.onStop();
     }
 
+    @Override
+    public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+        Intent intent = new Intent(getActivity(), PictureDetailActivity.class);
+        intent.putExtra("url", mAdapter.getItem(i).getUrl());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        mCurrentPage++;
+        mPresenter.getVideoList(mCurrentPage, mPageCount);
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        mCurrentPage = 1;
+        mPresenter.getVideoList(mCurrentPage, mPageCount);
+    }
 }

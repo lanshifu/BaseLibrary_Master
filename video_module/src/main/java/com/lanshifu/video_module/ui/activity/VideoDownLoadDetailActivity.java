@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
+import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
 import com.lanshifu.video_module.R;
@@ -30,7 +30,7 @@ public class VideoDownLoadDetailActivity extends BaseTitleBarActivity {
     }
 
     @Override
-    protected BaseView bindPresenterAndView() {
+    protected BaseView bindView() {
         return null;
     }
 

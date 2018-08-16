@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.lanshifu.activity_name_module.R;
 import com.lanshifu.activity_name_module.R2;
-import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
+import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 
 import butterknife.BindView;

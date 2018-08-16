@@ -25,6 +25,39 @@
             android:layout_height="wrap_content"
             android:text="wifi密码查看" />
 
+      <Button
+            android:id="@+id/btn_sign_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签名验证" />
+
+
+    <Button
+            android:id="@+id/btn_refresh_media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新媒体库" />
+
+
+    <Button
+            android:id="@+id/btn_installed_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="安装的应用" />
+
+    <Button
+            android:id="@+id/btn_crash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="crash捕获" />
+
+
+    <Button
+            android:id="@+id/btn_pdf_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载pdf文件" />
+
 
 
     </com.google.android.flexbox.FlexboxLayout>

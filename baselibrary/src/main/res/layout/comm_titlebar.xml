@@ -32,7 +32,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text="setTitle()设置标题"
+            android:text="setTitleText()设置标题"
             android:textSize="@dimen/text_size_medium"
             android:textColor="@color/common_title" />
 

@@ -24,27 +24,6 @@ public class RxManager {
     /*管理Observables 和 Subscribers订阅*/
     private CompositeDisposable mCompositeSubscription = new CompositeDisposable();
 
-    /**
-     * RxBus注入监听
-     *
-     * @param action1
-     * @param eventNames
-     */
-    public <T> void on(Consumer<T> action1, String... eventNames) {
-        Observable<T> observable = mRxBus.register(eventNames);
-        for (String eventName : eventNames) {
-            mObservables.put(eventName, observable);
-        }
-        /*订阅管理*/
-        Disposable disposable = observable.compose(RxScheduler.<T>io_main())
-                .subscribe(action1, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e("rxManager", "rxManager on 报错: " + throwable.toString());
-                    }
-                });
-        mCompositeSubscription.add(disposable);
-    }
 
     public <T> void on(String eventName, Consumer<T> action1) {
         Observable<T> observable = mRxBus.register(eventName);

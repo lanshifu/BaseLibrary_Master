@@ -1,77 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_switch_theme"
-        android:layout_width="wrap_content"
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:background="?attr/colorPrimary"
-        android:text="更换主题" />
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap">
 
-    <Button
-        android:id="@+id/btn_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:textColor="@color/text_color"
-        android:text="跳转activity" />
+        <Button
+            android:id="@+id/btn_switch_theme"
+            style="@style/commom_buttom_style"
+            android:text="更换主题" />
 
-    <Button
-        android:id="@+id/btn_get"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:textColor="@color/text_color"
-        android:text="get请求" />
+        <Button
+            android:id="@+id/btn_2"
+            style="@style/commom_buttom_style"
+            android:text="跳转activity" />
 
-    <Button
-        android:id="@+id/btn_post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:textColor="@color/text_color"
-        android:text="post请求" />
+        <Button
+            android:id="@+id/btn_get"
+            style="@style/commom_buttom_style"
+            android:text="get请求" />
 
-    <Button
-        android:id="@+id/btn_video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:textColor="@color/text_color"
-        android:text="91视频组件不可用" />
+        <Button
+            android:id="@+id/btn_post"
+            style="@style/commom_buttom_style"
+            android:text="post请求" />
 
-    <Button
-        android:id="@+id/btn_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:textColor="@color/text_color"
-        android:text="图片组件不可用" />
+        <Button
+            android:id="@+id/btn_video"
+            style="@style/commom_buttom_style"
+            android:text="91视频组件不可用" />
 
-   <Button
-        android:id="@+id/btn_demo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:textColor="@color/text_color"
-        android:text="demo组件不可用" />
+        <Button
+            android:id="@+id/btn_image"
+            style="@style/commom_buttom_style"
+            android:text="图片组件不可用" />
 
+        <Button
+            android:id="@+id/btn_demo"
+            style="@style/commom_buttom_style"
+            android:text="demo组件不可用" />
 
-</LinearLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+
+</ScrollView>

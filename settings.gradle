@@ -4,4 +4,5 @@ include ':app',
         ':video_module',
         ':picture_module',
         ':activity_name_module',
+        ':wandroid_module',
         ':demo_module'

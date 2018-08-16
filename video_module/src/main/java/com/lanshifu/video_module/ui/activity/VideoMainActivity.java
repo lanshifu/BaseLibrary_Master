@@ -6,11 +6,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.lanshifu.baselibrary.base.BaseTitleBarActivity;
+import com.lanshifu.baselibrary.RouterHub;
+import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.commonservice.RouterHub;
 import com.lanshifu.video_module.R;
-import com.lanshifu.video_module.R2;
 import com.lanshifu.video_module.ui.fragment.VideoMainFragment;
 
 import cn.jzvd.JZVideoPlayer;
@@ -37,7 +36,7 @@ public class VideoMainActivity extends BaseTitleBarActivity {
     }
 
     @Override
-    protected BaseView bindPresenterAndView() {
+    protected BaseView bindView() {
         return null;
     }
 
@@ -49,36 +48,28 @@ public class VideoMainActivity extends BaseTitleBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        switch (itemId) {
-            case R2.id.type_all:
-                videoMainFragment.setType(-1);
-                break;
-            case R2.id.type_long:
-                videoMainFragment.setType(4);
-                break;
-
-            case R2.id.type_top:
-                videoMainFragment.setType(0);
-                break;
-            case R2.id.type_tf:
-                videoMainFragment.setType(2);
-                break;
-            case R2.id.type_mf:
-                videoMainFragment.setType(1);
-                break;
-            case R2.id.type_rf:
-                videoMainFragment.setType(3);
-                break;
-            case R2.id.download_dwtail:
-                startActivity(VideoDownLoadDetailActivity.class);
-                break;
+        if (itemId == R.id.type_all) {
+            videoMainFragment.setType(-1);
+        } else if (itemId == R.id.type_long) {
+            videoMainFragment.setType(4);
+        } else if (itemId == R.id.type_top) {
+            videoMainFragment.setType(0);
+        } else if (itemId == R.id.type_tf) {
+            videoMainFragment.setType(2);
+        } else if (itemId == R.id.type_mf) {
+            videoMainFragment.setType(1);
+        } else if (itemId == R.id.type_rf) {
+            videoMainFragment.setType(3);
+        } else if (itemId == R.id.download_dwtail) {
+            startActivity(VideoDownLoadDetailActivity.class);
+            return super.onOptionsItemSelected(item);
         }
         setTitleText("91视频（" + item.getTitle() + ")");
         return super.onOptionsItemSelected(item);
     }
 
 
-    private void showDialog(){
+    private void showDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("FBI")
                 .setMessage("未成年的小鸡鸡请回避哦")
@@ -100,7 +91,7 @@ public class VideoMainActivity extends BaseTitleBarActivity {
 
     @Override
     public void onBackPressed() {
-        if (JZVideoPlayer.backPress()){
+        if (JZVideoPlayer.backPress()) {
             return;
         }
         super.onBackPressed();

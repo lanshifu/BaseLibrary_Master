@@ -1,5 +1,6 @@
 package com.lanshifu.baselibrary_master.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,16 +9,16 @@ import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.lanshifu.baselibrary.base.BaseActivity;
+import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.UIUtil;
-import com.lanshifu.baselibrary_master.DefaultFragment;
+import com.lanshifu.baselibrary_master.DefaultMvpFragment;
 import com.lanshifu.baselibrary_master.R;
-import com.lanshifu.commonservice.RouterHub;
+import com.lanshifu.baselibrary.RouterHub;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseTitleBarActivity {
 
 
     @BindView(R.id.frame_layout)
@@ -38,9 +39,10 @@ public class MainActivity extends BaseActivity {
     private Fragment mAboutFragment;
 
     @Override
-    protected int setContentViewId() {
+    protected int getLayoutId() {
         return R.layout.activity_main;
     }
+
 
 
     @Override
@@ -116,13 +118,13 @@ public class MainActivity extends BaseActivity {
             mAboutFragment = fragmentManager.getFragment(savedInstanceState, KEY_ABOUT_FRAGMENT);
         }
         if (mHomeFragment == null) {
-            mHomeFragment = new MainFragment();
+            mHomeFragment = new MainMvpFragment();
         }
         //视频组件Fragment
         if (mVideoFragment == null) {
             mVideoFragment = UIUtil.navigationFragment(RouterHub.VIDEO_MAIN_FRAGMENT);
             if (mVideoFragment == null) {
-                mVideoFragment = new DefaultFragment();
+                mVideoFragment = new DefaultMvpFragment();
             }
         }
 
@@ -131,11 +133,11 @@ public class MainActivity extends BaseActivity {
             mPictureFragment = UIUtil.navigationFragment(RouterHub.PICTURE_MAIN_FRAGMENT);
             if (mPictureFragment == null) {
                 LogHelper.e("图片组件加载失败");
-                mPictureFragment = new DefaultFragment();
+                mPictureFragment = new DefaultMvpFragment();
             }
         }
         if (mAboutFragment == null) {
-            mAboutFragment = new DefaultFragment();
+            mAboutFragment = new DefaultMvpFragment();
         }
 
         if (!mHomeFragment.isAdded()) {
@@ -216,6 +218,14 @@ public class MainActivity extends BaseActivity {
         }
         if (mAboutFragment.isAdded()) {
             fragmentManager.putFragment(outState, KEY_ABOUT_FRAGMENT, mPictureFragment);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mHomeFragment != null){
+            mHomeFragment.onActivityResult(requestCode,resultCode,data);
         }
     }
 }

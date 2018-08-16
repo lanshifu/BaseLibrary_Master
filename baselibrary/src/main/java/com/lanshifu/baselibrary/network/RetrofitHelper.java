@@ -4,7 +4,9 @@ import android.text.TextUtils;
 
 import com.lanshifu.baselibrary.BuildConfig;
 import com.lanshifu.baselibrary.Constants;
+import com.lanshifu.baselibrary.app.MainApplication;
 import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.network.cookies.CookieManger;
 import com.lanshifu.baselibrary.network.interceptor.HttpLoggingInterceptor;
 import com.lanshifu.baselibrary.network.progress.ProgressManager;
 
@@ -70,6 +72,7 @@ public class RetrofitHelper {
                     .addInterceptor(httpLoggingInterceptor)
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .writeTimeout(20, TimeUnit.SECONDS)
+                    .cookieJar(new CookieManger(MainApplication.getContext()))
                     .readTimeout(20, TimeUnit.SECONDS);
 
             mDefaultOkHttpClient = RetrofitUrlManager.getInstance().with(builder)

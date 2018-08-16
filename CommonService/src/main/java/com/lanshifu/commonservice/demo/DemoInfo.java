@@ -15,6 +15,14 @@
  */
 package com.lanshifu.commonservice.demo;
 
+import android.content.Context;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.facade.service.SerializationService;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
+
 /**
  * ================================================
  * Created by JessYan on 2018/4/27 14:11
@@ -22,7 +30,8 @@ package com.lanshifu.commonservice.demo;
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
  */
-public class DemoInfo {
+@Route(path = "/service/json")
+public class DemoInfo implements SerializationService {
     private String name;
 
     public DemoInfo(String name) {
@@ -35,5 +44,25 @@ public class DemoInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public <T> T json2Object(String input, Class<T> clazz) {
+        return new Gson().fromJson(input,clazz);
+    }
+
+    @Override
+    public String object2Json(Object instance) {
+        return  new Gson().toJson(instance);
+    }
+
+    @Override
+    public <T> T parseObject(String input, Type clazz) {
+        return null;
+    }
+
+    @Override
+    public void init(Context context) {
+
     }
 }

@@ -1,0 +1,14 @@
+apply from:"../common_component_build.gradle"
+android {
+    resourcePrefix "wanandroid_" //给 Module 内的资源名增加前缀, 避免资源名冲突
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(":baselibrary")
+    api project(":CommonService")
+
+
+
+}

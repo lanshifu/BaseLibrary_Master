@@ -9,8 +9,7 @@ public class TUtil {
 
 
     /**
-     *  getGenericSuperclass()通过反射获取当前类表示的实体（类，接口，基本类型或void）
-     * 的直接父类的Type，getActualTypeArguments()返回参数数组。
+     * 获取直接超类的 Type，getActualTypeArguments()返回参数数组。
      * @return
      */
 

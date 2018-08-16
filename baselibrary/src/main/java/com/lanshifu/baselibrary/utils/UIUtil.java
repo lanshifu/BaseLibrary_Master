@@ -11,16 +11,24 @@ import android.support.v4.app.Fragment;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.base.AppManager;
 
-import static com.lanshifu.baselibrary.base.AppManager.APP_EXIT;
-import static com.lanshifu.baselibrary.base.AppManager.KILL_ALL;
-import static com.lanshifu.baselibrary.base.AppManager.SHOW_SNACKBAR;
-import static com.lanshifu.baselibrary.base.AppManager.START_ACTIVITY;
+import static com.lanshifu.baselibrary.base.AppManager.*;
 
 /**
  * 界面相关的工具类
  */
 public class UIUtil {
 
+    /**
+     * 子线程可以弹toast
+     * @param text
+     */
+    public static void showShortToast(String text) {
+        Message message = new Message();
+        message.what = TOAST;
+        message.obj = text;
+        message.arg1 = 0;
+        AppManager.getInstance().post(message);
+    }
 
     /**
      * 使用 {@link Snackbar} 显示文本消息

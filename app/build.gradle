@@ -54,6 +54,8 @@ android {
         disable "ResourceType"
         abortOnError false
     }
+
+    sourceSets {main {res.srcDirs = ['src/main/res', 'src/main/res-night']}}
 }
 
 dependencies {

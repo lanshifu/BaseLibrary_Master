@@ -3,7 +3,7 @@ package com.lanshifu.picture_module.service;
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.lanshifu.commonservice.RouterHub;
+import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.commonservice.picture.PictureInfo;
 import com.lanshifu.commonservice.picture.PictureInfoService;
 

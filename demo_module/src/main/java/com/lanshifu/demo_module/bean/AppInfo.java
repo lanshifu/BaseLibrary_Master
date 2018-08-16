@@ -5,15 +5,6 @@ import android.graphics.drawable.Drawable;
 public class AppInfo {
     private Drawable appIcon;
     private String appLabel;
-
-    public String getFirstActivityName() {
-        return firstActivityName;
-    }
-
-    public void setFirstActivityName(String firstActivityName) {
-        this.firstActivityName = firstActivityName;
-    }
-
     private String firstActivityName;
     private String cachesize;
     private String codesize;
@@ -24,6 +15,19 @@ public class AppInfo {
     private String pkgName;
     private String sigmd5;
     private String totalSize;
+    /** (路径) */
+    public String path;
+
+
+
+    public String getFirstActivityName() {
+        return firstActivityName;
+    }
+
+    public void setFirstActivityName(String firstActivityName) {
+        this.firstActivityName = firstActivityName;
+    }
+
 
     @Override
     public String toString() {

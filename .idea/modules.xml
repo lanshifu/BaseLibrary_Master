@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/demo_module/demo_module.iml" filepath="$PROJECT_DIR$/demo_module/demo_module.iml" />
       <module fileurl="file://$PROJECT_DIR$/picture_module/picture_module.iml" filepath="$PROJECT_DIR$/picture_module/picture_module.iml" />
       <module fileurl="file://$PROJECT_DIR$/video_module/video_module.iml" filepath="$PROJECT_DIR$/video_module/video_module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wandroid_module/wandroid_module.iml" filepath="$PROJECT_DIR$/wandroid_module/wandroid_module.iml" />
     </modules>
   </component>
 </project>

@@ -9,9 +9,11 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.baserxjava.RxTag;
 import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.utils.ToastUtil;
 
 import java.util.Stack;
 
@@ -28,6 +30,7 @@ public class AppManager {
     public static final int SHOW_SNACKBAR = 5001;
     public static final int KILL_ALL = 5002;
     public static final int APP_EXIT = 5003;
+    public static final int TOAST = 5004;
     private static RxManager mMRxManager;
     private Context mContext;
 
@@ -37,7 +40,7 @@ public class AppManager {
 
     private AppManager() {
         mMRxManager = new RxManager();
-        mMRxManager.on(new Consumer<Message>() {
+        RxBus.getInstance().register(RxTag.TAG_APP_MANAGER, new Consumer<Message>() {
             @Override
             public void accept(Message message) throws Exception {
                 switch (message.what) {
@@ -53,11 +56,15 @@ public class AppManager {
                     case APP_EXIT:
                         appExit();
                         break;
+                    case TOAST:
+                        String text = (String) message.obj;
+                        ToastUtil.showShortToast(text);
+                        break;
                     default:
                         break;
                 }
             }
-        },RxTag.TAG_UI_UTIL);
+        });
     }
 
     /**
@@ -207,7 +214,7 @@ public class AppManager {
      * @param msg
      */
     public void post(Message msg) {
-        mMRxManager.post(RxTag.TAG_UI_UTIL, msg);
+        RxBus.getInstance().post(RxTag.TAG_APP_MANAGER, msg);
     }
 
     /**

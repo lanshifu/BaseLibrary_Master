@@ -1,6 +1,9 @@
 package com.lanshifu.baselibrary.baserxjava;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.lanshifu.baselibrary.network.RxScheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -52,6 +56,31 @@ public class RxBus {
         return subject;
     }
 
+    /**
+     * 订阅，收到tag事件会执行action1
+     * @param tag
+     * @param action1
+     * @param <T>
+     * @return
+     */
+    public <T> Observable<T> register(@NonNull Object tag, Consumer<T> action1) {
+        List<Subject> subjectList = subjectMapper.get(tag);
+        if (null == subjectList) {
+            subjectList = new ArrayList<Subject>();
+            subjectMapper.put(tag, subjectList);
+        }
+        Subject<T> subject;
+        subjectList.add(subject = PublishSubject.create());
+        subject.compose(RxScheduler.<T>io_main())
+                .subscribe(action1, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e("rxManager", "rxManager on 报错: " + throwable.toString());
+                    }
+                });
+        return subject;
+    }
+
     @SuppressWarnings("rawtypes")
     public void unregister(@NonNull Object tag) {
         List<Subject> subjects = subjectMapper.get(tag);
@@ -82,9 +111,6 @@ public class RxBus {
         return getInstance();
     }
 
-    public void post(@NonNull Object content) {
-        post(content.getClass().getName(), content);
-    }
 
     /**
      * 触发事件

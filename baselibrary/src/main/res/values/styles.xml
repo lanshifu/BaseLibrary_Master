@@ -25,7 +25,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/loading_progress</item>
+        <!--<item name="android:windowBackground">@drawable/loading_progress</item>-->
     </style>
 
 
@@ -143,5 +143,16 @@
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
+
+    <style name="commom_buttom_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+
 
 </resources>

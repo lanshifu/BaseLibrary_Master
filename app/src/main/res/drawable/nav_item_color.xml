@@ -17,7 +17,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_checked="true" android:color="@color/colorNavItemSelected"/>
-    <item android:state_checked="false" android:color="@color/colorNavItemUnselected"/>
+    <item android:state_checked="true" android:color="#303F88"/>
+    <item android:state_checked="false" android:color="#cd3d3a"/>
 
 </selector>

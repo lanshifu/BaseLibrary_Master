@@ -2,6 +2,7 @@ package com.lanshifu.baselibrary.app;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.BuildConfig;
+import com.lanshifu.baselibrary.network.ApiConstant;
 
 import org.litepal.LitePal;
 
@@ -9,7 +10,6 @@ import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
-import skin.support.design.app.SkinMaterialViewInflater;
 
 /**
  * Created by Administrator on 2018\4\22 0022.
@@ -21,14 +21,14 @@ public class MainApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 
-        RetrofitUrlManager.getInstance().putDomain("wanandroid", "http://www.wanandroid.com");
+        RetrofitUrlManager.getInstance().putDomain("wanandroid", ApiConstant.URL_WANDROID);
         // 全局 BaseUrl 的优先级低于 Domain-Name header 中单独配置的,其他未配置的接口将受全局 BaseUrl 的影响
-        RetrofitUrlManager.getInstance().setGlobalDomain("http://118.24.18.251:9999");
+        RetrofitUrlManager.getInstance().setGlobalDomain(ApiConstant.URL_DERAULT);
         RetrofitUrlManager.getInstance().setDebug(BuildConfig.DEBUG);
 
         //换肤框架初始化
         SkinCompatManager.withoutActivity(this)                         // 基础控件换肤初始化
-                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
+//                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
                 .addInflater(new SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
                 .addInflater(new SkinCardViewInflater())                // CardView v7 控件换肤初始化[可选]
                 .setSkinStatusBarColorEnable(true)                     // 关闭状态栏换肤，默认打开[可选]

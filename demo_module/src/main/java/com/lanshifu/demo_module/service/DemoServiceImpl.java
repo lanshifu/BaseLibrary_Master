@@ -3,7 +3,7 @@ package com.lanshifu.demo_module.service;
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.lanshifu.commonservice.RouterHub;
+import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.commonservice.demo.DemoInfo;
 import com.lanshifu.commonservice.demo.DemoInfoService;
 

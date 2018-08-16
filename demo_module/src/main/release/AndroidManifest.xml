@@ -7,6 +7,9 @@
         <activity android:name=".ui.activity.DemoMainActivity" />
         <activity android:name=".ui.activity.DemoAppInfoActivity"/>
         <activity android:name=".ui.activity.DemoWifiPasswordActivity"/>
+        <activity android:name=".ui.activity.DemoSignCheckActivity"/>
+        <activity android:name=".ui.activity.DemoInstalledAppListActivity"/>
+        <activity android:name=".ui.activity.DemoPdfListActivity"/>
     </application>
 
 </manifest>

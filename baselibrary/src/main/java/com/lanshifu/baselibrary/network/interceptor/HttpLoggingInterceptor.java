@@ -15,6 +15,7 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Connection;
+import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -181,6 +182,20 @@ public final class HttpLoggingInterceptor implements Interceptor {
                         || rSubtype.contains("plain")
                         || rSubtype.contains("html"))) {
                     jsonRequestLog = bodyToString(request);
+                }
+
+                //post 参数
+                if("POST".equals(request.method())){
+                    StringBuilder sb = new StringBuilder();
+                    if (requestBody instanceof FormBody) {
+                        FormBody body = (FormBody) requestBody;
+                        for (int i = 0; i < body.size(); i++) {
+                            sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
+                        }
+                        sb.delete(sb.length() - 1, sb.length());
+                        requestLog.append("->post请求参数:\n");
+                        requestLog.append("{ "+sb.toString()+" }\n");
+                    }
                 }
             }
 

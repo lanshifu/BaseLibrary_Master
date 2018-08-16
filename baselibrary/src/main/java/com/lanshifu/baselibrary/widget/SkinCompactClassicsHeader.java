@@ -34,10 +34,12 @@ public class SkinCompactClassicsHeader extends ClassicsHeader implements SkinCom
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ClassicsHeader, defStyleAttr, 0);
         if (ta.hasValue(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlAccentColor)) {
             mAccentColor = ta.getColor(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlAccentColor, 0);
+        }else {
+            //手动设置颜色
+            mAccentColor = context.getResources().getColor(R.color.colorAccent);
         }
         ta.recycle();
 //        //手动设置颜色
-//        mAccentColor = context.getResources().getColor(R.color.colorAccent);
         applyAccentColor();
     }
 
