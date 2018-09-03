@@ -31,11 +31,6 @@ public class PictureMainFragment extends BaseListFragment<PictureMainPresenter, 
     private int mPageCount = 20;
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
     protected int getItemLayout() {
         return R.layout.picture_picture_list_item;
     }

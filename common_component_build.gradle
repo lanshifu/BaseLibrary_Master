@@ -50,6 +50,22 @@ android {
         }
     }
 
+
+    signingConfigs {
+        debug {
+            keyAlias '123456'
+            keyPassword '123456'
+            storeFile file("../key.jks")
+            storePassword '123456'
+        }
+        release {
+            keyAlias '123456'
+            keyPassword '123456'
+            storeFile file("../key.jks")
+            storePassword '123456'
+        }
+    }
+
     lintOptions {
         disable 'InvalidPackage'
         disable "ResourceType"

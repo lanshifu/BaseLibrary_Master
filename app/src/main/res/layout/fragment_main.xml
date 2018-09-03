@@ -46,6 +46,10 @@
             android:id="@+id/btn_demo"
             style="@style/commom_buttom_style"
             android:text="demo组件不可用" />
+     <Button
+            android:id="@+id/btn_wandroid"
+            style="@style/commom_buttom_style"
+            android:text="wandroid组件" />
 
     </com.google.android.flexbox.FlexboxLayout>
 

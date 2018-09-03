@@ -32,6 +32,7 @@ public interface RouterHub {
     String VIDEO = "/video";//视频组件
     String PICTURE = "/picture";//视频组件
     String DEMO = "/demo";//demo组件
+    String WANDROID = "/wandroid";//wandroid组件
 
     /**
      * 服务组件, 用于给每个组件暴露特有的服务
@@ -58,7 +59,6 @@ public interface RouterHub {
      * 图片分组
      */
     String PICTURE_SERVICE_PICTURE_INFO_SERVICE = PICTURE + SERVICE + "/PictureInfoService";
-
     String PICTURE_MAIN_ACTIVITY = PICTURE + "/PictureMainActivity";
     String PICTURE_MAIN_FRAGMENT = PICTURE + "/PictureMainFragment";
 
@@ -66,8 +66,14 @@ public interface RouterHub {
      * demo组件
      */
     String DEMO_SERVICE_DEMO_INFO_SERVICE = DEMO + SERVICE + "/PictureInfoService";
-
     String DEMO_MAIN_ACTIVITY = DEMO + "/DemoMainActivity";
+
+    /**
+     * wandroid组件
+     */
+    String WANDROID_SERVICE_DEMO_INFO_SERVICE = WANDROID + SERVICE + "/WandroidInfoService";
+    String WANDROID_LOGIN_ACTIVITY = WANDROID + "/WandroidLoginActivity";
+    String WANDROID_MAIN_FRAGMENT= WANDROID + "/WandroidMainFragment";
 
 
 }

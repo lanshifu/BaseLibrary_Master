@@ -1,5 +1,9 @@
 package com.lanshifu.video_module;
 
+import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
+import com.lanshifu.demo_module.suanfa.leetcode.easy.LeetCodeEasy;
+import com.lanshifu.demo_module.suanfa.niuke.Niuke;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,6 +16,13 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
+        Niuke niuke = new Niuke();
+        niuke.test();
+
+        LeetCodeEasy leetCodeEasy = new LeetCodeEasy();
+        leetCodeEasy.test();
+
         assertEquals(4, 2 + 2);
+
     }
 }

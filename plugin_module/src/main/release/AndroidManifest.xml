@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lanshifu.picture_module">
+
+    <application>
+
+        <activity android:name=".ui.activity.PictureMainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.PictureDetailActivity"/>
+    </application>
+
+</manifest>

@@ -17,7 +17,7 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -31,7 +31,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
 
     ///support
     api(rootProject.ext.dependencies["support-v4"]) {
@@ -123,6 +122,10 @@ dependencies {
     //流布局
     api rootProject.ext.dependencies["flexbox"]
 
+    //内存泄漏检测
+    debugImplementation rootProject.ext.dependencies["canary-debug"]
+    releaseImplementation rootProject.ext.dependencies["canary-release"]
+//    testImplementation rootProject.ext.dependencies["canary-release"]
 
     //换肤框架
     api 'skin.support:skin-support:3.1.0-beta1'                   // skin-support 基础控件支持

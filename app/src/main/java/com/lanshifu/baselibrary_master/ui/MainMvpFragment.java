@@ -109,7 +109,7 @@ public class MainMvpFragment extends BaseFragment {
 
 
     @OnClick({R.id.btn_switch_theme, R.id.btn_2, R.id.btn_post, R.id.btn_get,
-            R.id.btn_video, R.id.btn_image, R.id.btn_demo})
+            R.id.btn_video, R.id.btn_image, R.id.btn_demo, R.id.btn_wandroid})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_switch_theme:
@@ -134,6 +134,11 @@ public class MainMvpFragment extends BaseFragment {
             case R.id.btn_image:
                 UIUtil.navigation(getActivity(), RouterHub.PICTURE_MAIN_ACTIVITY);
                 break;
+
+            case R.id.btn_wandroid:
+                UIUtil.navigation(getActivity(), RouterHub.WANDROID_LOGIN_ACTIVITY);
+                break;
+
             case R.id.btn_demo:
 
                 ARouter.getInstance().build(RouterHub.DEMO_MAIN_ACTIVITY)
@@ -239,12 +244,12 @@ public class MainMvpFragment extends BaseFragment {
                 .subscribe(new BaseObserver<TempBean>() {
                     @Override
                     public void _onNext(TempBean pictureResp) {
-
+                        LogHelper.d("getTempList_onNext " +pictureResp.toString());
                     }
 
                     @Override
                     public void _onError(String e) {
-
+                        LogHelper.d("getTempList_onError " +e);
                     }
                 });
     }

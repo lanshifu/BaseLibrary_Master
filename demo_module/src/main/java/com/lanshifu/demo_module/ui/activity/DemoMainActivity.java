@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Message;
 import android.view.View;
 
@@ -19,6 +20,7 @@ import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.commonservice.demo.DemoInfo;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
+import com.lanshifu.demo_module.bean.FinalClass;
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -27,6 +29,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+import me.ele.uetool.UETool;
 
 @Route(path = RouterHub.DEMO_MAIN_ACTIVITY)
 public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> implements DemoMainView {
@@ -91,8 +94,50 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         ToastUtil.showShortToast(sb.toString());
 
         mPresenter.test();
+        mPresenter.request();
 
-        requestPermissionAndLoad();
+        requestPermission();
+
+        FinalClass finalClass = new FinalClass();
+        finalClass.staticName = "更改静态变量";
+        LogHelper.d("staticName = " + finalClass.staticName);
+        finalClass.setName("12");
+
+        //long 越界
+        long l = Long.MAX_VALUE + 1000L;
+        LogHelper.d("Long.MAX_VALUE = " + Long.MAX_VALUE);
+        LogHelper.d("long越界 l = " + l);
+
+        UETool.showUETMenu();
+
+        handlerThreadTest();
+
+    }
+
+    private void handlerThreadTest() {
+        HandlerThread handlerThread = new HandlerThread("suibian");
+        handlerThread.start();
+        //子线程的looper，Handler将运行在子线程
+        Handler handler = new Handler(handlerThread.getLooper());
+        handler.post(() -> {
+            try {
+                Thread.sleep(1000);
+                LogHelper.d("任务1执行完");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        handler.post(() -> {
+            LogHelper.d("任务2执行完");
+        });
+
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -140,7 +185,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
 
     @OnClick({R2.id.btn_app_info, R2.id.btn_wifi_password, R2.id.btn_sign_check
-            , R2.id.btn_refresh_media, R2.id.btn_installed_app, R2.id.btn_crash, R2.id.btn_pdf_list})
+            , R2.id.btn_refresh_media, R2.id.btn_installed_app, R2.id.btn_crash
+            , R2.id.btn_pdf_list, R2.id.btn_swipeback, R2.id.btn_leak, R2.id.btn_test
+            , R2.id.btn_tablayout, R2.id.btn_plugin})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -150,22 +197,31 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         } else if (viewId == R.id.btn_sign_check) {
             startActivity(DemoSignCheckActivity.class);
         } else if (viewId == R.id.btn_refresh_media) {
-            //具体到某个文件的路径
             mPresenter.updateMedia();
         } else if (viewId == R.id.btn_installed_app) {
-            //具体到某个文件的路径
             startActivity(DemoInstalledAppListActivity.class);
         } else if (viewId == R.id.btn_crash) {
-            //具体到某个文件的路径
             int i = 3 / 0;
         } else if (viewId == R.id.btn_pdf_list) {
             startActivity(DemoPdfListActivity.class);
+        } else if (viewId == R.id.btn_leak) {
+            startActivity(DemoLeakActivity.class);
+        } else if (viewId == R.id.btn_swipeback) {
+            startActivity(DemoSwipeBackActivity.class);
+        } else if (viewId == R.id.btn_test) {
+            Intent intent = new Intent(this,DemoTestActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            startActivity(intent);
+        }else if (viewId == R.id.btn_tablayout) {
+            startActivity(DemoTabActivity.class);
+        }else if (viewId == R.id.btn_plugin) {
+            startActivity(DemoPluginActivity.class);
         }
     }
 
 
-
-    private void requestPermissionAndLoad(){
+    private void requestPermission() {
         new RxPermissions(this)
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -177,5 +233,4 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                     }
                 });
     }
-
 }

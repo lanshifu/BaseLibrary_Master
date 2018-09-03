@@ -61,7 +61,8 @@ public class RetrofitHelper {
             }
         });
 
-        if (!BuildConfig.DEBUG){
+//        if (!BuildConfig.DEBUG){
+        if (false){
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
         //ProgressManager 里面提供文件上传下载进度监听

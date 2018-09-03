@@ -39,7 +39,10 @@
 -keep public class * implements com.jess.arms.integration.ConfigModule
 
  #实体类不参与混淆
--keep class com.jess.arms.widget.** { *; } #自定义控件不参与混淆
+-keep class com.lanshifu.baselibrary_master.bean.** { *; }
+-keep class com.lanshifu.baselibrary.network.HttpResult{ *; }
+#自定义控件不参与混淆
+-keep class com.lanshifu.baselibrary.widget.** { *; }
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
@@ -245,3 +248,11 @@
 -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
 -keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
 
+#ijkplayer 混淆配置
+-keep class tv.danmaku.ijk.media.player.** {*;}
+-keep class tv.danmaku.ijk.media.player.IjkMediaPlayer{*;}
+-keep class tv.danmaku.ijk.media.player.ffmpeg.FFmpegApi{*;}
+
+ #实体类不参与混淆
+-keep class com.lanshifu.video_module.bean.** { *; }
+-keep class com.lanshifu.video_module.db.** { *; }

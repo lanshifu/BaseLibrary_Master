@@ -137,7 +137,11 @@ public class MainActivity extends BaseTitleBarActivity {
             }
         }
         if (mAboutFragment == null) {
-            mAboutFragment = new DefaultMvpFragment();
+            mAboutFragment = UIUtil.navigationFragment(RouterHub.WANDROID_MAIN_FRAGMENT);
+            if (mAboutFragment == null) {
+                LogHelper.e("玩安卓组件加载失败");
+                mAboutFragment = new DefaultMvpFragment();
+            }
         }
 
         if (!mHomeFragment.isAdded()) {

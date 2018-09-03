@@ -30,8 +30,8 @@ public abstract class BaseListFragment<P extends BasePresenter, T> extends BaseF
     @Override
     protected void initView() {
         mRecyclerView = mRootView.findViewById(R.id.recyclerView);
-        initAdapter();
         initPresenter();
+        initAdapter();
     }
 
     private void initPresenter() {
@@ -67,6 +67,8 @@ public abstract class BaseListFragment<P extends BasePresenter, T> extends BaseF
         if (mPresenter != null) {
             mPresenter.onDestory();
         }
+        mRecyclerView = null;
+        mAdapter = null;
     }
 
 

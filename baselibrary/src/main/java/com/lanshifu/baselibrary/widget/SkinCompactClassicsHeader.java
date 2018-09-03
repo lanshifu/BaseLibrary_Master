@@ -19,6 +19,7 @@ import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 public class SkinCompactClassicsHeader extends ClassicsHeader implements SkinCompatSupportable {
 
     private int mAccentColor = 0;
+    private int mPrimaryColor = 0;
 
     public SkinCompactClassicsHeader(Context context) {
         this(context, null);
@@ -30,35 +31,31 @@ public class SkinCompactClassicsHeader extends ClassicsHeader implements SkinCom
 
     public SkinCompactClassicsHeader(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ClassicsHeader, defStyleAttr, 0);
-        if (ta.hasValue(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlAccentColor)) {
-            mAccentColor = ta.getColor(com.scwang.smartrefresh.layout.R.styleable.ClassicsHeader_srlAccentColor, 0);
-        }else {
-            //手动设置颜色
-            mAccentColor = context.getResources().getColor(R.color.colorAccent);
-        }
-        ta.recycle();
-//        //手动设置颜色
-        applyAccentColor();
+        mAccentColor = SkinCompatResources.getInstance().getColor(R.color.refresh_header_textcolor);
+        mPrimaryColor = SkinCompatResources.getInstance().getColor(R.color.refresh_header_bg);
+       //手动设置颜色
+        applyColor();
     }
 
-
+    //这个方法是设置header里面字体颜色
     @Override
     public ClassicsHeader setAccentColor(int accentColor) {
         return super.setAccentColor(accentColor);
     }
 
-    private void applyAccentColor() {
-        mAccentColor = SkinCompatHelper.checkResourceId(mAccentColor);
-        if (mAccentColor != INVALID_ID) {
-            int color = SkinCompatResources.getColor(getContext(), mAccentColor);
-            setAccentColor(color);
-        }
+    //header背景，以此类推
+    @Override
+    public ClassicsHeader setPrimaryColor(int primaryColor) {
+        return super.setPrimaryColor(primaryColor);
+    }
+
+    private void applyColor() {
+        setAccentColor(mAccentColor);
+        setPrimaryColor(mPrimaryColor);
     }
 
     @Override
     public void applySkin() {
-        applyAccentColor();
+        applyColor();
     }
 }

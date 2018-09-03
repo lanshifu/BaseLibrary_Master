@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -23,11 +22,12 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import skin.support.content.res.SkinCompatResources;
 
 /**
  * Created by 蓝师傅 on 2016/12/24.
  */
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity{
 
     public Context mContext;
     public RxManager mRxManager;
@@ -35,8 +35,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         doBeforeSetcontentView();
+        super.onCreate(savedInstanceState);
         setContentView(setContentViewId());
         doAfterSetContentView();
         mUnbinder = ButterKnife.bind(this);
@@ -88,7 +88,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * 着色状态栏（4.4以上系统有效）
      */
     protected void setStatusBarColor() {
-        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
+//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        //状态栏支持换肤
+        StatusBarCompat.setStatusBarColor(this, SkinCompatResources.getInstance().getColor(this, R.color.colorPrimaryDark));
     }
 
     /**
@@ -198,11 +200,19 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mRxManager.clear();
+        mRxManager = null;
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
     }
 
+    /**
+     * 支持滑动返回
+     * @return
+     */
+    protected boolean enableSwipeBack(){
+        return true;
+    }
 
     protected abstract void initView(Bundle savedInstanceState);
 

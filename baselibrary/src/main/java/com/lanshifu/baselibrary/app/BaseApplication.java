@@ -43,39 +43,39 @@ public class BaseApplication extends Application {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             AppManager.getInstance().addActivity(activity);
             //如何区别参数中activity代表你写的哪个activity。
-            LogHelper.d("lxb ->onActivityCreated " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivityCreated " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-            LogHelper.d("lxb ->onActivityStarted " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivityStarted " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-            LogHelper.d("lxb ->onActivityResumed " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivityResumed " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-            LogHelper.d("lxb ->onActivityPaused " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivityPaused " + activity.getClass().getSimpleName());
 
         }
 
         @Override
         public void onActivityStopped(Activity activity) {
-            LogHelper.d("lxb ->onActivityStopped " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivityStopped " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            LogHelper.d("lxb ->onActivitySaveInstanceState " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivitySaveInstanceState " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityDestroyed(Activity activity) {
             AppManager.getInstance().removeActivity(activity);
-            LogHelper.d("lxb ->onActivityDestroyed " + activity.getClass().getSimpleName());
+            LogHelper.v("lxb ->onActivityDestroyed " + activity.getClass().getSimpleName());
         }
     };
 }

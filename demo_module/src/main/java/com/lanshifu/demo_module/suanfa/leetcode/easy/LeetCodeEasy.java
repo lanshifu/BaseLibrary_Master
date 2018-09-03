@@ -2,10 +2,10 @@ package com.lanshifu.demo_module.suanfa.leetcode.easy;
 
 import android.annotation.SuppressLint;
 
-
 import com.lanshifu.demo_module.suanfa.Sort;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +43,10 @@ public class LeetCodeEasy {
         treeNode2.left = treeNode2_left1;
         treeNode2.right = treeNode2_right1;
 
-
         TreeNode result = mergeTrees(treeNode1, treeNode2);
         System.out.println(result.toString());
 
-
         selfDividingNumbers(1, 22);
-
 
         System.out.println(maxDepth(treeNode1));
 
@@ -62,11 +59,16 @@ public class LeetCodeEasy {
 
         System.out.println(canWinNim(100));
 
-        shortestToChar("loveleetcode",'e');
+        shortestToChar("loveleetcode", 'e');
 
         System.out.println(hasAlternatingBits(5));
 
         subdomainVisits(new String[]{"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"});
+
+        System.out.println(getSum(1, 2) + "");
+        System.out.println(singleNumber(new int[]{1,2,3,3,2}));
+
+        System.out.println(addDigits(38));
     }
 
     /**
@@ -714,15 +716,15 @@ public class LeetCodeEasy {
 
     /**
      * 给定一个字符串 S 和一个字符 C。返回一个代表字符串 S 中每个字符到字符串 S 中的字符 C 的最短距离的数组。
-     *
+     * <p>
      * 输入: S = "loveleetcode", C = 'e'
-       输出: [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]
-     1.字符串 S 的长度范围为 [1, 10000]。
-     2.C 是一个单字符，且保证是字符串 S 里的字符。
-     3.S 和 C 中的所有字母均为小写字母。
-
-     有点慢，
-     方法2：遍历两次，第一次
+     * 输出: [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]
+     * 1.字符串 S 的长度范围为 [1, 10000]。
+     * 2.C 是一个单字符，且保证是字符串 S 里的字符。
+     * 3.S 和 C 中的所有字母均为小写字母。
+     * <p>
+     * 有点慢，
+     * 方法2：遍历两次，第一次
      */
     public int[] shortestToChar(String S, char C) {
         char[] chars = S.toCharArray();
@@ -732,16 +734,16 @@ public class LeetCodeEasy {
             int right = i;
             boolean isFound = false;
             int distance = 0;
-            while (!isFound){
+            while (!isFound) {
                 //左右对比
-                if ((left >=0 && C == chars[left]) || (right < chars.length && C == chars[right])){
-                    isFound =true;
+                if ((left >= 0 && C == chars[left]) || (right < chars.length && C == chars[right])) {
+                    isFound = true;
                     result[i] = distance;
                     System.out.println(distance);
                 }
-                distance ++;
-                left --;
-                right ++;
+                distance++;
+                left--;
+                right++;
             }
         }
         return result;
@@ -750,18 +752,19 @@ public class LeetCodeEasy {
 
     /**
      * 给定一个正整数，检查他是否为交替位二进制数：换句话说，就是他的二进制数相邻的两个位数永不相等。
+     * <p>
+     * 输入: 5
+     * 输出: True
+     * 解释:
+     * 5的二进制数是: 101
      *
-     输入: 5
-     输出: True
-     解释:
-     5的二进制数是: 101
      * @param n
      * @return
      */
     public boolean hasAlternatingBits(int n) {
         String string = Integer.toBinaryString(n);
-        for (int i = 0; i < string.length() -1; i++) {
-            if (string.charAt(i) == string.charAt(i+1)){
+        for (int i = 0; i < string.length() - 1; i++) {
+            if (string.charAt(i) == string.charAt(i + 1)) {
                 return false;
             }
         }
@@ -774,8 +777,9 @@ public class LeetCodeEasy {
      * 一个网站域名，如"discuss.leetcode.com"，包含了多个子域名。作为顶级域名，常用的有"com"，
      * 下一级则有"leetcode.com"，最低的一级为"discuss.leetcode.com"。当我们访问域名"discuss.leetcode.com"时，
      * 也同时访问了其父域名"leetcode.com"以及顶级域名 "com"。
-
-     给定一个带访问次数和域名的组合，要求分别计算每个域名被访问的次数。其格式为访问次数+空格+地址，例如："9001 discuss.leetcode.com"。
+     * <p>
+     * 给定一个带访问次数和域名的组合，要求分别计算每个域名被访问的次数。其格式为访问次数+空格+地址，例如："9001 discuss.leetcode.com"。
+     *
      * @param cpdomains
      * @return
      */
@@ -792,10 +796,10 @@ public class LeetCodeEasy {
             //discuss.leetcode.com  -> discuss.leetcode.com   leetcode.com   com
             String domain = split[1];
 
-            resultMap.put(domain,resultMap.getOrDefault(domain,0) + num);
+            resultMap.put(domain, resultMap.getOrDefault(domain, 0) + num);
             while (domain.contains(".")) {
                 domain = domain.substring(domain.indexOf(".") + 1);
-                resultMap.put(domain,resultMap.getOrDefault(domain,0) + num);
+                resultMap.put(domain, resultMap.getOrDefault(domain, 0) + num);
             }
         }
         for (String key : resultMap.keySet()) {
@@ -810,24 +814,131 @@ public class LeetCodeEasy {
     /**
      * 给定长度为 2n 的数组, 你的任务是将这些数分成 n 对, 例如 (a1, b1), (a2, b2), ..., (an, bn) ，
      * 使得从1 到 n 的 min(ai, bi) 总和最大
-     输入: [1,4,3,2]
-     输出: 4
-     解释: n 等于 2, 最大总和为 4 = min(1, 2) + min(3, 4).
+     * 输入: [1,4,3,2]
+     * 输出: 4
+     * 解释: n 等于 2, 最大总和为 4 = min(1, 2) + min(3, 4).
+     *
      * @param nums
      * @return
      */
     public int arrayPairSum(int[] nums) {
         //思路，排序，然后两个为一组
         //快速排序
-        Sort.quickSort(nums, 0, nums.length-1);
+        Sort.quickSort(nums, 0, nums.length - 1);
         //取奇数相加
         int result = 0;
-        for (int i = 0; i < nums.length; i+=2) {
-            result +=nums[i];
+        for (int i = 0; i < nums.length; i += 2) {
+            result += nums[i];
         }
         return result;
 
     }
 
 
+    /**
+     * 不使用运算符 + 和-，计算两整数a 、b之和。
+     * 示例：
+     * 若 a = 1 ，b = 2，返回 3
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public int getSum(int a, int b) {
+        int result = a;
+        while (b != 0) {
+            if (b > 0) {
+                result++;
+                b--;
+            } else {
+                result--;
+                b++;
+            }
+        }
+        return result;
+
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    /**
+     * 删除某个链表中给定的（非末尾）节点，你将只被给定要求被删除的节点
+     * 输入: head = [4,5,1,9], node = 5
+     输出: [4,1,9]
+     解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -> 1 -> 9.
+     * @param node
+     */
+//    public void deleteNode(ListNode node) {
+//
+//    }
+
+   /** 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。
+    * 找出那个只出现了一次的元素。
+    * 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+    * 输入: [2,2,1]
+    输出: 1
+    * */
+   public int singleNumber(int[] nums) {
+
+       //排序
+//       Arrays.sort(nums);
+
+       for (int i = 0; i < nums.length; i++) {
+           boolean single = true;
+           for (int j = 0; j < nums.length; j++) {
+               if (i != j){
+                   if (nums[i] == nums[j]){
+                       single = false;
+                       break;
+                   }
+               }
+           }
+           if (single){
+               return nums[i];
+           }
+
+       }
+       return -1;
+   }
+
+    /**
+     * 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。
+     输入: 38
+     输出: 2
+     解释: 各位相加的过程为：3 + 8 = 11, 1 + 1 = 2。 由于 2 是一位数，所以返回 2。
+     * @return
+     */
+    public int addDigits(int num) {
+
+//        char[] chars = (num+"").toCharArray();
+//        int result = 0;
+//        for (char intChar : chars) {
+//            result += Integer.parseInt(intChar+"");
+//        }
+//        if (result >= 10){
+//            return addDigits(result);
+//        }
+//        return result;
+
+        //最优方法：如果是两位数
+        while (num/10 > 0){
+            int sum = 0;
+            while (num > 0){
+                sum += num % 10;
+                num = num / 10;
+            }
+            num = sum;
+        }
+        return num;
+
+    }
+
+    //  accomplish
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.flexbox.FlexboxLayout
 
@@ -25,39 +25,68 @@
             android:layout_height="wrap_content"
             android:text="wifi密码查看" />
 
-      <Button
+        <Button
             android:id="@+id/btn_sign_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="签名验证" />
 
 
-    <Button
+        <Button
             android:id="@+id/btn_refresh_media"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="更新媒体库" />
 
 
-    <Button
+        <Button
             android:id="@+id/btn_installed_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="安装的应用" />
 
-    <Button
+        <Button
             android:id="@+id/btn_crash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="crash捕获" />
 
 
-    <Button
+        <Button
             android:id="@+id/btn_pdf_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="加载pdf文件" />
 
+        <Button
+            android:id="@+id/btn_leak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="制造内存泄漏" />
+
+        <Button
+            android:id="@+id/btn_swipeback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="滑动返回" />
+
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试" />
+
+       <Button
+            android:id="@+id/btn_tablayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tablayout" />
+
+      <Button
+            android:id="@+id/btn_plugin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="插件化" />
 
 
     </com.google.android.flexbox.FlexboxLayout>

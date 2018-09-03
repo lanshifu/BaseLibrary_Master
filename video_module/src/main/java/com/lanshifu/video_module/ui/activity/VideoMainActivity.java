@@ -96,4 +96,9 @@ public class VideoMainActivity extends BaseTitleBarActivity {
         }
         super.onBackPressed();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

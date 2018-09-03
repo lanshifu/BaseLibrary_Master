@@ -5,8 +5,8 @@ ext {
                buildToolsVersion       : "27.0.3",
                minSdkVersion           : 16,
                targetSdkVersion        : 27,
-               versionCode             : 156,
-               versionName             : "2.4.1"
+               versionCode             : 1,
+               versionName             : "1.0.0"
     ]
 
      version = [
@@ -18,7 +18,7 @@ ext {
                    rxlifecycleSdkVersion   : "1.0",
                    rxlifecycle2SdkVersion  : "2.2.1",
                    espressoSdkVersion      : "3.0.1",
-                   canarySdkVersion        : "1.5.4"
+                   canarySdkVersion        : "1.6.1"
         ]
 
     dependencies = [

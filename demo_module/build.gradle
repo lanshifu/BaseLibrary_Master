@@ -8,7 +8,18 @@ dependencies {
 
     api project(":baselibrary")
     api project(":CommonService")
+    api project(':plugin_core')
 
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 
+    testCompile 'junit:junit:4.12'
+
+    //饿了么开源的查看控件属性
+    debugCompile 'me.ele:uetool:1.0.15'
+    releaseCompile 'me.ele:uetool-no-op:1.0.15'
+    // if you want to show more attrs about Fresco's DraweeView
+    debugCompile 'me.ele:uetool-fresco:1.0.15'
 
 }

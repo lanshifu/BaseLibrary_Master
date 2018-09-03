@@ -27,13 +27,18 @@ public abstract class BaseObserver<T> implements Observer<T> {
         } else if (e instanceof ServerException) {
             msg = e.getMessage();
         }
-        _onError(msg);
+        _onError("onError " + msg);
 
     }
 
     @Override
     public void onNext(T t) {
-        _onNext(t);
+        try {
+            _onNext(t);
+        } catch (Exception e) {
+            //onNext发送异常直接走_onError
+            _onError("onNext发生异常 " + e.getMessage());
+        }
     }
 
     @Override

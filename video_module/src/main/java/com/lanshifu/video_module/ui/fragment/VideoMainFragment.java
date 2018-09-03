@@ -146,4 +146,16 @@ public class VideoMainFragment extends BaseListFragment<VideoMainPresenter, Vide
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         refresh();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        JZVideoPlayer.goOnPlayOnPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        JZVideoPlayer.releaseAllVideos();
+    }
 }

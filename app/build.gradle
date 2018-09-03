@@ -45,6 +45,35 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            keyAlias '123456'
+            keyPassword '123456'
+            storeFile file("../key.jks")//这里我放在project根目录下，根据路径配置
+            storePassword '123456'
+        }
+        release {
+            keyAlias '123456'
+            keyPassword '123456'
+            storeFile file("../key.jks")
+            storePassword '123456'
+        }
+    }
+
+//    productFlavors {//多渠道打包
+//        xiaomi { //小米渠道
+//            applicationId 'com.lanshifu.baselibrary_master_xiaomi'//个性定制，小米市场包名不同
+//            //以下指定编译资源
+//            java.srcDirs = ['src/main/java/']
+//            res.srcDirs = ['src/main/res']
+//            assets.srcDirs = ['assets']
+//        }
+//        googleplay { //google play 渠道
+//            applicationId 'com.lanshifu.baselibrary_master_googleplay'
+//        }
+//    }
+
+
     dexOptions {
         preDexLibraries = false
     }
@@ -56,6 +85,14 @@ android {
     }
 
     sourceSets {main {res.srcDirs = ['src/main/res', 'src/main/res-night']}}
+
+    //修改输出apk名字
+    applicationVariants.all { variant ->
+        variant.outputs.all{
+            outputFileName = "组件化-${buildType.name}-${defaultConfig.versionName}.apk"
+        }
+    }
+
 }
 
 dependencies {
@@ -70,6 +107,7 @@ dependencies {
         implementation project(":video_module")
         implementation project(":picture_module")
         implementation project(":demo_module")
+        implementation project(":wandroid_module")
     } else {
         implementation project(':baselibrary')
         implementation project(":CommonService")

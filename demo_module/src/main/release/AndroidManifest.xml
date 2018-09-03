@@ -10,6 +10,11 @@
         <activity android:name=".ui.activity.DemoSignCheckActivity"/>
         <activity android:name=".ui.activity.DemoInstalledAppListActivity"/>
         <activity android:name=".ui.activity.DemoPdfListActivity"/>
+        <activity android:name=".ui.activity.DemoLeakActivity"/>
+        <activity android:name=".ui.activity.DemoSwipeBackActivity"/>
+        <activity android:name=".ui.activity.DemoTestActivity"/>
+        <activity android:name=".ui.activity.DemoTabActivity"/>
+        <activity android:name=".ui.activity.DemoPluginActivity"/>
     </application>
 
 </manifest>
