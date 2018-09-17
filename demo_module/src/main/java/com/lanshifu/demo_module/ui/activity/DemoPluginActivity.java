@@ -9,6 +9,7 @@ import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
+import com.lanshifu.demo_module.R2;
 import com.lanshifu.plugin_core.PluginManager;
 
 import java.io.File;
@@ -31,19 +32,16 @@ public class DemoPluginActivity extends BaseTitleBarActivity {
         PluginManager.getInstance().install(this,plugPath);
 
     }
-    @OnClick({R.id.btn_load_class, R.id.btn_load_proxy})
+    @OnClick({R2.id.btn_load_class, R2.id.btn_load_proxy})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_load_class:
-                String apkPath = Environment.getExternalStorageDirectory() + "/plugin.apk";
-                loadApk(apkPath);
+        if (view.getId() == R.id.btn_load_class){
+            String apkPath = Environment.getExternalStorageDirectory() + "/plugin.apk";
+            loadApk(apkPath);
 
-                break;
-            case R.id.btn_load_proxy:
-                //启动插件activity
-                PluginManager.getInstance().startPlugin(DemoPluginActivity.this);
-                break;
+        }else if (view.getId() == R.id.btn_load_proxy){
+            PluginManager.getInstance().startPlugin(DemoPluginActivity.this);
         }
+
     }
 
     /**

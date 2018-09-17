@@ -112,6 +112,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         handlerThreadTest();
 
+        
+
     }
 
     private void handlerThreadTest() {
