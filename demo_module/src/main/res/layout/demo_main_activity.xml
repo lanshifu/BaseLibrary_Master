@@ -88,6 +88,23 @@
             android:layout_height="wrap_content"
             android:text="插件化" />
 
+    <Button
+            android:id="@+id/btn_guard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="进程守护" />
+
+   <Button
+            android:id="@+id/btn_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="触摸事件" />
+   <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置界面" />
+
 
     </com.google.android.flexbox.FlexboxLayout>
 

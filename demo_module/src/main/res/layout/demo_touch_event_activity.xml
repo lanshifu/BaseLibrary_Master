@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.lanshifu.demo_module.widget.DemoRelativeLayout
+        android:id="@+id/rl_root"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@android:color/holo_red_dark">
+
+        <com.lanshifu.demo_module.widget.DemoTextView
+            android:id="@+id/tv_child"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorAccent" />
+    </com.lanshifu.demo_module.widget.DemoRelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_switch_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</LinearLayout>

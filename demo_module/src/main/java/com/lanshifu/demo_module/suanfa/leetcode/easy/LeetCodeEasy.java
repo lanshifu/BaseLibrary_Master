@@ -5,10 +5,10 @@ import android.annotation.SuppressLint;
 import com.lanshifu.demo_module.suanfa.Sort;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class LeetCodeEasy {
 
@@ -66,9 +66,21 @@ public class LeetCodeEasy {
         subdomainVisits(new String[]{"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"});
 
         System.out.println(getSum(1, 2) + "");
-        System.out.println(singleNumber(new int[]{1,2,3,3,2}));
+        System.out.println(singleNumber(new int[]{1, 2, 3, 3, 2}));
 
         System.out.println(addDigits(38));
+
+
+        MyHashSet hashSet = new MyHashSet();
+        System.out.println("MyHashSet");
+        hashSet.add(2);
+        System.out.println(hashSet.contains(1));    // 返回 true
+        System.out.println(hashSet.contains(3));    // 返回 false (未找到)
+        hashSet.add(2);
+        System.out.println(hashSet.contains(2));    // 返回 true
+        hashSet.remove(2);
+        System.out.println(hashSet.contains(2));// 返回  false (已经被删除)
+
     }
 
     /**
@@ -879,40 +891,42 @@ public class LeetCodeEasy {
 //
 //    }
 
-   /** 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。
-    * 找出那个只出现了一次的元素。
-    * 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
-    * 输入: [2,2,1]
-    输出: 1
-    * */
-   public int singleNumber(int[] nums) {
+    /**
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。
+     * 找出那个只出现了一次的元素。
+     * 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+     * 输入: [2,2,1]
+     * 输出: 1
+     */
+    public int singleNumber(int[] nums) {
 
-       //排序
+        //排序
 //       Arrays.sort(nums);
 
-       for (int i = 0; i < nums.length; i++) {
-           boolean single = true;
-           for (int j = 0; j < nums.length; j++) {
-               if (i != j){
-                   if (nums[i] == nums[j]){
-                       single = false;
-                       break;
-                   }
-               }
-           }
-           if (single){
-               return nums[i];
-           }
+        for (int i = 0; i < nums.length; i++) {
+            boolean single = true;
+            for (int j = 0; j < nums.length; j++) {
+                if (i != j) {
+                    if (nums[i] == nums[j]) {
+                        single = false;
+                        break;
+                    }
+                }
+            }
+            if (single) {
+                return nums[i];
+            }
 
-       }
-       return -1;
-   }
+        }
+        return -1;
+    }
 
     /**
      * 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。
-     输入: 38
-     输出: 2
-     解释: 各位相加的过程为：3 + 8 = 11, 1 + 1 = 2。 由于 2 是一位数，所以返回 2。
+     * 输入: 38
+     * 输出: 2
+     * 解释: 各位相加的过程为：3 + 8 = 11, 1 + 1 = 2。 由于 2 是一位数，所以返回 2。
+     *
      * @return
      */
     public int addDigits(int num) {
@@ -928,9 +942,9 @@ public class LeetCodeEasy {
 //        return result;
 
         //最优方法：如果是两位数
-        while (num/10 > 0){
+        while (num / 10 > 0) {
             int sum = 0;
-            while (num > 0){
+            while (num > 0) {
                 sum += num % 10;
                 num = num / 10;
             }
@@ -940,5 +954,86 @@ public class LeetCodeEasy {
 
     }
 
-    //  accomplish
+    /**
+     * 链表的中间结点
+     */
+    public ListNode middleNode(ListNode head) {
+//        //慢指针和快指针，快指针走完，慢指针刚好走一半
+//        ListNode fast = head;
+//        ListNode slow = head;
+//        // 1,2,3,4,5,6]
+//        while (fast != null && fast.next != null) {  //2  4  6
+//            fast = fast.next.next;                        //3  5  null
+//            if (fast != null){
+//                slow = slow.next;                        //2  3  4
+//            }
+//        }
+//        return slow;
+        ListNode[] arr = new ListNode[100];
+        int index = 0;
+        arr[index] = head;
+        while (head != null){
+            index ++;
+            head = arr[index] = head.next;
+        }
+        return arr[index /2];
+    }
+
+    /**
+     * 删除链表中的节点
+     输入: head = [4,5,1,9], node = 5
+     输出: [4,1,9]
+     解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -> 1 -> 9.
+     * @param node
+     */
+    public void deleteNode(ListNode node) {
+        ListNode next = node.next;
+        node.val = next.val;
+        node.next = next.next;
+    }
+
+
+    /**
+     * 给定两个没有重复元素的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。找到 nums1 中每个元素在 nums2 中的下一个比其大的值。
+     输入: nums1 = [4,1,2], nums2 = [1,3,4,2].
+     输出: [-1,3,-1]
+     * @return
+     */
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int[] result = new int[nums1.length];
+        //转成list
+        ArrayList<Integer> nums2list = new ArrayList<>();
+        for (int aNums2 : nums2) {
+            nums2list.add(aNums2);
+        }
+
+        for (int i = 0; i < nums1.length; i++) {
+            int numi = nums1[i];
+            result[i] = -1;
+            //找到 nums1 中每个元素在 nums2 中的下一个比其大的值，（下一个开始找）
+            for (int j = nums2list.indexOf(numi) + 1; j < nums2list.size(); j++) {
+                if (nums2list.get(j) > numi){
+                    result[i] = nums2list.get(j);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * 反转一个单链表。
+     输入: 1->2->3->4->5->NULL
+     输出: 5->4->3->2->1->NULL
+     * @param head
+     * @return
+     */
+//    public ListNode reverseList(ListNode head) {
+//        // 思路，递归可以吗？
+////        while
+//
+//    }
+
+
 }

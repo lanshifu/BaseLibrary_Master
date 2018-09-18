@@ -16,6 +16,9 @@ import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
+import com.lanshifu.baselibrary.tools.avoidonresult.ActivityResultInfo;
+import com.lanshifu.baselibrary.tools.avoidonresult.AvoidOnResult;
+import com.lanshifu.baselibrary.utils.NetworkUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.commonservice.demo.DemoInfo;
 import com.lanshifu.demo_module.R;
@@ -108,9 +111,11 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         LogHelper.d("Long.MAX_VALUE = " + Long.MAX_VALUE);
         LogHelper.d("long越界 l = " + l);
 
-        UETool.showUETMenu();
+//        UETool.showUETMenu();
 
         handlerThreadTest();
+
+        NetworkUtils.isWifiProxy(this);
 
     }
 
@@ -142,7 +147,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
     @Override
     protected void onBackClick() {
-        setResult();
+        setResult(); //
         super.onBackClick();
 
     }
@@ -187,7 +192,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     @OnClick({R2.id.btn_app_info, R2.id.btn_wifi_password, R2.id.btn_sign_check
             , R2.id.btn_refresh_media, R2.id.btn_installed_app, R2.id.btn_crash
             , R2.id.btn_pdf_list, R2.id.btn_swipeback, R2.id.btn_leak, R2.id.btn_test
-            , R2.id.btn_tablayout, R2.id.btn_plugin})
+            , R2.id.btn_tablayout, R2.id.btn_plugin, R2.id.btn_guard, R2.id.btn_event
+            , R2.id.btn_setting})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -209,14 +215,38 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         } else if (viewId == R.id.btn_swipeback) {
             startActivity(DemoSwipeBackActivity.class);
         } else if (viewId == R.id.btn_test) {
-            Intent intent = new Intent(this,DemoTestActivity.class);
+            Intent intent = new Intent(this, DemoTestActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
             intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            startActivity(intent);
-        }else if (viewId == R.id.btn_tablayout) {
+            new AvoidOnResult(DemoMainActivity.this)
+                    .startForResult(intent)
+                    .subscribe(new Consumer<ActivityResultInfo>() {
+                        @Override
+                        public void accept(ActivityResultInfo activityResultInfo) throws Exception {
+                            LogHelper.d(activityResultInfo.getData().getStringExtra("result"));
+                            showShortToast(activityResultInfo.getData().getStringExtra("result"));
+                        }
+                    });
+
+//                    .startForResult(intent
+//                            , new AvoidOnResult.Callback() {
+//                                @Override
+//                                public void onActivityResult(int resultCode, Intent data) {
+//                                    LogHelper.d(data.getStringExtra("result"));
+//                                    showShortToast(data.getStringExtra("result"));
+//                                }
+//                            });
+//            startActivity(intent);
+        } else if (viewId == R.id.btn_tablayout) {
             startActivity(DemoTabActivity.class);
-        }else if (viewId == R.id.btn_plugin) {
+        } else if (viewId == R.id.btn_plugin) {
             startActivity(DemoPluginActivity.class);
+        } else if (viewId == R.id.btn_guard) {
+            startActivity(DemoGuardActivity.class);
+        } else if (viewId == R.id.btn_event) {
+            startActivity(DemoTouchEventActivity.class);
+        } else if (viewId == R.id.btn_setting) {
+            startActivity(DemoSettingActivity.class);
         }
     }
 

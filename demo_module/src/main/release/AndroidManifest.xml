@@ -15,6 +15,17 @@
         <activity android:name=".ui.activity.DemoTestActivity"/>
         <activity android:name=".ui.activity.DemoTabActivity"/>
         <activity android:name=".ui.activity.DemoPluginActivity"/>
+        <activity android:name=".ui.activity.DemoGuardActivity"/>
+        <activity android:name=".ui.activity.DemoTouchEventActivity"/>
+        <activity android:name=".ui.activity.DemoSettingActivity"/>
+
+
+        <service android:name=".service.GuardService"
+            android:process=":guard_service"/>
+
+        <service android:name=".service.MainService"
+            android:process=":main_service"/>
+
     </application>
 
 </manifest>

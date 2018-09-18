@@ -204,6 +204,8 @@ public abstract class BaseActivity extends RxAppCompatActivity{
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
+
+        LoadingDialog.onDestroy();
     }
 
     /**

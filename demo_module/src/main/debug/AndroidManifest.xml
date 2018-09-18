@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lanshifu.demo_module">
+
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -41,6 +45,19 @@
         <activity android:name=".ui.activity.DemoTabActivity"/>
         <activity android:name="com.lanshifu.plugin_core.PluginProxyActivity"/>
         <activity android:name=".ui.activity.DemoPluginActivity"/>
+        <activity android:name=".ui.activity.DemoGuardActivity"/>
+        <activity android:name=".ui.activity.DemoTouchEventActivity"/>
+        <activity android:name=".ui.activity.DemoSettingActivity"/>
+
+
+        <service android:name=".service.GuardService"
+            android:process=":guard_service"/>
+
+         <service android:name=".service.MainService"
+            android:process=":main_service"/>
+
+        <service android:name=".service.JobWakeUpService"
+            android:process=":JobWakeUpService"/>
 
     </application>
 

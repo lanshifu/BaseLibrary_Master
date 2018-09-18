@@ -121,6 +121,7 @@ public abstract class BaseFragment extends RxFragment {
         super.onDestroyView();
         mRxManage.clear();
         unbinder.unbind();
+        LoadingDialog.onDestroy();
     }
 
 

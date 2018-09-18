@@ -27,7 +27,7 @@ public class BaseApplication extends Application {
         context = getApplicationContext();
 
         //工具栏初始化
-        CommonUtils.init(this);
+        CommonUtils.init(context);
 
         //注册自己的Activity的生命周期回调接口。
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);

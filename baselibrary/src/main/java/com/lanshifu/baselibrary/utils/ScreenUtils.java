@@ -203,6 +203,7 @@ public class ScreenUtils {
 
     /**
      * Return the bitmap of screen.
+     * 截屏
      *
      * @param activity          The activity.
      * @param isDeleteStatusBar True to delete status bar, false otherwise.

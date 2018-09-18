@@ -58,4 +58,12 @@ public class LoadingDialog {
             mLoadingDialog.cancel();
         }
     }
+
+    public static void onDestroy(){
+        if (mLoadingDialog != null){
+            mLoadingDialog.cancel();
+            mLoadingDialog = null;
+        }
+        mLoadingText = null;
+    }
 }
