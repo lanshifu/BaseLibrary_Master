@@ -1,9 +1,8 @@
 package com.lanshifu.baselibrary.network;
 
+import android.content.Context;
 import android.text.TextUtils;
 
-import com.lanshifu.baselibrary.BuildConfig;
-import com.lanshifu.baselibrary.Constants;
 import com.lanshifu.baselibrary.app.MainApplication;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.cookies.CookieManger;
@@ -33,6 +32,8 @@ public class RetrofitHelper {
      * 默认有OkHttpClient
      */
     private OkHttpClient mDefaultOkHttpClient;
+
+    private Context mContext;
 
     private RetrofitHelper() {
         initOkHttp();

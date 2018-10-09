@@ -12,7 +12,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 /**
  * Created by 蓝师傅 on 2017/1/2.
- * P 是presenter，如果不使用mvp可以传默认 BasePresenter
+ * P 是presenter，miana如果不使用mvp可以传默认 BasePresenter
  * T 是数据类型 比如 UserInfo
  */
 

@@ -6,8 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.lanshifu.baselibrary.app.BaseApplication;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -111,10 +109,9 @@ public class LogHandler extends Thread {
                         if (file == null || file.getAbsolutePath().indexOf(needWriteFiel) < 0) {
                             file = new File(LogHelper.MYLOG_PATH_SDCARD_DIR, obj.getFilename()
                                     + "_" + needWriteFiel + ".log");
-                            PackageManager packageManager = BaseApplication.getContext()
+                            PackageManager packageManager = mContext
                                     .getPackageManager();
-                            PackageInfo info = packageManager.getPackageInfo(BaseApplication
-                                    .getContext().getPackageName(), 0);
+                            PackageInfo info = packageManager.getPackageInfo(mContext.getPackageName(), 0);
                             needWriteMessage = "excomm_log  " + info.versionName + "\r\n"
                                     + needWriteMessage;
                         }

@@ -24,6 +24,8 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        //支持dex分包
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -46,12 +48,12 @@ android {
     }
 
     signingConfigs {
-        debug {
-            keyAlias '123456'
-            keyPassword '123456'
-            storeFile file("../key.jks")//这里我放在project根目录下，根据路径配置
-            storePassword '123456'
-        }
+//        debug {
+//            keyAlias '123456'
+//            keyPassword '123456'
+//            storeFile file("../key.jks")//这里我放在project根目录下，根据路径配置
+//            storePassword '123456'
+//        }
         release {
             keyAlias '123456'
             keyPassword '123456'
@@ -76,6 +78,8 @@ android {
 
     dexOptions {
         preDexLibraries = false
+        //65536
+        jumboMode = true
     }
 
     lintOptions {

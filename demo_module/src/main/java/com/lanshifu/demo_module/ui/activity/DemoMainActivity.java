@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -37,6 +38,7 @@ import me.ele.uetool.UETool;
 @Route(path = RouterHub.DEMO_MAIN_ACTIVITY)
 public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> implements DemoMainView {
 
+    private static final String TAG = "demomainactivity";
     @Autowired
     public String name;
     @Autowired
@@ -47,6 +49,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     DemoInfo mDemoInfo;    // 支持解析自定义对象，URL中使用json传递
 
     private H mHandler;
+    private boolean mWifiProxy;
 
 
     /**
@@ -115,7 +118,11 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         handlerThreadTest();
 
-        NetworkUtils.isWifiProxy(this);
+        mWifiProxy = NetworkUtils.isWifiProxy(this);
+        Log.i(TAG, "initView: ");
+        Log.i(TAG, "initView: ");
+        
+
 
     }
 
@@ -193,7 +200,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_refresh_media, R2.id.btn_installed_app, R2.id.btn_crash
             , R2.id.btn_pdf_list, R2.id.btn_swipeback, R2.id.btn_leak, R2.id.btn_test
             , R2.id.btn_tablayout, R2.id.btn_plugin, R2.id.btn_guard, R2.id.btn_event
-            , R2.id.btn_setting})
+            , R2.id.btn_setting, R2.id.btn_expandable_textview})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -247,6 +254,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             startActivity(DemoTouchEventActivity.class);
         } else if (viewId == R.id.btn_setting) {
             startActivity(DemoSettingActivity.class);
+        }else if (viewId == R.id.btn_expandable_textview) {
+            startActivity(DemoExpandableTextViewActivity.class);
         }
     }
 

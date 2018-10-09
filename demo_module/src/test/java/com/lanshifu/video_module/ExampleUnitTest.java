@@ -1,6 +1,7 @@
 package com.lanshifu.video_module;
 
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
+import com.lanshifu.demo_module.suanfa.jianzhioffer.JianzhioOffer;
 import com.lanshifu.demo_module.suanfa.leetcode.easy.LeetCodeEasy;
 import com.lanshifu.demo_module.suanfa.niuke.Niuke;
 
@@ -21,6 +22,8 @@ public class ExampleUnitTest {
 
         LeetCodeEasy leetCodeEasy = new LeetCodeEasy();
         leetCodeEasy.test();
+
+        JianzhioOffer.test();
 
         assertEquals(4, 2 + 2);
 

@@ -10,6 +10,7 @@ import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.widget.SettingItemView;
 import com.lanshifu.demo_module.R;
+import com.lanshifu.demo_module.R2;
 import com.lanshifu.demo_module.widget.DemoRelativeLayout;
 import com.lanshifu.demo_module.widget.DemoTextView;
 
@@ -20,11 +21,11 @@ import butterknife.BindView;
  * https://mp.weixin.qq.com/s/Rt2EV_hZ_CysUJ-fisj3ug
  */
 public class DemoTouchEventActivity extends BaseTitleBarActivity {
-    @BindView(R.id.tv_child)
+    @BindView(R2.id.tv_child)
     DemoTextView tvChild;
-    @BindView(R.id.rl_root)
+    @BindView(R2.id.rl_root)
     DemoRelativeLayout rlRoot;
-    @BindView(R.id.ll_switch_root)
+    @BindView(R2.id.ll_switch_root)
     LinearLayout llSettingRoot;
     private SettingItemView mFirstItem;
     private SettingItemView mSecondItem;

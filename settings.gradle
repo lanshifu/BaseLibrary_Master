@@ -6,5 +6,6 @@ include ':app',
         ':activity_name_module',
         ':wandroid_module',
         ':demo_module',
+        ':share_module',
         ':plugin_core',
         ':plugin_module'

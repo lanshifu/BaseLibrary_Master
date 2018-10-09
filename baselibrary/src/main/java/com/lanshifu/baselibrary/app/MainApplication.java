@@ -1,5 +1,7 @@
 package com.lanshifu.baselibrary.app;
 
+import android.support.multidex.MultiDex;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.BuildConfig;
 import com.lanshifu.baselibrary.log.LogHelper;
@@ -28,7 +30,12 @@ public class MainApplication extends BaseApplication {
         initArouter();
         LitePal.initialize(this);
         initLeakCanary();
+        initMultiDex();
 
+    }
+
+    private void initMultiDex() {
+        MultiDex.install(this);
     }
 
     private void initRetrofitUrlManager() {

@@ -8,12 +8,13 @@ import android.widget.LinearLayout;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.widget.SettingItemView;
 import com.lanshifu.demo_module.R;
+import com.lanshifu.demo_module.R2;
 
 import butterknife.BindView;
 
 public class DemoSettingActivity extends BaseTitleBarActivity
         implements SettingItemView.OnRootClickListener, SettingItemView.OnArrowClickListener {
-    @BindView(R.id.ll_setting_root)
+    @BindView(R2.id.ll_setting_root)
     LinearLayout llSettingRoot;
     private SettingItemView mFirstItem;
     private SettingItemView mSecondItem;

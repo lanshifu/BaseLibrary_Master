@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.lanshifu.baselibrary.R;
+import com.lanshifu.baselibrary.log.LogHelper;
 
 /**
  * Created by lanxiaobin on 2017/8/1.
@@ -14,8 +15,8 @@ import com.lanshifu.baselibrary.R;
 
 public  abstract class BaseTabActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    private ViewPager mViewPager;
-    private TabLayout mTabLayout;
+    protected ViewPager mViewPager;
+    protected TabLayout mTabLayout;
 
 
     @Override
@@ -49,6 +50,10 @@ public  abstract class BaseTabActivity extends BaseActivity implements ViewPager
      */
     protected void setupTabLayout(String[] titles, Fragment[] fragments) {
 
+        if (titles.length != fragments.length){
+            LogHelper.e("titles 和 fragments 大小不一致");
+            throw new IllegalArgumentException("titles 和 fragments 大小不一致");
+        }
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setAdapter(new InnerVPAdapter(getSupportFragmentManager(), titles, fragments));
         mTabLayout.setupWithViewPager(mViewPager);

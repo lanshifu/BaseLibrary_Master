@@ -19,6 +19,7 @@ public class TUtil {
                     .getGenericSuperclass())).getActualTypeArguments()[i])
                     .newInstance();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

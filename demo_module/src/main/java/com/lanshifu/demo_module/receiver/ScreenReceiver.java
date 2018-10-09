@@ -5,9 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
-import android.util.Log;
 
-import com.lanshifu.baselibrary.app.MainApplication;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.demo_module.ui.activity.DemoGuardActivity;
 
@@ -38,7 +36,7 @@ public class ScreenReceiver extends BroadcastReceiver {
      */
     public void wakeUpAndUnlock(Context context) {
         // 获取电源管理器对象
-        PowerManager pm = (PowerManager) MainApplication.getContext()
+        PowerManager pm = (PowerManager) context
                 .getSystemService(Context.POWER_SERVICE);
         boolean screenOn = pm.isScreenOn();
         if (!screenOn) {
@@ -51,7 +49,7 @@ public class ScreenReceiver extends BroadcastReceiver {
             startMainActivity(context);
         }
         // 屏幕解锁
-        KeyguardManager keyguardManager = (KeyguardManager) MainApplication.getContext()
+        KeyguardManager keyguardManager = (KeyguardManager) context
                 .getSystemService(KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("unLock");
         // 屏幕锁定

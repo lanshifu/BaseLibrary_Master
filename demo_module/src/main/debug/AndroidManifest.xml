@@ -48,6 +48,7 @@
         <activity android:name=".ui.activity.DemoGuardActivity"/>
         <activity android:name=".ui.activity.DemoTouchEventActivity"/>
         <activity android:name=".ui.activity.DemoSettingActivity"/>
+        <activity android:name=".ui.activity.DemoExpandableTextViewActivity"/>
 
 
         <service android:name=".service.GuardService"

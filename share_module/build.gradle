@@ -1,0 +1,27 @@
+apply from:"../common_component_build.gradle"
+android {
+    resourcePrefix "share_" //给 Module 内的资源名增加前缀, 避免资源名冲突
+
+
+//    signingConfigs {
+//        debug {
+//            storeFile file('debug.keystore')
+//            storePassword "android"
+//            keyAlias "androiddebugkey"
+//            keyPassword "android"
+//        }
+//    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':baselibrary')
+    api project(':CommonService')
+    //友盟
+    implementation files('src/main/libs/umeng-common-1.5.3.jar')
+    implementation files('src/main/libs/umeng-share-core-6.9.3.jar')
+    implementation files('src/main/libs/umeng-share-QQ-simplify-6.9.3.jar')
+    implementation files('src/main/libs/umeng-share-wechat-simplify-6.9.3.jar')
+    implementation files('src/main/libs/umeng-sharetool-6.9.3.jar')
+}

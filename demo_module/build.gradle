@@ -22,4 +22,11 @@ dependencies {
     // if you want to show more attrs about Fresco's DraweeView
     debugCompile 'me.ele:uetool-fresco:1.0.15'
 
+
+    //日历控件
+    implementation 'com.haibin:calendarview:3.4.7'
+
+    //https://github.com/MZCretin/ExpandableTextView
+    implementation 'com.github.MZCretin:ExpandableTextView:v1.5.1'
+
 }

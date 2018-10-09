@@ -253,6 +253,11 @@
 -keep class tv.danmaku.ijk.media.player.IjkMediaPlayer{*;}
 -keep class tv.danmaku.ijk.media.player.ffmpeg.FFmpegApi{*;}
 
+#日历控件
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context);
+}
+
  #实体类不参与混淆
 -keep class com.lanshifu.video_module.bean.** { *; }
 -keep class com.lanshifu.video_module.db.** { *; }

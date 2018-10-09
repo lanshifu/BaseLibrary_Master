@@ -122,6 +122,9 @@ dependencies {
     //流布局
     api rootProject.ext.dependencies["flexbox"]
 
+    //dex分包
+    implementation rootProject.ext.dependencies["multidex"]
+
     //内存泄漏检测
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]

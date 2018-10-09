@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/picture_module" />
             <option value="$PROJECT_DIR$/plugin_core" />
             <option value="$PROJECT_DIR$/plugin_module" />
+            <option value="$PROJECT_DIR$/share_module" />
             <option value="$PROJECT_DIR$/video_module" />
             <option value="$PROJECT_DIR$/wandroid_module" />
           </set>

@@ -97,6 +97,10 @@ public abstract class BaseTitleBarActivity<P extends BasePresenter> extends Base
         mToolBarTitle.setText(title);
     }
 
+    protected void setTitleText(int resId) {
+        setTitleText(getResources().getString(resId));
+    }
+
     protected void showBackIcon() {
         mIvBack.setVisibility(View.VISIBLE);
     }

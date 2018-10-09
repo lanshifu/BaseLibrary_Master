@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.lanshifu.baselibrary.app.MainApplication;
 
 import static android.Manifest.permission.WRITE_SETTINGS;
 
@@ -328,7 +327,7 @@ public class ScreenUtils {
     private static void adaptScreen(final Activity activity,
                                     final float sizeInDp,
                                     final boolean isVerticalSlide) {
-        final DisplayMetrics appDm = MainApplication.getContext().getResources().getDisplayMetrics();
+        final DisplayMetrics appDm = activity.getResources().getDisplayMetrics();
         final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
         if (isVerticalSlide) {
             activityDm.density = activityDm.widthPixels / sizeInDp;
