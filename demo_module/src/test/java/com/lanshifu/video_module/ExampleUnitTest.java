@@ -1,5 +1,6 @@
 package com.lanshifu.video_module;
 
+import com.lanshifu.demo_module.design_mode.ProducerConsumerTest;
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.suanfa.jianzhioffer.JianzhioOffer;
 import com.lanshifu.demo_module.suanfa.leetcode.easy.LeetCodeEasy;

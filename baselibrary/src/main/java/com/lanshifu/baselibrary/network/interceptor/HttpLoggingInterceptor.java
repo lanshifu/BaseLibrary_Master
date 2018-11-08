@@ -152,13 +152,20 @@ public final class HttpLoggingInterceptor implements Interceptor {
         String jsonRequestLog = "";
         Connection connection = chain.connection();
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
-        String requestStartMessage = "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
-        if (!logHeaders && hasRequestBody) {
-            requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
-        }
-        requestLog.append(" \n");
+//        requestLog.append(" \n");
         requestLog.append("--> 请求开始\n");
-        requestLog.append(requestStartMessage + "\n");
+        requestLog.append("--> ");
+        requestLog.append(request.method());
+        requestLog.append(" ");
+        requestLog.append(request.url());
+        requestLog.append(" ");
+        requestLog.append(protocol);
+        if (!logHeaders && hasRequestBody) {
+            requestLog.append(" (");
+            requestLog.append(requestBody.contentLength());
+            requestLog.append("-byte body)");
+        }
+        requestLog.append("\n");
 
 
         if (logHeaders) {
@@ -166,10 +173,14 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 // Request body headers are only present when installed as a network interceptor. Force
                 // them to be included (when available) so there values are known.
                 if (requestBody.contentType() != null) {
-                    requestLog.append("Content-Type: " + requestBody.contentType() + "\n");
+                    requestLog.append("Content-Type: ");
+                    requestLog.append(requestBody.contentType());
+                    requestLog.append("\n");
                 }
                 if (requestBody.contentLength() != -1) {
-                    requestLog.append("Content-Length: " + requestBody.contentLength() + "\n");
+                    requestLog.append("Content-Length: ");
+                    requestLog.append(requestBody.contentLength());
+                    requestLog.append("\n");
                 }
                 //判断是json请求，打印
                 MediaType rContentType = requestBody.contentType();
@@ -190,11 +201,16 @@ public final class HttpLoggingInterceptor implements Interceptor {
                     if (requestBody instanceof FormBody) {
                         FormBody body = (FormBody) requestBody;
                         for (int i = 0; i < body.size(); i++) {
-                            sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
+                            sb.append(body.encodedName(i));
+                            sb.append("=");
+                            sb.append(body.encodedValue(i));
+                            sb.append(",");
                         }
                         sb.delete(sb.length() - 1, sb.length());
                         requestLog.append("->post请求参数:\n");
-                        requestLog.append("{ "+sb.toString()+" }\n");
+                        requestLog.append("{ ");
+                        requestLog.append(sb.toString());
+                        requestLog.append(" }\n");
                     }
                 }
             }
@@ -205,7 +221,10 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 String name = headers.name(i);
                 // Skip headers from the request body as they are explicitly logged above.
                 if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Length".equalsIgnoreCase(name)) {
-                    requestLog.append(name + ": " + headers.value(i) + "\n");
+                    requestLog.append(name)
+                            .append(": ")
+                            .append(headers.value(i))
+                            .append("\n");
                 }
             }
 
@@ -225,12 +244,20 @@ public final class HttpLoggingInterceptor implements Interceptor {
 
                 requestLog.append("\n");
                 if (isPlaintext(buffer)) {
-                    requestLog.append(buffer.readString(charset) + "\n");
-                    requestLog.append("--> END " + request.method()
-                            + " (" + requestBody.contentLength() + "-byte body)");
+                    requestLog.append(buffer.readString(charset))
+                            .append("\n")
+                            .append("--> END ")
+                            .append(request.method())
+                            .append(" (")
+                            .append(requestBody.contentLength())
+                            .append("-byte body)");
                 } else {
-                    requestLog.append("--> END " + request.method() + " (binary "
-                            + requestBody.contentLength() + "-byte body omitted)");
+                    requestLog.append("--> END ")
+                            .append(request.method())
+                            .append(" (binary ")
+                            .append(requestBody.contentLength())
+                            .append("-byte body omitted)");
+
                 }
             }
         }
@@ -239,10 +266,11 @@ public final class HttpLoggingInterceptor implements Interceptor {
             requestLog.append("\njson 请求：\n");
             logger.log(requestLog.toString());
             logger.json("\n" + jsonRequestLog);
+            logger.log("->请求结束");
         } else {
+            requestLog.append("-->请求结束");
             logger.log(requestLog.toString());
         }
-        logger.log("-->请求结束");
 
         //处理响应
         StringBuilder logResp = new StringBuilder();
@@ -273,25 +301,48 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 || subtype.contains("html")
                 || subtype.contains("plain")
                 || subtype.contains("html"));
-        logResp.append(" \n");
+//        logResp.append(" \n");
         logResp.append("<-- 响应开始\n");
         if (isJsonResp) {
-            content= responseBody.string();
-            logResp.append("<-- " + response.code() + ' ' + response.message() + ' '
-                    + response.request().url() + " (" + tookMs + "ms" + (!logHeaders ? ", "
-                    + bodySize + " body" : "") + ')' + "\n");
+            content = responseBody.string();
+            logResp.append("<-- ");
+            logResp.append(response.code());
+            logResp.append(' ');
+            logResp.append(response.message());
+            logResp.append(" ");
+            logResp.append(response.request().url());
+            logResp.append(" (");
+            logResp.append(tookMs);
+            logResp.append("ms");
+            logResp.append((!logHeaders ? ", " + bodySize + " body" : ""));
+            logResp.append("\n");
+
             jsonResp = content;
 
         } else {
-            logResp.append("\n<-- " + response.code() + ' ' + response.message() + ' '
-                    + response.request().url() + " (" + tookMs + "ms" + (!logHeaders ? ", "
-                    + bodySize + " body" : "") + ')' + "\n");
+            logResp.append("\n<-- ")
+                    .append(response.code())
+                    .append(" ")
+                    .append(response.message())
+                    .append(" ")
+                    .append(response.request().url())
+                    .append(" (")
+                    .append(tookMs)
+                    .append("ms")
+                    .append(!logHeaders ? ", "
+                            + bodySize + " body" : "")
+                    .append(')')
+                    .append("\n");
         }
         logResp.append("<--header:\n");
         if (logHeaders) {
             Headers headers = response.headers();
             for (int i = 0, count = headers.size(); i < count; i++) {
-                logResp.append(headers.name(i) + ": " + headers.value(i) + "\n");
+                logResp.append(headers.name(i))
+                        .append(": ")
+                        .append(headers.value(i))
+                        .append("\n");
+
             }
 
             if (!logBody || !HttpHeaders.hasBody(response)) {
@@ -324,7 +375,9 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 if (contentLength != 0) {
                     logger.log("");
                     logger.log(buffer.clone().readString(charset));
-                    logResp.append("\n" + buffer.clone().readString(charset) + "\n");
+                    logResp.append("\n")
+                            .append(buffer.clone().readString(charset))
+                            .append("\n");
                 }
                 logResp.append("<-- END HTTP (\" + buffer.size() + \"-byte body) \n");
             }
@@ -381,7 +434,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
                 return "";
             copy.body().writeTo(buffer);
             return getJsonString(buffer.readUtf8());
-        } catch (final IOException e) {
+        } catch (Exception e) {
             return "{\"err\": \"" + e.getMessage() + "\"}";
         }
     }

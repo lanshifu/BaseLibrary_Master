@@ -25,8 +25,8 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
-        <item name="textAllCaps">false</item>
-        <!--<item name="android:windowBackground">@drawable/loading_progress</item>-->
+        <item name="textAllCaps">false</item>  <!-- buttom英文大写-->
+        <item name="android:windowBackground">@drawable/logo</item>  <!-- 默认背景-->
     </style>
 
 

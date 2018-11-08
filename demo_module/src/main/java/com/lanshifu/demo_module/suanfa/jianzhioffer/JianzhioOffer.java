@@ -26,6 +26,7 @@ public class JianzhioOffer {
 
         FindGreatestSumOfSubArray(new int[]{2,8,1,5,9});
 
+        FirstNotRepeatingChar("google");
     }
 
 
@@ -894,10 +895,42 @@ public class JianzhioOffer {
      * 在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置,
      * 如果没有则返回 -1（需要区分大小写
      */
-    public int FirstNotRepeatingChar(String str) {
-        //思路：
+    public static int FirstNotRepeatingChar(String str) {
+        //思路：遍历，用一个数组记录下标
+        //  1 2 1 3 2 4 1
 
-        return 0;
+
+        //  1 1 2 1 2 1 3
+        char[] chars = str.toCharArray();
+        int[] arrs = new int[chars.length];
+        //记录 char - count
+        HashMap<Character,Integer> map = new HashMap<>();
+        //记录 index - count
+        HashMap<Integer,Integer> indexCountmap = new HashMap<>();
+
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if (map.containsKey(c)){
+                arrs[i] = map.get(c);
+                map.put(c,(arrs[i] +1));
+                System.out.println("map add " + c + ":"+ (arrs[i] +1));
+            }else {
+                arrs[i] = 1;
+                map.put(c,1);
+                System.out.println("map add " + c + ":"+ 1);
+            }
+        }
+
+        int result = -1;
+        for (int i = 0; i < arrs.length; i++) {
+            if (arrs[i] == 1){
+                result = i;
+                break;
+            }
+        }
+
+        System.out.println("result " + result);
+        return result;
     }
 
 }

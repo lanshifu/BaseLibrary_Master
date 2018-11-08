@@ -1,18 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="这是一个module"/>
 
     <Button
         android:id="@+id/btn_start_server"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="查看包名启动服务"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="启动服务(总开关)" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="查看包名类名"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <Switch
+            android:id="@+id/switch_open_package_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:checked="true"
+            android:gravity="center_vertical"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="支付宝定时偷能量"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <Switch
+            android:id="@+id/switch_auto_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_collection_time_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="时间设置"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_auto_collection_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="7：00-7：30"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_right_24dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_goto_collection_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="查看收能量记录"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_right_24dp" />
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="default"
+        android:textColor="@color/text_color"/>
 
 </LinearLayout>

@@ -1,27 +1,31 @@
 package com.lanshifu.demo_module;
 
+import android.app.Application;
 import android.content.res.Resources;
 import android.os.Environment;
 
+import com.lanshifu.baselibrary.app.BaseApplication;
 import com.lanshifu.baselibrary.app.MainApplication;
+import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.plugin_core.PluginManager;
 
-public class DemoApplication extends MainApplication {
-
-    private  Resources oldResource;
+public class DemoApplication extends BaseApplication {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        oldResource = super.getResources();
-//        String plugPath = Environment.getExternalStorageDirectory()+"/plugin.apk";
-//        PluginManager.getInstance().install(this,plugPath);
+
+        //换肤,onCreate 只有在单独作为app才会调用
+        initSkin(this);
 
     }
 
     @Override
-    public Resources getResources() {
-        Resources newRes =  PluginManager.getInstance().getAppResource();
-        return newRes == null ? super.getResources() : newRes;
+    public void initModuleApp(Application application) {
+
+
+
+        LogHelper.d("DemoApplication ->initModuleApp");
+
     }
 }

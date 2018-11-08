@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -27,7 +28,7 @@ import skin.support.content.res.SkinCompatResources;
 /**
  * Created by 蓝师傅 on 2016/12/24.
  */
-public abstract class BaseActivity extends RxAppCompatActivity{
+public abstract class BaseActivity extends RxAppCompatActivity {
 
     public Context mContext;
     public RxManager mRxManager;
@@ -61,7 +62,7 @@ public abstract class BaseActivity extends RxAppCompatActivity{
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //屏幕适配
-        ScreenUtils.adaptScreen4VerticalSlide(this,360);
+        ScreenUtils.adaptScreen4VerticalSlide(this, 360);
         // 默认着色状态栏
         setStatusBarColor();
 
@@ -88,9 +89,13 @@ public abstract class BaseActivity extends RxAppCompatActivity{
      * 着色状态栏（4.4以上系统有效）
      */
     protected void setStatusBarColor() {
-//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
-        //状态栏支持换肤
-        StatusBarCompat.setStatusBarColor(this, SkinCompatResources.getInstance().getColor(this, R.color.colorPrimaryDark));
+        if (isNeedStatusBarSkin()) {
+            //状态栏支持换肤
+            StatusBarCompat.setStatusBarColor(this, SkinCompatResources.getInstance().getColor(this, R.color.colorPrimaryDark));
+        } else {
+            StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        }
+
     }
 
     /**
@@ -209,10 +214,21 @@ public abstract class BaseActivity extends RxAppCompatActivity{
     }
 
     /**
-     * 支持滑动返回
+     * 是否需要换肤，默认需要，可以重写方法返回false不需要
+     *
      * @return
      */
-    protected boolean enableSwipeBack(){
+    protected boolean isNeedStatusBarSkin() {
+        return true;
+    }
+
+
+    /**
+     * 支持滑动返回
+     *
+     * @return
+     */
+    protected boolean enableSwipeBack() {
         return true;
     }
 

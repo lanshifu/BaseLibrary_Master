@@ -1,3 +1,8 @@
 <resources>
     <string name="demo_app_name">demo_module</string>
+    <string name="behavior_sample_title">com.lanshifu.demo_module.behavior.SampleTitleBehavior</string>
+
+    <string name="behavior_sample_header">com.lanshifu.demo_module.behavior.SampleHeaderBehavior</string>
+    <string name="behavior_recyclerview">com.lanshifu.demo_module.behavior.RecyclerViewBehavior</string>
+
 </resources>

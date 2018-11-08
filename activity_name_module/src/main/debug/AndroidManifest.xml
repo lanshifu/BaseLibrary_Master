@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lanshifu.activity_name_module">
 
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
     <uses-permission android:name="android.permission.AccessibilityService" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +15,7 @@
         android:label="@string/activity_name_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="com.lanshifu.baselibrary.app.MainApplication"
+        android:name="com.lanshifu.baselibrary.app.DefaultApplication"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity android:name=".ui.activity.ShowActivityNameMainActivity"
@@ -25,19 +27,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.CollectionLogActivity" />
+
+        <!--<service-->
+            <!--android:name=".service.MyAccessServices"-->
+            <!--android:label="@string/accessibility_service_label"-->
+            <!--android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.accessibilityservice.AccessibilityService" />-->
+            <!--</intent-filter>-->
+            <!---->
+            <!--<mate-data-->
+                <!--android:name="android.accessibilityservice"-->
+                <!--android:resource="@xml/accessibility"/>-->
+        <!--</service>-->
 
         <service
             android:name=".service.MyAccessServices"
-            android:label="@string/accessibility_service_label"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
-                <!--<mate-data-->
-                    <!--android:name="android.accessibilityservice"-->
-                    <!--android:resource="@xml/accessibility" />-->
             </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility" />
         </service>
+
         <service android:name=".service.WindowService"/>
+
+        <receiver android:name=".receiver.ScreenControlAlarmReceiver">
+            <intent-filter>
+                <action android:name="ScreenControlAlarmReceiver"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.ScreenControlAlarmStopReceiver">
+            <intent-filter>
+                <action android:name="ScreenControlAlarmStopReceiver"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

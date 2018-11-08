@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    >
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:padding="8dp"
+        android:text="时间:"/>
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:paddingLeft="8dp"
+        android:text="次数:"/>
+
+    <TextView
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:background="@color/text_color"
+        android:layout_height="1dp" />
+
+</LinearLayout>

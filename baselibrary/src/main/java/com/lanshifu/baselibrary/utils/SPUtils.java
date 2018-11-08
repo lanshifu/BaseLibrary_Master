@@ -27,7 +27,7 @@ public class SPUtils {
      * put
      */
 
-    private static void putString(String key, String value) {
+    public static void putString(String key, String value) {
         sharedWritable.putString(key, value);
         sharedWritable.apply();
     }

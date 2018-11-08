@@ -2,6 +2,7 @@ package com.lanshifu.baselibrary_master.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -208,7 +209,9 @@ public class MainActivity extends BaseTitleBarActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+        //将这一行注释掉，阻止activity保存fragment的状态,解决Fragment穿透重叠现象
+//        super.onSaveInstanceState(outState);
+
         outState.putInt(KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID, bottomNavigationView.getSelectedItemId());
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (mHomeFragment.isAdded()) {

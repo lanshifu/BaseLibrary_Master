@@ -29,4 +29,7 @@ dependencies {
     //https://github.com/MZCretin/ExpandableTextView
     implementation 'com.github.MZCretin:ExpandableTextView:v1.5.1'
 
+    //popupwindow
+    implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
+
 }

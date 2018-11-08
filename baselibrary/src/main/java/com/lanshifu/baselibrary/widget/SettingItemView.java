@@ -155,6 +155,7 @@ public class SettingItemView extends LinearLayout {
         setRightText("");
         showArrow(false);
         mSwitch.setVisibility(VISIBLE);
+        mSwitch.setChecked(check);
         showDivider(false, true);
         return this;
     }

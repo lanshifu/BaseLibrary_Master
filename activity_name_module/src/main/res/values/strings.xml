@@ -1,5 +1,5 @@
 <resources>
-    <string name="activity_name_app_name">辅助查看类名</string>
-    <string name="accessibility_service_label">查看当前界面包名了类名</string>
-    <string name="desc">描述</string>
+    <string name="activity_name_app_name">蓝师傅辅助服务</string>
+    <string name="accessibility_service_label">蓝师傅辅助服务</string>
+    <string name="desc">1.查看当前页面包名  2.定时调整到支付宝收能量界面，利用xposed自动收取能量</string>
 </resources>

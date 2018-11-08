@@ -4,16 +4,28 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.lanshifu.baselibrary.BuildConfig;
 import com.lanshifu.baselibrary.base.AppManager;
 import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.network.ApiConstant;
 import com.lanshifu.baselibrary.utils.CommonUtils;
+import com.squareup.leakcanary.LeakCanary;
+
+import org.litepal.LitePal;
+
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import skin.support.SkinCompatManager;
+import skin.support.app.SkinCardViewInflater;
+import skin.support.constraint.app.SkinConstraintViewInflater;
 
 /**
  * Created by lanxiaobin on 2018/1/2.
  */
 
-public class BaseApplication extends Application {
+public abstract class BaseApplication extends Application {
 
     private static Context context;
 
@@ -26,12 +38,27 @@ public class BaseApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
 
-        //工具栏初始化
+        //工具初始化
         CommonUtils.init(context);
 
-        //注册自己的Activity的生命周期回调接口。
+        //公用的库初始化
+        initArouter(this);
+        LitePal.initialize(this);
+        initRetrofitUrlManager();
+
+
+        //注册自己的Activity的生命周期回调监听
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
+
+        initModuleApp(this);
     }
+
+    /**
+     * Application 初始化
+     * @param application
+     */
+    public abstract void initModuleApp(Application application);
+
 
     //声明一个监听Activity们生命周期的 ActivityLifecycleCallbacks
     // 方便管理包括第三方sdk中的activity
@@ -78,4 +105,51 @@ public class BaseApplication extends Application {
             LogHelper.v("lxb ->onActivityDestroyed " + activity.getClass().getSimpleName());
         }
     };
+
+
+    /**
+     * initMultiDex 支持
+     */
+    protected void initMultiDex() {
+        MultiDex.install(this);
+    }
+
+    protected void initRetrofitUrlManager() {
+        RetrofitUrlManager.getInstance().putDomain("wanandroid", ApiConstant.URL_WANDROID);
+        // 全局 BaseUrl 的优先级低于 Domain-Name header 中单独配置的,其他未配置的接口将受全局 BaseUrl 的影响
+        RetrofitUrlManager.getInstance().setGlobalDomain(ApiConstant.URL_DERAULT);
+        RetrofitUrlManager.getInstance().setDebug(BuildConfig.DEBUG);
+    }
+
+    protected void initSkin(Application application) {
+        //换肤框架初始化
+        SkinCompatManager.withoutActivity(application)                         // 基础控件换肤初始化
+//                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
+                .addInflater(new SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
+//                .addInflater(new SkinCardViewInflater())                // CardView v7 控件换肤初始化[可选]
+                .setSkinStatusBarColorEnable(true)                     // 关闭状态栏换肤，默认打开[可选]
+                .setSkinWindowBackgroundEnable(true)                   // 关闭windowBackground换肤，默认打开[可选]
+                .loadSkin();
+    }
+
+    protected void initArouter(Application application) {
+        //ARouter
+        if (BuildConfig.DEBUG) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
+            ARouter.openLog();     // 打印日志
+            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        }
+        ARouter.init(application); // 尽可能早，推荐在Application中初始化
+    }
+
+    protected void initLeakCanary(Context context) {
+        //内存泄漏检测
+        if (LeakCanary.isInAnalyzerProcess(context)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LogHelper.d("LeakCanary.install(this);");
+        LeakCanary.install(this);
+    }
+
 }

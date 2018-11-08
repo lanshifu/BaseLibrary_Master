@@ -1,5 +1,10 @@
 <resources>
 
-
-
+    <style name="default_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_default_style</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
 </resources>

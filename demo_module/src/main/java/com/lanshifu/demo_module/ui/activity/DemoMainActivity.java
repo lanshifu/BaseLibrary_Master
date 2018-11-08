@@ -3,6 +3,7 @@ package com.lanshifu.demo_module.ui.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -25,6 +26,7 @@ import com.lanshifu.commonservice.demo.DemoInfo;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
 import com.lanshifu.demo_module.bean.FinalClass;
+import com.lanshifu.demo_module.design_mode.ProducerConsumerTest;
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -47,6 +49,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             boolean boy;
     @Autowired
     DemoInfo mDemoInfo;    // 支持解析自定义对象，URL中使用json传递
+
 
     private H mHandler;
     private boolean mWifiProxy;
@@ -121,8 +124,14 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         mWifiProxy = NetworkUtils.isWifiProxy(this);
         Log.i(TAG, "initView: ");
         Log.i(TAG, "initView: ");
-        
 
+
+
+        long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
+        LogHelper.d("当前时间戳："+time);
+
+        ProducerConsumerTest test = new ProducerConsumerTest();
+        test.Test();
 
     }
 
@@ -200,7 +209,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_refresh_media, R2.id.btn_installed_app, R2.id.btn_crash
             , R2.id.btn_pdf_list, R2.id.btn_swipeback, R2.id.btn_leak, R2.id.btn_test
             , R2.id.btn_tablayout, R2.id.btn_plugin, R2.id.btn_guard, R2.id.btn_event
-            , R2.id.btn_setting, R2.id.btn_expandable_textview})
+            , R2.id.btn_setting, R2.id.btn_expandable_textview, R2.id.btn_litepal
+            , R2.id.btn_behavior, R2.id.btn_behavior2, R2.id.btn_bottom_sheet_behavior
+            , R2.id.btn_guide, R2.id.btn_webview})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -256,6 +267,18 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             startActivity(DemoSettingActivity.class);
         }else if (viewId == R.id.btn_expandable_textview) {
             startActivity(DemoExpandableTextViewActivity.class);
+        }else if (viewId == R.id.btn_litepal) {
+            startActivity(DemoLitepalActivity.class);
+        }else if (viewId == R.id.btn_behavior) {
+            startActivity(DemoBehavior1Activity.class);
+        }else if (viewId == R.id.btn_behavior2) {
+            startActivity(DemoBehavior2Activity.class);
+        }else if (viewId == R.id.btn_bottom_sheet_behavior) {
+            startActivity(DemoBehavior3Activity.class);
+        }else if (viewId == R.id.btn_guide) {
+            startActivity(DemoGuideActivity.class);
+        }else if (viewId == R.id.btn_webview) {
+            startActivity(DemoWebViewActivity.class);
         }
     }
 

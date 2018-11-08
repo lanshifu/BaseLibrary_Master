@@ -52,6 +52,11 @@ public class ShadowView extends View {
         setShowColor(mShadowColor, showShadowBar, showBackground);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     /**
      * 设置阴影颜色
      *

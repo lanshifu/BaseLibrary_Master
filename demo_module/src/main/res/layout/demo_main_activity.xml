@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <com.google.android.flexbox.FlexboxLayout
@@ -15,101 +16,119 @@
 
         <Button
             android:id="@+id/btn_app_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="应用信息" />
 
         <Button
             android:id="@+id/btn_wifi_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="wifi密码查看" />
 
         <Button
             android:id="@+id/btn_sign_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="签名验证" />
 
 
         <Button
             android:id="@+id/btn_refresh_media"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="更新媒体库" />
 
 
         <Button
             android:id="@+id/btn_installed_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="安装的应用" />
 
         <Button
             android:id="@+id/btn_crash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="crash捕获" />
 
 
         <Button
             android:id="@+id/btn_pdf_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="加载pdf文件" />
 
         <Button
             android:id="@+id/btn_leak"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="制造内存泄漏" />
 
         <Button
             android:id="@+id/btn_swipeback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="滑动返回" />
 
         <Button
             android:id="@+id/btn_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="测试" />
 
-       <Button
+        <Button
             android:id="@+id/btn_tablayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="tablayout" />
 
-      <Button
+        <Button
             android:id="@+id/btn_plugin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="插件化" />
 
-    <Button
+        <Button
             android:id="@+id/btn_guard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="进程守护" />
 
-   <Button
+        <Button
             android:id="@+id/btn_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="触摸事件" />
-   <Button
+
+        <Button
             android:id="@+id/btn_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="设置界面" />
 
-    <Button
+        <Button
             android:id="@+id/btn_expandable_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/default_button"
             android:text="expandable_textview" />
+
+
+        <Button
+            android:id="@+id/btn_litepal"
+            style="@style/default_button"
+            android:text="litepal3.0" />
+
+
+        <Button
+            android:id="@+id/btn_behavior"
+            style="@style/default_button"
+            android:text="behavior" />
+
+        <Button
+            android:id="@+id/btn_behavior2"
+            style="@style/default_button"
+            android:text="behavior2" />
+
+        <Button
+            android:id="@+id/btn_bottom_sheet_behavior"
+            style="@style/default_button"
+            android:text="bottom_sheet_behavior" />
+
+        <Button
+            android:id="@+id/btn_guide"
+            style="@style/default_button"
+            android:text="引导层" />
+
+
+        <Button
+            android:id="@+id/btn_webview"
+            style="@style/default_button"
+            android:text="webview交互" />
 
 
     </com.google.android.flexbox.FlexboxLayout>

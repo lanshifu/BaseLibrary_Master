@@ -18,6 +18,8 @@
         <activity android:name=".ui.activity.DemoGuardActivity"/>
         <activity android:name=".ui.activity.DemoTouchEventActivity"/>
         <activity android:name=".ui.activity.DemoSettingActivity"/>
+        <activity android:name=".ui.activity.DemoExpandableTextViewActivity"/>
+        <activity android:name=".ui.activity.DemoLitepalActivity"/>
 
 
         <service android:name=".service.GuardService"
@@ -25,6 +27,9 @@
 
         <service android:name=".service.MainService"
             android:process=":main_service"/>
+
+        <service android:name=".service.JobWakeUpService"
+            android:process=":JobWakeUpService"/>
 
     </application>
 
