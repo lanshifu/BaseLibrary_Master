@@ -9,7 +9,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.baselibrary.utils.NotificationUtils;
+import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.demo_module.ProcessConnection;
 
 /**
@@ -27,8 +27,7 @@ public class GuardService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogHelper.d("GuardService:onStartCommand");
-        NotificationUtils notificationUtils = new NotificationUtils(this);
-        startForeground(0, notificationUtils.getNotication("title", "content"));
+        startForeground(0, NotifyManager.getInstance(this).getNormalNotify(this,"","",null));
         //绑定建立链接
         bindService(new Intent(this, MainService.class),
                 mServiceConnection, Context.BIND_IMPORTANT);

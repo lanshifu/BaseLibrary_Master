@@ -1,10 +1,10 @@
 package com.lanshifu.demo_module.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.text.util.LinkifyCompat;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -41,6 +41,7 @@ public class DemoExpandableTextViewActivity extends BaseTitleBarActivity{
     };
 
     private TextView tvTips00;
+    private TextView mTvSpanable;
 
     private ExpandableTextView.OnLinkClickListener linkClickListener = (type, content, selfContent) -> {
         if (type.equals(LinkType.LINK_TYPE)) {
@@ -76,6 +77,7 @@ public class DemoExpandableTextViewActivity extends BaseTitleBarActivity{
         tips[8] = findViewById(R.id.tv_tips09);
         tips[9] = findViewById(R.id.tv_tips10);
         tvTips00 = findViewById(R.id.tv_tips00);
+        mTvSpanable = findViewById(R.id.tv_spanable);
     }
     @Override
     protected int getLayoutId() {
@@ -101,12 +103,22 @@ public class DemoExpandableTextViewActivity extends BaseTitleBarActivity{
 //            startActivity(new Intent(this, ShowInRecyclerViewActivity.class));
         });
 
-        //广告 从后台到app都是我自己一个人开发的 希望得到你的支持
-        findViewById(R.id.ll_ad).setOnClickListener(v -> {
-            Uri uri = Uri.parse("http://a.app.qq.com/o/simple.jsp?pkgname=com.cretin");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        });
+//        //广告 从后台到app都是我自己一个人开发的 希望得到你的支持
+//        findViewById(R.id.ll_ad).setOnClickListener(v -> {
+//            Uri uri = Uri.parse("http://a.app.qq.com/o/simple.jsp?pkgname=com.cretin");
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            startActivity(intent);
+//        });
+
+
+        String html="<b>Hello World</b><br> " +
+                "<strong>我的测试</strong><img src=\"ic_launcher-web.png\"><img src=\"\"> <br>" +
+                "<font color='#ff0000'>Hello World</font><br> " +
+                " <i><a href='https://github.com/lanshifu'>我的github</a></i>";
+        mTvSpanable.setMovementMethod(LinkMovementMethod.getInstance());
+        mTvSpanable.setText(Html.fromHtml(html));
+
+
 
     }
 

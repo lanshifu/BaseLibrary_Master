@@ -1,5 +1,7 @@
 package com.lanshifu.demo_module.suanfa.niuke;
 
+import org.w3c.dom.Node;
+
 import java.util.ArrayList;
 
 public class Niuke {
@@ -79,6 +81,42 @@ public class Niuke {
 //        return arrayList;
     }
 
+    /**
+     * 链表
+     */
+    class Node {
+        public int value;
+        public Node next;
+        public Node(int value) {
+            this.value = value;
+        }
+    }
+
+    /**
+     * 反转链表
+     * @param head
+     * @return
+     */
+    public static Node reverse(Node head) {
+        Node pre = null;
+        Node next = null;
+        // 1 -> 2 -> 3
+        while (head != null){ //head = 1        2               3
+            next = head.next;//next=2->3        3->null         3-2->3->1-> null
+            head.next = pre; // 1->null         2->1-> null     3->2->1
+            pre = head; // pre = 1-> null       2->1-> null     3->2->1
+            head = next;// head= 2->3           3->null
+        }
+        return pre; //3->2->1
+    }
+
+    public static void printList(Node head) {
+        while(head!=null) {
+            System.out.print("\t"+head.value);
+            head = head.next;
+        }
+        System.out.println();
+    }
 
 
 }

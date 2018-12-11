@@ -1,5 +1,8 @@
 package com.lanshifu.baselibrary.network;
 
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
 import org.reactivestreams.Publisher;
 
 import java.util.concurrent.ExecutorService;
@@ -37,6 +40,26 @@ public class RxScheduler {
                 return observable
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
+            }
+
+
+        };
+    }
+
+    /**
+     * 线程切换 + 生命周期管理
+     * @param lifecycleProvider  activity 中传 this， presenter中 传 mView（然后强转）
+     * @param <T>
+     * @return
+     */
+    public static <T> ObservableTransformer<T, T> io_main_lifecycler(final LifecycleProvider<ActivityEvent> lifecycleProvider) {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(io.reactivex.Observable<T> observable) {
+                return observable
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(lifecycleProvider.<T>bindUntilEvent(ActivityEvent.DESTROY));
             }
 
 

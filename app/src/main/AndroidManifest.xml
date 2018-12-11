@@ -14,6 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+
+        <!--高德-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="7457d9bcd361e849012741cdc106fe23" />
+
+
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

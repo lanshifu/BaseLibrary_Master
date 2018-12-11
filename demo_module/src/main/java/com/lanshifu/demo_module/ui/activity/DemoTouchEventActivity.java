@@ -12,7 +12,7 @@ import com.lanshifu.baselibrary.widget.SettingItemView;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
 import com.lanshifu.demo_module.widget.DemoRelativeLayout;
-import com.lanshifu.demo_module.widget.DemoTextView;
+import com.lanshifu.demo_module.widget.DemoView;
 
 import butterknife.BindView;
 
@@ -22,7 +22,7 @@ import butterknife.BindView;
  */
 public class DemoTouchEventActivity extends BaseTitleBarActivity {
     @BindView(R2.id.tv_child)
-    DemoTextView tvChild;
+    DemoView tvChild;
     @BindView(R2.id.rl_root)
     DemoRelativeLayout rlRoot;
     @BindView(R2.id.ll_switch_root)
@@ -40,7 +40,7 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
     protected void initView(Bundle savedInstanceState) {
 
         initListener();
-        initSwitch();
+//        initSwitch();
 
 
     }
@@ -50,17 +50,29 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
         tvChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showShortToast("child 点击");
-                LogHelper.d("child onClick");
+                showShortToast("view 点击");
+                LogHelper.d("view onClick");
             }
         });
+
         tvChild.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                showShortToast("child onTouch");
                 LogHelper.d("child onTouch");
-                //返回true 就不会走onClick
-                return true;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        return true;
+//                        break;
+                }
+                /**
+                 * onTouch 返回true 就不会走onClick,因为OnTouchEvet不会走
+                 * 见源码 dispachTouchEvent()
+                 * */
+                return false;
             }
         });
 
@@ -72,14 +84,16 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
                 LogHelper.d("ViewGroup onClick");
             }
         });
-        rlRoot.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                showShortToast("ViewGroup onTouch");
-                LogHelper.d("ViewGroup onTouch");
-                return false;
-            }
-        });
+
+//        rlRoot.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                showShortToast("ViewGroup onTouch");
+//                LogHelper.d("ViewGroup onTouch");
+//                return false;
+//            }
+//        });
+
     }
 
     private void initSwitch() {
@@ -134,8 +148,6 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
         LogHelper.d("Activity->onTouchEvent:" + getEventName(event));
         return super.onTouchEvent(event);
     }
-
-
 
     private String getEventName(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 
 import com.lanshifu.demo_module.suanfa.Sort;
 
+import org.w3c.dom.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -333,6 +335,7 @@ public class LeetCodeEasy {
                     '}';
         }
     }
+
 
 
     /**
@@ -871,9 +874,12 @@ public class LeetCodeEasy {
 
     }
 
+    /**
+     * 单链表
+     */
     public class ListNode {
-        int val;
-        ListNode next;
+        public int val;
+        public ListNode next;
 
         ListNode(int x) {
             val = x;
@@ -958,25 +964,15 @@ public class LeetCodeEasy {
      * 链表的中间结点
      */
     public ListNode middleNode(ListNode head) {
-//        //慢指针和快指针，快指针走完，慢指针刚好走一半
-//        ListNode fast = head;
-//        ListNode slow = head;
-//        // 1,2,3,4,5,6]
-//        while (fast != null && fast.next != null) {  //2  4  6
-//            fast = fast.next.next;                        //3  5  null
-//            if (fast != null){
-//                slow = slow.next;                        //2  3  4
-//            }
-//        }
-//        return slow;
-        ListNode[] arr = new ListNode[100];
-        int index = 0;
-        arr[index] = head;
-        while (head != null){
-            index ++;
-            head = arr[index] = head.next;
+        //慢指针和快指针，快指针走完，慢指针刚好走一半
+        ListNode fast = head;
+        ListNode slow = head;
+        // 1,2,3,4,5,6]
+        while (fast != null && fast.next != null) {  //2  4  6
+            fast = fast.next.next;        //
+            slow = slow.next;             //4,5,6
         }
-        return arr[index /2];
+        return slow;
     }
 
     /**
@@ -1030,10 +1026,172 @@ public class LeetCodeEasy {
      * @return
      */
 //    public ListNode reverseList(ListNode head) {
-//        // 思路，递归可以吗？
-////        while
+//        ListNode pre = null;
+//        ListNode next = null;
+//        // 1 -> 2 -> 3
+//        while (head != null){ //head = 1        2               3
+//            next = head.next;//next=2->3        3->null         3-2->3->1-> null
+//            head.next = pre; // 1->null         2->1-> null     3->2->1
+//            pre = head; // pre = 1-> null       2->1-> null     3->2->1
+//            head = next;// head= 2->3           3->null
+//        }
+//        return pre; //3->2->1
 //
 //    }
+
+    /**
+     * 合并两个有序链表
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode temp1 = l1;
+        ListNode temp2 = l2;
+        //有一个为空则返回另一个
+        if (l1 == null){
+            return l2;
+        }
+        if (l2 == null){
+            return l1;
+        }
+        //根节点，比较两个链表取最小那个值
+        ListNode resultNode = new ListNode(-1); //头节点最后要去掉
+        ListNode tempNode = resultNode; //用一个temp指向 resultNode
+        //两个链表都不为空则迭代
+        while (temp1 != null && temp2 != null){
+            //第二个小，next指向temp2
+            if (temp1.val > temp2.val){
+                tempNode.next = temp2;
+                temp2 = temp2.next;
+            }else {
+                tempNode.next = temp1;
+                temp1 = temp1.next;
+            }
+            //temp指向下一个节点
+            tempNode = tempNode.next;
+        }
+        //有一个空了，next就指向另一个
+        tempNode.next = temp1 == null ? temp2 : temp1;
+        return resultNode.next; //返回根
+
+    }
+
+    /**
+     * 反转一个单链表。
+     * 输入: 1->2->3->4->5->NULL
+     * 输出: 5->4->3->2->1->NULL
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode preNode = null; // preNode 是 head的上一个，开始是null
+        ListNode nextNode;
+        while (head != null){
+            nextNode = head.next;
+            //关键指针，就这两句
+            head.next = preNode;  //指针反向            1->null
+            preNode = head; //走了next，上一个就是head了 1->null
+
+            head = nextNode;
+        }
+        return preNode;
+    }
+
+    /**
+     *
+     * 给定一个链表，判断链表中是否有环
+     * @param head
+     * @return
+     */
+    public boolean hasCycle(ListNode head) {
+        //定义一个快指针和一个慢指针，快指针一次走两步，慢指针一次走一步
+        //如果成环，一定会相遇，因为慢指针走一圈，快指针刚好走两圈，都回到开始的位置
+        ListNode fastNode = head;
+        ListNode slowNode = head;
+        //只要判断快指针就行
+        while (fastNode != null && fastNode.next != null){
+            fastNode = fastNode.next.next;
+            slowNode = slowNode.next;
+            if (fastNode == slowNode){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+     * [1,2]  2
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        //提示 ： 用两个指针，一个先走n步，然后先走的指针，
+        if (head == null){
+            return null;
+        }
+        ListNode fastNode = head;
+        ListNode slowNode = head;
+        //先走n 步
+        while (n > 0){
+            fastNode = fastNode.next;
+            n--;
+        }
+        //特殊条件，长度2，n也是2，也就是删除第一个节点
+        if (fastNode == null){
+            return slowNode.next;
+        }
+        //两个指针一起走，快指针走到最后一个的时候
+        while (fastNode.next != null){
+            fastNode = fastNode.next;
+            slowNode = slowNode.next;
+        }
+        //慢指针的下一个节点就是要删的节点
+        slowNode.next = slowNode.next.next;
+        return head;
+
+    }
+
+
+    /**
+     * 请判断一个链表是否为回文链表
+     *
+     *
+     输入: 1->2
+     输出: false
+     输入: 1->2->2->1
+     输出: true
+     * @param head
+     * @return
+     */
+    public boolean isPalindrome(ListNode head) {
+        //需要两个指针，到达中间位置后，后半段反转
+        if (head == null){
+            return true;
+        }
+        ListNode fastNode = head;
+        ListNode slowNode = head;
+        while (fastNode != null && fastNode.next != null){
+            fastNode = fastNode.next.next;
+            slowNode = slowNode.next;
+            if (fastNode == slowNode){
+                break;
+            }
+        }
+        //反转比较
+        ListNode listNode2 = reverseList(slowNode);
+        while (listNode2 != null){
+            if (listNode2.val != head.val){
+                return false;
+            }
+            listNode2 = listNode2.next;
+            head = head.next;
+        }
+        return true;
+
+    }
+
+
 
 
 }

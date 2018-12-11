@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -189,8 +190,26 @@ public class UIUtil {
         ARouter.getInstance().build(path).navigation(context);
     }
 
+    /**
+     * 通过path获取fragment
+     * @param path
+     * @return
+     */
     public static Fragment navigationFragment(String path){
         return (Fragment)ARouter.getInstance().build(path).navigation();
+    }
+
+    /**
+     * 跳转到应用详情页面,权限被拒绝时调用
+     * @param context
+     * @return
+     */
+    public static void gotoAppDetailSetting(Context context) {
+        Intent localIntent = new Intent();
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        localIntent.setData(Uri.fromParts("package", context.getPackageName(), null));
+        context.startActivity(localIntent);
     }
 
 }

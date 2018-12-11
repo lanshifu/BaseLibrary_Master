@@ -84,15 +84,11 @@ public class ZhifubaoModule {
             sendMessage(MSG_BACK,myAccessServices,10000);
 
         }else if ("com.lanshifu.activity_name_module".equals(pkgName)){
-            ToastUtil.showShortToast("10秒后回桌面");
-            sendMessage(MSG_HOME,myAccessServices,10000);
+            ToastUtil.showShortToast("10秒后返回");
+            sendMessage(MSG_BACK,myAccessServices,10000);
         } else {
             ToastUtil.showShortToast("不知道当前在哪个界面，5秒后回");
-            boolean click = AccessServiceUtil.clickTextViewByText(rootNodeInfo, "支付宝");
-            LogHelper.d("点击支付宝 "+ click);
-            if (!click){
-                sendMessage(MSG_BACK,myAccessServices,5000);
-            }
+            sendMessage(MSG_BACK,myAccessServices,5000);
         }
 
     }

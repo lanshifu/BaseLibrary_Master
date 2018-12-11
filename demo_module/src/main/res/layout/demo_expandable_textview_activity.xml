@@ -341,11 +341,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="这是一条广告"
+                    android:text="普通富文本"
                     android:textColor="#333333"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_spanable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="《段子乐》是一款集视频，趣图，段子于一身的社区APP"

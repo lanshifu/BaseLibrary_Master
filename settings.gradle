@@ -8,4 +8,7 @@ include ':app',
         ':demo_module',
         ':share_module',
         ':plugin_core',
-        ':plugin_module'
+        ':plugin_module',
+        ':map_module',
+        ':reader',
+        ':article_module'

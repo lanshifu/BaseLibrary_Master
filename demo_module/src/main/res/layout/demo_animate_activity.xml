@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btn_anim1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="估值器"/>
+
+        <Button
+            android:id="@+id/btn_anim2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="插值器" />
+        <Button
+            android:id="@+id/btn_anim3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="动画3"/>
+        <Button
+            android:id="@+id/btn_anim4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="动画4"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="我会动" />
+
+
+</RelativeLayout>

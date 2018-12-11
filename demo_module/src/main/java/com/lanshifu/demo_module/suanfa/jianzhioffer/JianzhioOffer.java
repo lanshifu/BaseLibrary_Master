@@ -1,7 +1,9 @@
 package com.lanshifu.demo_module.suanfa.jianzhioffer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
@@ -13,20 +15,31 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class JianzhioOffer {
 
-    public static void test() {
+    public  static void test() {
 
-        System.out.println("剑指offer 开始》》》");
-        System.out.println(jumpFloor(3));
-        System.out.println(Fibonacci(39));
-        System.out.println(jumpFloorII(3));
-        System.out.println(RectCover(3));
+//        System.out.println("剑指offer 开始》》》");
+//        System.out.println(jumpFloor(3));
+//        System.out.println(Fibonacci(39));
+//        System.out.println(jumpFloorII(3));
+//        System.out.println(RectCover(3));
+//
+//        System.out.println("VerifySquenceOfBST(new int[]{4,8,6,8,12,16,14,10});" +
+//                VerifySquenceOfBST(new int[]{4, 8, 6, 8, 12, 16, 14, 10}));
+//
+//        FindGreatestSumOfSubArray(new int[]{2, 8, 1, 5, 9});
+//
+//        System.out.println(FirstNotRepeatingChar("google"));
+//
+//        Permutation("abc");
+//
+//        int[]num1 = new int[1];
+//        int[]num2 = new int[1];
+//        FindNumsAppearOnce(new int[]{4,6,2,2,3,3,8,8,9,9,1000000,1000000},num1,num2);
 
-        System.out.println("VerifySquenceOfBST(new int[]{4,8,6,8,12,16,14,10});" +
-                VerifySquenceOfBST(new int[]{4,8,6,8,12,16,14,10}));
+        JianzhioOffer jianzhioOffer = new JianzhioOffer();
+        String printMinNumber = jianzhioOffer.PrintMinNumber(new int[]{3, 5, 1,4, 2});
+        System.out.println(printMinNumber);
 
-        FindGreatestSumOfSubArray(new int[]{2,8,1,5,9});
-
-        FirstNotRepeatingChar("google");
     }
 
 
@@ -580,9 +593,9 @@ public class JianzhioOffer {
      * 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
      * 则依次打印出数字
      * 1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
-     *
+     * <p>
      * 偏难
-     *
+     * <p>
      * 规律：
      * 外圈 4*4
      * 00 01 02 03 左-》右
@@ -657,25 +670,24 @@ public class JianzhioOffer {
     /**
      * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。
      * 如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
-     *
+     * <p>
      * 复习：
      * 前序遍历：根左右
      * 中序遍历：左根右
      * 后续遍历：左右根
-     *
+     * <p>
      * 二叉搜索树：
      * 1：空树
      * 2.左子树不空，则左子树上所有结点的值均小于它的根结点的值
      * 3：若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值
-     *
-     *难，主要是要知道后序遍历的特点和二叉搜索树的特点
-     思路：
-     已知条件：后序序列最后一个值为root；二叉搜索树左子树值都比root小，右子树值都比root大。
-     1、确定root；
-     2、遍历序列（除去root结点），找到第一个大于root的位置，则该位置左边为左子树，右边为右子树；
-     3、遍历右子树，若发现有小于root的值，则直接返回false；
-     4、分别判断左子树和右子树是否仍是二叉搜索树（即递归步骤1、2、3）。
-     *
+     * <p>
+     * 难，主要是要知道后序遍历的特点和二叉搜索树的特点
+     * 思路：
+     * 已知条件：后序序列最后一个值为root；二叉搜索树左子树值都比root小，右子树值都比root大。
+     * 1、确定root；
+     * 2、遍历序列（除去root结点），找到第一个大于root的位置，则该位置左边为左子树，右边为右子树；
+     * 3、遍历右子树，若发现有小于root的值，则直接返回false；
+     * 4、分别判断左子树和右子树是否仍是二叉搜索树（即递归步骤1、2、3）。
      */
     public static boolean VerifySquenceOfBST(int[] sequence) {
         //后续遍历，最后一个是根节点
@@ -683,13 +695,13 @@ public class JianzhioOffer {
             return false;
         }
 
-        return VerifySquenceOfBST(sequence,0,sequence.length -1);
+        return VerifySquenceOfBST(sequence, 0, sequence.length - 1);
 
 
     }
 
-    private static boolean VerifySquenceOfBST(int[] sequence,int start,int end){
-        if (end-start <=1){
+    private static boolean VerifySquenceOfBST(int[] sequence, int start, int end) {
+        if (end - start <= 1) {
             return true;
         }
         int i = 0;
@@ -697,13 +709,13 @@ public class JianzhioOffer {
 
         //1.找到第一位比根节点大的元素，记录此位置i
         for (i = 0; i < end; i++) {
-            if (sequence[i] > sequence[end]){
+            if (sequence[i] > sequence[end]) {
                 break;
             }
         }
         //2.检查右子树是否都大于跟节点（从第i位开始，到根节点前）
         for (j = i; j < end; j++) {
-            if (sequence[j] < sequence[end]){
+            if (sequence[j] < sequence[end]) {
                 return false;
             }
         }
@@ -711,10 +723,10 @@ public class JianzhioOffer {
         boolean left = true;
         boolean right = true;
         if (i > 0) {
-            left = VerifySquenceOfBST(sequence, start, i-1);
+            left = VerifySquenceOfBST(sequence, start, i - 1);
         }
         if (i < sequence.length - 1) {
-            right = VerifySquenceOfBST(sequence,i,end -1);
+            right = VerifySquenceOfBST(sequence, i, end - 1);
         }
         return left && right;
 
@@ -724,35 +736,35 @@ public class JianzhioOffer {
     /**
      * 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。
      * 由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
-     *
+     * <p>
      * 1.用map，时间复杂度最坏的情况下为2n，遍历两次
-     *
+     * <p>
      * 2.利用 ++ --，一次循环找到次数超过一半的数
      */
-    public int MoreThanHalfNum_Solution(int [] array) {
+    public int MoreThanHalfNum_Solution(int[] array) {
 
         //1.如果次数超过一半，通过++ 和 -- ,最后result可能是结果，也可能是最后的数
         int result = array[0];
         int time = 0;
         for (int i = 0; i < array.length; i++) {
-            if (time == 0){
+            if (time == 0) {
                 result = array[i];
-                time  = 1;
-            }else if (result == array[i]){
-                time ++;
-            }else {
-                time --;
+                time = 1;
+            } else if (result == array[i]) {
+                time++;
+            } else {
+                time--;
             }
 
         }
         //验证一下result 是否超过一半
-        time =0;
+        time = 0;
         for (int i = 0; i < array.length; i++) {
-            if (result == array[i]){
-                time ++;
+            if (result == array[i]) {
+                time++;
             }
         }
-        if (time > (array.length /2)){
+        if (time > (array.length / 2)) {
             return result;
         }
         return 0;
@@ -783,21 +795,20 @@ public class JianzhioOffer {
 
     /**
      * 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
-     *
+     * <p>
      * 思路：排序
-     *
+     * <p>
      * 时间复杂度 n * k
-     *
      */
-    public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
+    public ArrayList<Integer> GetLeastNumbers_Solution(int[] input, int k) {
         ArrayList<Integer> resultList = new ArrayList<>();
-        if (k < input.length){
+        if (k < input.length) {
             return resultList;
         }
         int min = Integer.MAX_VALUE;
-        while (k >0){
+        while (k > 0) {
             for (int i : input) {
-                if (min > i && !resultList.contains(i)){
+                if (min > i && !resultList.contains(i)) {
                     min = i;
                 }
             }
@@ -817,20 +828,20 @@ public class JianzhioOffer {
      * 例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)
      */
     public static int FindGreatestSumOfSubArray(int[] array) {
-        if (array.length ==1){
+        if (array.length == 1) {
             return array[0];
         }
         int result = array[0];
 
         for (int i = 0; i < array.length; i++) {
             int cur = array[i];
-            if (result < cur){
+            if (result < cur) {
                 result = cur;
             }
-            for (int j = i+1; j < array.length; j++) {
+            for (int j = i + 1; j < array.length; j++) {
                 //计算所有可能
                 cur += array[j];
-                if (result < cur){
+                if (result < cur) {
                     result = cur;
                 }
 
@@ -840,25 +851,6 @@ public class JianzhioOffer {
         return result;
     }
 
-    /**
-     输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
-     路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)
-     todo
-     */
-    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root,int target) {
-
-        ArrayList<ArrayList<Integer>> resultList = new ArrayList<>();
-        //思路，遍历所有节点路径，如果连起来值是target则保存起来，最后排序一下
-        if (root == null){
-            return null;
-        }
-
-        while (root.left != null){
-
-        }
-
-        return resultList;
-    }
 
     /**
      * 输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。
@@ -870,23 +862,23 @@ public class JianzhioOffer {
         //右树深度
         int rightDepth = 0;
 
-        if (root == null){
+        if (root == null) {
             return 0;
         }
 
-        if (root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             return 1;
         }
-        if (root.left != null){
-            leftDepth ++;
+        if (root.left != null) {
+            leftDepth++;
         }
-        if (root.right != null){
-            rightDepth ++;
+        if (root.right != null) {
+            rightDepth++;
         }
         //递归获取左右树最深度
         leftDepth += TreeDepth(root.left);
         rightDepth += TreeDepth(root.right);
-        result =  leftDepth > rightDepth ? leftDepth : rightDepth;
+        result = leftDepth > rightDepth ? leftDepth : rightDepth;
         return result;
     }
 
@@ -896,41 +888,336 @@ public class JianzhioOffer {
      * 如果没有则返回 -1（需要区分大小写
      */
     public static int FirstNotRepeatingChar(String str) {
-        //思路：遍历，用一个数组记录下标
+        //思路：利用每个字母的ASCII码作hash来作为数组的index
         //  1 2 1 3 2 4 1
-
-
         //  1 1 2 1 2 1 3
+        if (str.length() == 0) {
+            return -1;
+        }
         char[] chars = str.toCharArray();
-        int[] arrs = new int[chars.length];
-        //记录 char - count
-        HashMap<Character,Integer> map = new HashMap<>();
-        //记录 index - count
-        HashMap<Integer,Integer> indexCountmap = new HashMap<>();
-
+        int[] arrs = new int[256];
+        //用一个数组，
         for (int i = 0; i < chars.length; i++) {
-            char c = chars[i];
-            if (map.containsKey(c)){
-                arrs[i] = map.get(c);
-                map.put(c,(arrs[i] +1));
-                System.out.println("map add " + c + ":"+ (arrs[i] +1));
-            }else {
-                arrs[i] = 1;
-                map.put(c,1);
-                System.out.println("map add " + c + ":"+ 1);
-            }
+            arrs[chars[i]]++;
         }
-
-        int result = -1;
         for (int i = 0; i < arrs.length; i++) {
-            if (arrs[i] == 1){
-                result = i;
-                break;
+            if (arrs[chars[i]] == 1) {
+                return i;
             }
         }
+        return -1;
+    }
 
-        System.out.println("result " + result);
+    /**
+     * 输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c
+     * 所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+     * 输入描述:输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
+     */
+    public static ArrayList<String> Permutation(String str) {
+
+        //可以用递归，先取首个字符，然后去掉首个字符再递归
+        ArrayList<String> resultList = new ArrayList<>();
+        if (str.length() == 0) {
+            return resultList;
+        }
+        //递归调用，字符串，
+        Permutation(str, "", resultList);
+        System.out.println(resultList.size());
+        return resultList;
+    }
+
+    //递归
+    public static void Permutation(String str, String result, ArrayList<String> resultList) {
+        //递归尽头，字符串只有一个字符的时候
+        if (str.length() == 1) {
+            result = result + str;
+            System.out.println(result);
+            if (!resultList.contains(result)) {
+                resultList.add(result);
+            }
+            return;
+        }
+
+        //遍历字符串
+        for (int i = 0; i < str.length(); i++) {
+            //取出一个，然后字符串去掉这个字符生成新的字符串，递归
+            char charAt = str.charAt(i);
+            String newString = removeCharAt(str, i);
+            Permutation(newString, result + charAt, resultList);
+
+        }
+
+    }
+
+    //字符串去掉某个字符
+    public static String removeCharAt(String s, int pos) {
+        // 使用substring()方法截取0-pos之间的字符串+pos之后的字符串，相当于将要把要删除的字符串删除
+        return s.substring(0, pos) + s.substring(pos + 1);
+    }
+
+
+    int currentNumber = 0; //路径值相加
+    ArrayList<Integer> currentNumberList = new ArrayList<>();  //路径值的list
+
+    /**
+     * 输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
+     * 路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+     * (注意: 在返回值的list中，数组长度大的数组靠前)
+     *
+     * @param root
+     * @param target 输入 {10,5,12,4,7},22
+     *               输出 [[10,5,7],[10,12]]
+     * @return
+     */
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (root == null) {
+            return result;
+        }
+        //递归的思路啊，从根节点往下遍历，遇到节点值加起来等于target则add到list
+        FindPath(root, target, result);
         return result;
     }
 
+    private void FindPath(TreeNode root, int target, ArrayList<ArrayList<Integer>> result) {
+        currentNumberList.add(root.val); //
+        currentNumber += root.val;        //
+        //target条件满足，并且是叶子节点
+        if (currentNumber == target && root.left == null && root.right == null) {
+            //这里要 ArrayList， currentNumberList是会变的
+            result.add(new ArrayList<>(currentNumberList));
+        }
+
+        //遍历左右子树
+        if (currentNumber < target && root.left != null) {
+            FindPath(root.left, target, result);
+        }
+
+        if (currentNumber < target && root.right != null) {
+            FindPath(root.right, target, result);
+        }
+
+        //遍历完一条路径之后回退
+        currentNumber -= root.val;
+        currentNumberList.remove((Integer) root.val);
+
+    }
+
+    /**
+     * 输入两个链表，找出它们的第一个公共结点。
+     * 公共节点一定在尾部，
+     * 1.可以利用两个栈，先入栈，然后尾部比较
+     * 2.先比较长度，然后长的先走若干步，然后比较
+     */
+    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+        if (pHead1 == null || pHead2 == null) {
+            return null;
+        }
+        int length1 = getNodeLength(pHead1);
+        int length2 = getNodeLength(pHead2);
+        ListNode longNode = length1 > length2 ? pHead1 : pHead2;
+        ListNode shortNode = length1 < length2 ? pHead1 : pHead2;
+        int lengttth = length1 > length2 ? length1 - length2 : length2 - length1;
+        for (int i = 0; i < lengttth; i++) {
+            longNode = longNode.next;
+        }
+        while (longNode != null) {
+            if (longNode.val == shortNode.val) {
+                return longNode;
+            }
+            longNode = longNode.next;
+            shortNode = shortNode.next;
+        }
+
+        return null;
+    }
+
+    public int getNodeLength(ListNode listNode) {
+        int length = 0;
+        while (listNode != null) {
+            length++;
+            listNode = listNode.next;
+        }
+        return length;
+    }
+
+    /**
+     * 统计一个数字在排序数组中出现的次数
+     */
+    public int GetNumberOfK(int[] array, int k) {
+        //方法1.遍历，事件复杂度O(n)（不会出这么容易的题的。。。）
+//        int result = 0;
+//        for (int i = 0; i < array.length; i++) {
+//            if (array[i] == k){
+//                result ++;
+//            }
+//        }
+//        return result;
+
+        //方法2,二分查找，先找到第一个值，然后左右去找
+        //获取中值
+        int index = getByMidd(array, k);
+        if (index == -1){
+            return 0;
+        }
+        int result = 1;
+        // TODO: 2018/12/5  左右比较
+        return result;
+    }
+
+    /**
+     * 二分查找
+     *
+     * @param array
+     * @param k
+     * @return
+     */
+    public int getByMidd(int[] array, int k) {
+        int length = array.length;
+        int start = 0;
+        int end = array.length - 1;
+        int midd;
+        while (start <= end) {
+            midd = (start + end) / 2;
+            if (k > array[midd]) {
+                start = midd + 1;
+            } else if (start < end) {
+                end = midd - 1;
+            } else {
+                return midd;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 一个整型数组里除了两个数字之外，其他的数字都出现了偶数次。请写程序找出这两个只出现一次的数字。
+     * @param array
+     * @param num1
+     * @param num2
+     *  //num1,num2分别为长度为1的数组。传出参数
+        //将num1[0],num2[0]设置为返回结果
+     */
+    public static void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        // 利用 异或，得到num1 和 num2 异或结果，因为两个相同的数异或都是0, 0^num1^num2 == num1^num2
+        int result = 0;
+        for (int i = 0; i < array.length; i++) {
+            result = result ^ array[i];
+        }
+        //知道 num1^num2，怎么区分出来， 01 10 -> 11
+        // 把 array 分成两组，怎么分，
+        // 1、找到result 从右到左第一个出现1的位的index
+        // 2、遍历数组，右移index位，如果是1则 异或num1 ，否则异或num2
+        int index1 = findRightIndex1(result);
+        for (int i = 0; i < array.length; i++) {
+            if (isBit1(array[i],index1)){
+                num1[0] ^= array[i];
+            }else {
+                num2[0] ^= array[i];
+            }
+
+        }
+        System.out.println(num1[0] + "，" + num2[0]);
+
+    }
+
+    /**
+     * 找到右边开始1的下标
+     * @return
+     */
+    public static int findRightIndex1(int result){
+        if (result == 0){
+            return 0;
+        }
+        // 2  ->  10
+        int index = 0;
+        while (true){
+            if (((result & 1) != 0)){
+                return index;
+            }
+            index ++;
+            result = result >> 1; //右移一位  010 -> 001
+        }
+
+    }
+
+    /**
+     * 右边开始index位是不是1
+     * @param num
+     * @param index
+     * @return
+     */
+    public static boolean isBit1(int num,int index){
+        num = num >> index; //右移index位，
+        return ((num & 1) != 0); //判断最右边的是不是1  111 & 001 == 001
+
+    }
+
+    /**
+     * 输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+     * 例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+     */
+    public String PrintMinNumber(int [] numbers) {
+
+        //两个数字m和n能拼成数字mn和nm。如果mn<nm，那么我们应该打印出mn，即m应该排在n的前面，
+        // 我们此时定义m小于n；反之，如果nm<mn，我们定义n小于m。如果mn=nm，我们定义m等于n。
+        // （注：符号的<，>, =是常规意义的数值大小，而文字的“大于”，“小于”，“等于”表示我们新定义的大小关系）。
+
+        //因存在大数问题，故我们把数字转化为字符串，另外把数字m和数字n拼接起来得到mn和nm，它们的位数肯定是相同的，
+        // 因此比较它们的大小只需要按照字符串大小的比较规则就可以了。
+        if (numbers.length == 0){
+            return null;
+        }
+        String str[] = new String[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            str[i] = numbers[i] + "";
+        }
+        // 1 23
+        //对比 123 和 231
+        //手动排序
+//        String temp;
+//        //记录已经排好序的
+//        StringBuilder pre = new StringBuilder();
+//        pre.append(str[0]);
+//        for (int i = 0; i < str.length -1; i++) {
+//
+//            System.out.println("pre = " + pre);
+//            String str1 = pre + str[i+1];
+//            String str2 = str[i+1] + pre;
+//
+//            if (str1.compareTo(str2) > 0){
+//                //右边小，替换位置
+//                System.out.println("替换位置：" + str[i] + "，" + str[i+1]);
+//                temp = str[i];
+//                str[i] = str[i+1];
+//                str[i+1] = temp;
+//                //交换了，之前记录的要
+//                pre.append(str[i],0,str[i].length() -1);
+//            }else {
+//                //没有交换，直接加在后面
+//                pre.append(str[i+1]);
+//            }
+//
+//        }
+
+        //todo 使用排序,怎么用代码实现排序
+        Arrays.sort(str, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                String str1 = o1 + o2;
+                String str2 = o2 + o1;
+                return str1.compareTo(str2);
+            }
+        });
+
+
+
+        StringBuilder sb = new StringBuilder();
+        for (String aStr : str) {
+            sb.append(aStr);
+        }
+
+        return sb.toString();
+
+    }
 }

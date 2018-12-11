@@ -103,4 +103,5 @@ public class SecondActivity extends BaseTitleBarActivity {
         return super.onPrepareOptionsPanel(view, menu);
     }
 
+
 }

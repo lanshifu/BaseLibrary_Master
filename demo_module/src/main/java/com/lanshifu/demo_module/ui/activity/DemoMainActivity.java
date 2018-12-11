@@ -1,27 +1,34 @@
 package com.lanshifu.demo_module.ui.activity;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.RouterHub;
+import com.lanshifu.baselibrary.app.MainApplication;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
+import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.baselibrary.tools.avoidonresult.ActivityResultInfo;
 import com.lanshifu.baselibrary.tools.avoidonresult.AvoidOnResult;
 import com.lanshifu.baselibrary.utils.NetworkUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
+import com.lanshifu.baselibrary.utils.VersionAdapterUtil;
 import com.lanshifu.commonservice.demo.DemoInfo;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
@@ -29,18 +36,21 @@ import com.lanshifu.demo_module.bean.FinalClass;
 import com.lanshifu.demo_module.design_mode.ProducerConsumerTest;
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
+import com.lanshifu.demo_module.ndk.JniTest;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.CountDownLatch;
 
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
-import me.ele.uetool.UETool;
 
 @Route(path = RouterHub.DEMO_MAIN_ACTIVITY)
 public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> implements DemoMainView {
 
     private static final String TAG = "demomainactivity";
+    private static final int REQUEST_CODE_MAP_ACTIVITY = 10;
+    private static final int REQUEST_CODE_UNKNOW_APP = 11;
     @Autowired
     public String name;
     @Autowired
@@ -62,7 +72,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         WeakReference<DemoMainActivity> mActivityWeakReference;
 
-        public H(DemoMainActivity activity) {
+        private H(DemoMainActivity activity) {
             mActivityWeakReference = new WeakReference<>(activity);
         }
 
@@ -123,8 +133,6 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         mWifiProxy = NetworkUtils.isWifiProxy(this);
         Log.i(TAG, "initView: ");
-        Log.i(TAG, "initView: ");
-
 
 
         long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
@@ -133,6 +141,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         ProducerConsumerTest test = new ProducerConsumerTest();
         test.Test();
 
+//        mPresenter.test_thread();
+
+        mPresenter.rxjavaTest();
     }
 
     private void handlerThreadTest() {
@@ -211,7 +222,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_tablayout, R2.id.btn_plugin, R2.id.btn_guard, R2.id.btn_event
             , R2.id.btn_setting, R2.id.btn_expandable_textview, R2.id.btn_litepal
             , R2.id.btn_behavior, R2.id.btn_behavior2, R2.id.btn_bottom_sheet_behavior
-            , R2.id.btn_guide, R2.id.btn_webview})
+            , R2.id.btn_guide, R2.id.btn_webview, R2.id.btn_shared_element, R2.id.btn_map
+            , R2.id.btn_anim, R2.id.btn_ndk, R2.id.btn_unknow_resource, R2.id.btn_notify1
+            , R2.id.btn_notify2})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -245,16 +258,6 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                             showShortToast(activityResultInfo.getData().getStringExtra("result"));
                         }
                     });
-
-//                    .startForResult(intent
-//                            , new AvoidOnResult.Callback() {
-//                                @Override
-//                                public void onActivityResult(int resultCode, Intent data) {
-//                                    LogHelper.d(data.getStringExtra("result"));
-//                                    showShortToast(data.getStringExtra("result"));
-//                                }
-//                            });
-//            startActivity(intent);
         } else if (viewId == R.id.btn_tablayout) {
             startActivity(DemoTabActivity.class);
         } else if (viewId == R.id.btn_plugin) {
@@ -279,6 +282,35 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             startActivity(DemoGuideActivity.class);
         }else if (viewId == R.id.btn_webview) {
             startActivity(DemoWebViewActivity.class);
+        }else if (viewId == R.id.btn_shared_element) {
+            startActivity(DemoSharedElementActivity.class);
+//            startZhifubao();
+        }else if (viewId == R.id.btn_map) {
+//            try {
+//                returnUntilThreadFinish();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            toMapActivity();
+        }else if (viewId == R.id.btn_anim) {
+            startActivity(DemoAnimateActivity.class);
+        }else if (viewId == R.id.btn_ndk) {
+            showShortToast(JniTest.get());
+        }else if (viewId == R.id.btn_unknow_resource) {
+            boolean open = VersionAdapterUtil.checkUnknowAppAndroidO(DemoMainActivity.this);
+            if (!open){
+                VersionAdapterUtil.gotoOpenUnknowApp(DemoMainActivity.this,REQUEST_CODE_UNKNOW_APP);
+            }else {
+                showShortToast("已打开，执行安装app操作");
+            }
+        }else if (viewId == R.id.btn_notify1) {
+            NotifyManager.getInstance(DemoMainActivity.this)
+                    .showNormalNotify(DemoMainActivity.this,"普通通知","content",
+                            new Intent(DemoMainActivity.this,DemoMainActivity.class));
+        }else if (viewId == R.id.btn_notify2) {
+            NotifyManager.getInstance(DemoMainActivity.this)
+                    .showOtherNotify(DemoMainActivity.this,"即时消息通知","content2",
+                            new Intent(DemoMainActivity.this,DemoMainActivity.class));
         }
     }
 
@@ -291,8 +323,116 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
-                        showShortToast("权限" + aBoolean);
+
+                        if (!aBoolean){
+                            Intent intent = getAppDetailSettingIntent(DemoMainActivity.this);
+                            startActivity(intent);
+                            showLongToast("请打钩相关权限才能正常使用" );
+                        }
                     }
                 });
     }
+
+    /**
+     * 跳转到应用详情页面,权限被拒绝时调用
+     * @param context
+     * @return
+     */
+    public Intent getAppDetailSettingIntent(Context context) {
+        Intent localIntent = new Intent();
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        localIntent.setData(Uri.fromParts("package", context.getPackageName(), null));
+        return localIntent;
+    }
+
+    public void startZhifubao(){
+        // Dalvik
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        ComponentName cn = new ComponentName("com.eg.android.AlipayGphone", "com.eg.android.AlipayGphone.AlipayLogin");
+
+        intent.setComponent(cn);
+        startActivity(intent);
+    }
+
+    /**
+     * 跳转去地图
+     */
+    private void toMapActivity(){
+        ARouter.getInstance().build(RouterHub.MAP_MAIN_ACTIVITY)
+                .withBoolean("mSendLocation", true)
+                .withTransition(R.anim.slide_left_in, R.anim.slide_right_out) //动画
+                .navigation(this, REQUEST_CODE_MAP_ACTIVITY, new NavigationCallback() {
+
+                    @Override
+                    public void onFound(Postcard postcard) {
+                        LogHelper.d("onFound");
+                    }
+
+                    @Override
+                    public void onLost(Postcard postcard) {
+                        LogHelper.d("onLost");
+                    }
+
+                    @Override
+                    public void onArrival(Postcard postcard) {
+                        LogHelper.d("onArrival");
+                    }
+
+                    @Override
+                    public void onInterrupt(Postcard postcard) {
+                        LogHelper.d("onInterrupt");
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQUEST_CODE_MAP_ACTIVITY){
+                double latitude = data.getDoubleExtra("latitude",0);
+                double longitude = data.getDoubleExtra("longitude",0);
+                String address = data.getStringExtra("address");
+                ToastUtil.showLongToast("latitude=" + latitude + ",longitude="+longitude + ",address ="+address);
+            }else if (requestCode == REQUEST_CODE_UNKNOW_APP){
+                showShortToast("已打开，执行安装app操作");
+            }
+        }
+    }
+
+    /**
+     * 等待线程执行完返回，会阻塞
+     * @return
+     */
+    private int returnUntilThreadFinish() throws Exception {
+        LogHelper.d("等待子线程执行完...");
+        Thread.sleep(4000);
+        int count = 10;
+        //这是一个计时器，只有countDown 到0的时候才会走 await 之后的代码，会阻塞
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+
+        MainApplication.getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    countDownLatch.countDown();
+                    LogHelper.d("子线程执行完。");
+
+                }
+            }
+        });
+
+        //等待countDown 到0的时候才继续下一步
+        countDownLatch.await();
+        return 10;
+    }
+
+
 }

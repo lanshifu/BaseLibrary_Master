@@ -27,6 +27,7 @@ android {
     }
 
     sourceSets {main {res.srcDirs = ['src/main/res', 'src/main/res-night']}}
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {
@@ -124,6 +125,10 @@ dependencies {
 
     //dex分包
     implementation rootProject.ext.dependencies["multidex"]
+
+    //通过标签直接生成shape，无需再写shape.xml
+//    implementation rootProject.ext.dependencies["background"]
+    implementation 'com.noober.background:core:1.3.1'
 
     //内存泄漏检测
     debugImplementation rootProject.ext.dependencies["canary-debug"]

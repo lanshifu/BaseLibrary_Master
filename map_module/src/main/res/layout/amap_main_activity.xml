@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/amap_location_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_contain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <com.amap.api.maps2d.MapView
+                android:id="@+id/mapview"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/iv_center_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/icon_mylocation"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#50000000"
+                android:gravity="left"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:singleLine="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <com.lanshifu.baselibrary.widget.CommRecyclerView
+                android:id="@+id/lv_poi_list"
+                style="?android:attr/listViewWhiteStyle"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            </com.lanshifu.baselibrary.widget.CommRecyclerView>
+        </FrameLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="搜索"
+        android:textColor="@color/text_color"
+        android:layout_margin="12dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:textSize="14sp"
+        android:alpha="50"
+        android:background="@mipmap/edittext_bg"/>
+
+
+</FrameLayout>

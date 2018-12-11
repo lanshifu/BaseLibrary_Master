@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
+import com.lanshifu.demo_module.R2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
  */
 
 public class DemoWebViewActivity extends BaseTitleBarActivity {
-    @BindView(R.id.webview)
+    @BindView(R2.id.webview)
     WebView mWebview;
 
     @Override
@@ -80,10 +81,21 @@ public class DemoWebViewActivity extends BaseTitleBarActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (mWebview != null) {
+            mWebview.getSettings().setJavaScriptEnabled(false);
+        }
+    }
+
+    @Override
     protected void onResume() {
         mWebview.onResume();
         mWebview.resumeTimers();
         super.onResume();
+        if (mWebview != null) {
+            mWebview.getSettings().setJavaScriptEnabled(true);
+        }
     }
 
     @Override

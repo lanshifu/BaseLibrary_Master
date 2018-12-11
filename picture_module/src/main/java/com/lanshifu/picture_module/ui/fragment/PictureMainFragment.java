@@ -2,6 +2,9 @@ package com.lanshifu.picture_module.ui.fragment;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.base.fragment.BaseListFragment;
 import com.lanshifu.baselibrary.basemvp.BaseView;
+import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.picture_module.R;
@@ -37,10 +41,13 @@ public class PictureMainFragment extends BaseListFragment<PictureMainPresenter, 
 
     @Override
     protected void convertData(BaseViewHolder baseViewHolder, PictureListItemBean data) {
+
         ImageView imageView = baseViewHolder.getView(R.id.imageView);
         Glide.with(PictureMainFragment.this)
                 .load(data.getUrl())
                 .into(imageView);
+        //设置共享元素名称
+        ViewCompat.setTransitionName(imageView, data.getUrl());
     }
 
     @Override
@@ -85,9 +92,18 @@ public class PictureMainFragment extends BaseListFragment<PictureMainPresenter, 
 
     @Override
     public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+
+        //动画
+        String transitionName = ViewCompat.getTransitionName(view.findViewById(R.id.imageView));
+        LogHelper.d("transitionName == null?" + (transitionName == null));
+        Pair squareParticipant = new Pair<>(view, transitionName);
+        ActivityOptionsCompat transitionActivityOptions =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        getActivity(), squareParticipant);
+
         Intent intent = new Intent(getActivity(), PictureDetailActivity.class);
         intent.putExtra("url", mAdapter.getItem(i).getUrl());
-        startActivity(intent);
+        startActivity(intent,transitionActivityOptions.toBundle());
     }
 
     @Override

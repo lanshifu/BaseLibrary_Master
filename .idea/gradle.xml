@@ -11,11 +11,14 @@
             <option value="$PROJECT_DIR$/CommonService" />
             <option value="$PROJECT_DIR$/activity_name_module" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/article_module" />
             <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/demo_module" />
+            <option value="$PROJECT_DIR$/map_module" />
             <option value="$PROJECT_DIR$/picture_module" />
             <option value="$PROJECT_DIR$/plugin_core" />
             <option value="$PROJECT_DIR$/plugin_module" />
+            <option value="$PROJECT_DIR$/reader" />
             <option value="$PROJECT_DIR$/share_module" />
             <option value="$PROJECT_DIR$/video_module" />
             <option value="$PROJECT_DIR$/wandroid_module" />

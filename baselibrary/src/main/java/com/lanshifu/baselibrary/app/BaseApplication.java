@@ -16,6 +16,10 @@ import com.squareup.leakcanary.LeakCanary;
 
 import org.litepal.LitePal;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
@@ -32,6 +36,25 @@ public abstract class BaseApplication extends Application {
     public static Context getContext() {
         return context;
     }
+
+    /**线程池开始*/
+    private static ThreadPoolExecutor pool;
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    private static final int INIT_THREAD_COUNT = CPU_COUNT + 1;
+    static {
+        pool = new ThreadPoolExecutor(
+                INIT_THREAD_COUNT,
+                INIT_THREAD_COUNT,
+                30L,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(),
+                new ThreadPoolExecutor.CallerRunsPolicy()
+        );
+    }
+    public static ThreadPoolExecutor getThreadPool(){
+        return pool;
+    }
+    /**线程池结束*/
 
     @Override
     public void onCreate() {
@@ -121,7 +144,14 @@ public abstract class BaseApplication extends Application {
         RetrofitUrlManager.getInstance().setDebug(BuildConfig.DEBUG);
     }
 
+    /**
+     * 换肤跟background 库不能同时使用，所以先不用
+     * @param application
+     */
     protected void initSkin(Application application) {
+        if (true){
+            return;
+        }
         //换肤框架初始化
         SkinCompatManager.withoutActivity(application)                         // 基础控件换肤初始化
 //                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]

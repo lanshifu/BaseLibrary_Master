@@ -48,14 +48,14 @@ android {
     }
 
     signingConfigs {
-//        debug {
-//            keyAlias '123456'
-//            keyPassword '123456'
-//            storeFile file("../key.jks")//这里我放在project根目录下，根据路径配置
-//            storePassword '123456'
-//        }
+        debug {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file("../key.jks")
+            storePassword '123456'
+        }
         release {
-            keyAlias '123456'
+            keyAlias 'key'
             keyPassword '123456'
             storeFile file("../key.jks")
             storePassword '123456'
@@ -118,6 +118,7 @@ dependencies {
         implementation project(":picture_module")
         implementation project(":demo_module")
         implementation project(":wandroid_module")
+        implementation project(":map_module")
     } else {
         implementation project(':baselibrary')
         implementation project(":CommonService")

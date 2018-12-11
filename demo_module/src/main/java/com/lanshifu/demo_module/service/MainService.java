@@ -12,7 +12,7 @@ import android.os.Build;
 import android.os.IBinder;
 
 import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.baselibrary.utils.NotificationUtils;
+import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.demo_module.ProcessConnection;
 import com.lanshifu.demo_module.receiver.ScreenReceiver;
 
@@ -37,8 +37,7 @@ public class MainService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogHelper.d("MainService:onStartCommand");
-        NotificationUtils notificationUtils = new NotificationUtils(this);
-        startForeground(0, notificationUtils.getNotication("title", "content"));
+        startForeground(0, NotifyManager.getInstance(this).getNormalNotify(this,"","",null));
         //绑定建立链接
         bindService(new Intent(this, GuardService.class),
                 mServiceConnection, Context.BIND_IMPORTANT);

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:id="@+id/root"
+    android:background="@drawable/map_list_item_selector">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/iv_checked_mark"
+        android:layout_toStartOf="@+id/iv_checked_mark"
+        android:paddingBottom="4dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp"
+        android:singleLine="true"
+        android:textColor="#333333"
+        android:text="12334"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_title"
+        android:paddingRight="16dp"
+        android:layout_toLeftOf="@+id/iv_checked_mark"
+        android:layout_toStartOf="@+id/iv_checked_mark"
+        android:paddingBottom="10dp"
+        android:paddingTop="4dp"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:textColor="#999999"
+        android:text="1234"/>
+
+    <ImageView
+        android:id="@+id/iv_checked_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_address"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="16dp"
+        android:layout_alignTop="@+id/tv_title"
+        android:src="@mipmap/icon_radio_pressed" />
+
+    <ImageView
+        android:id="@+id/v_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/dividerVertical"/>
+
+</RelativeLayout>

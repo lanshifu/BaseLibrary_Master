@@ -130,6 +130,45 @@
             style="@style/default_button"
             android:text="webview交互" />
 
+        <Button
+            android:id="@+id/btn_shared_element"
+            style="@style/default_button"
+            android:text="共享元素动画" />
+
+        <Button
+            android:id="@+id/btn_map"
+            style="@style/default_button"
+            android:text="地图" />
+
+        <Button
+            android:id="@+id/btn_anim"
+            style="@style/default_button"
+            android:text="动画" />
+
+
+        <Button
+            android:id="@+id/btn_ndk"
+            style="@style/default_button"
+            android:text="NDK" />
+
+        <Button
+            android:id="@+id/btn_unknow_resource"
+            style="@style/default_button"
+            android:text="未知来源" />
+
+        <Button
+            android:id="@+id/btn_notify1"
+            style="@style/default_button"
+            android:text="通知1" />
+
+        <Button
+            android:id="@+id/btn_notify2"
+            style="@style/default_button"
+            android:text="通知2" />
+
+
+        <include layout="@layout/demo_background_list" />
+
 
     </com.google.android.flexbox.FlexboxLayout>
 

@@ -28,6 +28,7 @@ public class ScreenReceiver extends BroadcastReceiver {
         } else if ("android.intent.action.SCREEN_OFF".equals(action)) {
             LogHelper.d("onReceive: —— SCREEN_OFF ——");
             wakeUpAndUnlock(context);
+
         }
     }
 

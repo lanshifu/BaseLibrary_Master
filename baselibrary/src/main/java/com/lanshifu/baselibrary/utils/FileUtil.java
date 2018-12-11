@@ -260,7 +260,7 @@ public final class FileUtil {
      * @deprecated 请直接使用{@link SystemManage#externalMemoryAvailable()}
      */
     public static boolean isSDCardExist() {
-        return SystemManage.externalMemoryAvailable();
+        return SystemUtil.externalMemoryAvailable();
     }
 
     /**

@@ -28,12 +28,12 @@
            android:title="视频"/>
 
        <item android:id="@+id/nav_picture"
-           android:icon="@drawable/ic_about_black_24dp"
+           android:icon="@drawable/ic_picture_in_picture_alt_black_24dp"
            android:title="美图" />
 
        <item android:id="@+id/nav_about"
-           android:icon="@drawable/ic_about_black_24dp"
-           android:title="关于" />
+           android:icon="@drawable/ic_settings_black_24dp"
+           android:title="设置" />
 
    </group>
 </menu>

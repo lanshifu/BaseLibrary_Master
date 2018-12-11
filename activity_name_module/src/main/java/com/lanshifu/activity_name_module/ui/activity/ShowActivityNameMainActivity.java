@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 import com.lanshifu.activity_name_module.R;
+import com.lanshifu.activity_name_module.R2;
 import com.lanshifu.activity_name_module.RxEvent;
 import com.lanshifu.activity_name_module.module.ZhifubaoModule;
 import com.lanshifu.activity_name_module.receiver.ScreenControlAlarmReceiver;
@@ -40,13 +41,13 @@ import io.reactivex.functions.Consumer;
 
 public class ShowActivityNameMainActivity extends BaseTitleBarActivity implements
         TimePickerDialog.OnTimeSetListener{
-    @BindView(R.id.btn_start_server)
+    @BindView(R2.id.btn_start_server)
     Button mBtnStartServer;
-    @BindView(R.id.switch_open_package_name)
+    @BindView(R2.id.switch_open_package_name)
     Switch mSwitchOpenPackageName;
-    @BindView(R.id.switch_auto_collection)
+    @BindView(R2.id.switch_auto_collection)
     Switch mSwitchAutoCollection;
-    @BindView(R.id.tv_auto_collection_time)
+    @BindView(R2.id.tv_auto_collection_time)
     TextView mTvAutoCollectionTime;
 
     private LinearLayout mLlSetting;
@@ -297,17 +298,16 @@ public class ShowActivityNameMainActivity extends BaseTitleBarActivity implement
     }
 
 
-    @OnClick({R.id.btn_start_server, R.id.ll_collection_time_setting, R.id.ll_goto_collection_log})
+    @OnClick({R2.id.btn_start_server, R2.id.ll_collection_time_setting, R2.id.ll_goto_collection_log})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_start_server:
-                requestAlertWindowPermission();
-                break;
-            case R.id.ll_collection_time_setting:
-                showTimePicker();
-                break;
-            case R.id.ll_goto_collection_log:
-                startActivity(new Intent(ShowActivityNameMainActivity.this, CollectionLogActivity.class));
+        int id = view.getId();
+        if (id == R.id.btn_start_server){
+            requestAlertWindowPermission();
+        }else if (id == R.id.ll_collection_time_setting){
+            showTimePicker();
+
+        }else if (id == R.id.ll_goto_collection_log){
+            startActivity(new Intent(ShowActivityNameMainActivity.this, CollectionLogActivity.class));
 
         }
     }

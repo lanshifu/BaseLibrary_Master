@@ -40,26 +40,32 @@ public class DemoRelativeLayout extends RelativeLayout{
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         LogHelper.d("ViewGroup->dispatchTouchEvent:" + getEventName(ev));
-//        return dispatchTouchEvent;
         return super.dispatchTouchEvent(ev);
+//        return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         LogHelper.d("ViewGroup->onInterceptTouchEvent:" + getEventName(ev));
-//        return onInterceptTouchEvent;
         return super.onInterceptTouchEvent(ev);
+//        return true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         LogHelper.d("ViewGroup->onTouchEvent:" + getEventName(event));
-//        return onTouchEvent;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+//                return true;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                return true;
+//                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
         return super.onTouchEvent(event);
     }
-
-
-
 
     private String getEventName(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

@@ -55,6 +55,7 @@
         </service>
 
         <service android:name=".service.WindowService"/>
+        <service android:name=".service.BackGroundService" />
 
         <receiver android:name=".receiver.ScreenControlAlarmReceiver">
             <intent-filter>

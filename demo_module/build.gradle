@@ -1,35 +1,60 @@
+import org.w3c.dom.Node
+
 apply from:"../common_component_build.gradle"
 android {
     resourcePrefix "demo_" //给 Module 内的资源名增加前缀, 避免资源名冲突
+
+//    sourceSets {
+//        main() {
+//            jniLibs.srcDirs = ['src/main/libs']
+//            jni.srcDirs = [] //屏蔽掉默认的jni编译生成过程
+//        }
+//    }
+
+
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    api project(":baselibrary")
-    api project(":CommonService")
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':baselibrary')
+    api project(':CommonService')
     api project(':plugin_core')
-
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     testCompile 'junit:junit:4.12'
-
     //饿了么开源的查看控件属性
     debugCompile 'me.ele:uetool:1.0.15'
     releaseCompile 'me.ele:uetool-no-op:1.0.15'
     // if you want to show more attrs about Fresco's DraweeView
     debugCompile 'me.ele:uetool-fresco:1.0.15'
-
-
     //日历控件
     implementation 'com.haibin:calendarview:3.4.7'
-
     //https://github.com/MZCretin/ExpandableTextView
     implementation 'com.github.MZCretin:ExpandableTextView:v1.5.1'
-
     //popupwindow
     implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
-
+    provided files('src/main/libs/framework.jar')
 }
+
+//目的是让编译器把android SDK里面的android.jar放在引入库的最后面
+preBuild {
+    doLast {
+        def imlFile = file(project.name + ".iml")
+        println 'Change ' + project.name + '.iml order'
+        try {
+            def parsedXml = (new XmlParser()).parse(imlFile)
+            def jdkNode = parsedXml.component[1].orderEntry.find { it.'@type' == 'jdk' }
+            parsedXml.component[1].remove(jdkNode)
+            def sdkString = "Android API " + android.compileSdkVersion.substring("android-".length()) + " Platform"
+            new groovy.util.Node(parsedXml.component[1], 'orderEntry', ['type': 'jdk', 'jdkName': sdkString, 'jdkType': 'Android SDK'])
+            groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
+            } catch (FileNotFoundException e) {
+            // nop, iml not found
+            println "no iml found"
+            }
+        }
+}
+
+

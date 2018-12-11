@@ -87,21 +87,20 @@ public class ShareMainActivity extends BaseTitleBarActivity {
     }
 
 
-    @OnClick({R.id.btn_wx_share, R.id.btn_qq_share, R.id.btn_wx_login, R.id.btn_qq_login})
+    @OnClick({R2.id.btn_wx_share, R2.id.btn_qq_share, R2.id.btn_wx_login, R2.id.btn_qq_login})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_wx_share:
-                wxShare();
-                break;
-            case R.id.btn_qq_share:
-                qqShare();
-                break;
-            case R.id.btn_wx_login:
-                wxLogin();
-                break;
-            case R.id.btn_qq_login:
-                qqLogin();
-                break;
+        int i = view.getId();
+        if (i == R.id.btn_wx_share) {
+            wxShare();
+        } else if (i == R.id.btn_qq_share) {
+            qqShare();
+
+        } else if (i == R.id.btn_wx_login) {
+            wxLogin();
+
+        } else if (i == R.id.btn_qq_login) {
+            qqLogin();
+
         }
     }
 

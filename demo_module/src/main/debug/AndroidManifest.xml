@@ -13,6 +13,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/> <!--安装未知来源应用的权限-->
 
     <application
         android:allowBackup="true"
@@ -56,6 +57,9 @@
         <activity android:name=".ui.activity.DemoGuideActivity" />
         <activity android:name=".ui.activity.DemoRxjavaActivity" />
         <activity android:name=".ui.activity.DemoWebViewActivity" />
+        <activity android:name=".ui.activity.DemoSharedElementActivity" />
+        <activity android:name=".ui.activity.DemoSharedElementDetailActivity" />
+        <activity android:name=".ui.activity.DemoAnimateActivity" />
 
 
         <service android:name=".service.GuardService"

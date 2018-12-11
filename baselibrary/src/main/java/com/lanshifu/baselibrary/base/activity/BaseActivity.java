@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.LayoutInflaterCompat;
+import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -19,7 +21,10 @@ import com.lanshifu.baselibrary.utils.ScreenUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
 import com.lanshifu.baselibrary.widget.StatusBarCompat;
+import com.noober.background.BackgroundLibrary;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -65,6 +70,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         ScreenUtils.adaptScreen4VerticalSlide(this, 360);
         // 默认着色状态栏
         setStatusBarColor();
+
+        BackgroundLibrary.inject(this);
+
 
     }
 
@@ -214,12 +222,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     /**
-     * 是否需要换肤，默认需要，可以重写方法返回false不需要
+     * 是否需要状态栏换肤
      *
      * @return
      */
     protected boolean isNeedStatusBarSkin() {
-        return true;
+        return false;
     }
 
 

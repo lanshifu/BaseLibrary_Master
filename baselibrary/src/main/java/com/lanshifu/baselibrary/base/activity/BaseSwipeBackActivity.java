@@ -1,60 +1,85 @@
 package com.lanshifu.baselibrary.base.activity;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
+import android.view.View;
 
-import com.lanshifu.baselibrary.R;
-import com.lanshifu.baselibrary.swipeback.SwipeBackHelper;
+import com.lanshifu.baselibrary.swipeback.SwipeBackGesture;
 
 public abstract class BaseSwipeBackActivity extends BaseActivity {
 
-    private SwipeBackHelper mSwipeBackHelper;
+    /**
+     * 触摸工具类
+     */
+    private SwipeBackGesture mSwipeBackGesture;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        supportSwipeBack(R.color.colorPrimary);
-
-        setStatusBarColor();
+        // 手势工具类
+        mSwipeBackGesture = new SwipeBackGesture(this);
 
     }
 
+
+
+    //==============================================================================================
+    //======================= 以 下 是 关 于 手 势 右 滑 关 闭 ========================================
+    //==============================================================================================
 
     /**
-     * 开启侧滑返回
+     * 绑定手势
      */
-    public void supportSwipeBack(int color) {
-        if (mSwipeBackHelper == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mSwipeBackHelper = new SwipeBackHelper(this);
-            if (color >>> 24 <= 0) {
-                color = getResources().getColor(R.color.colorWindowBackground);
-            }
-//            //设置窗口背景颜色，覆盖不可见区域出现的黑色（不可见区域常见为当输入法及导航栏变化时的背景）
-            mSwipeBackHelper.setWindowBackgroundColor(color | 0XFF000000);
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (null != mSwipeBackGesture && mSwipeBackGesture.motionEvent(ev)) {
+            return true;
         }
+        return super.dispatchTouchEvent(ev);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        if (mSwipeBackHelper != null) {
-            mSwipeBackHelper.dispatchTouchEvent(event);
+    /**
+     * 开启滑动关闭界面
+     *
+     * @param open
+     */
+    protected void openSlideFinish(boolean open) {
+        if (mSwipeBackGesture == null) {
+            return;
         }
-        return super.dispatchTouchEvent(event);
+        mSwipeBackGesture.openSlideFinish(open);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (mSwipeBackHelper != null) {
-            mSwipeBackHelper.onTouchEvent(event);
+    /**
+     * 抬起关闭
+     *
+     * @param upFinish 【true：手指抬起后再关闭页面】
+     *                 【false：进度条圆满就立刻关闭页面】
+     */
+    public void setUpFinish(boolean upFinish) {
+        if (mSwipeBackGesture == null) {
+            return;
         }
-        return super.onTouchEvent(event);
+        mSwipeBackGesture.setUpFinish(upFinish);
     }
+
+    /**
+     * 设置进度条颜色
+     */
+    public void setProgressColor(int color) {
+        if (mSwipeBackGesture != null)
+            mSwipeBackGesture.setProgressColor(color);
+    }
+
+    /**
+     * 滑动View
+     * 【滑动过程中会移动的View】
+     */
+    public void setMoveView(View SlideView) {
+        mSwipeBackGesture.setRootView(SlideView);
+    }
+
 
 }

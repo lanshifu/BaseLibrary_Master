@@ -5,4 +5,28 @@
     <string name="behavior_sample_header">com.lanshifu.demo_module.behavior.SampleHeaderBehavior</string>
     <string name="behavior_recyclerview">com.lanshifu.demo_module.behavior.RecyclerViewBehavior</string>
 
+    <!-- General Messages -->
+    <string name="text_hipster_ipsum_longer">Gluten-free echo park bushwick kinfolk flannel poutine. Selvage fanny pack banjo, actually distillery ethical organic put a bird on it art party. Letterpress distillery tilde +1 blog, cray green juice crucifix hella meditation.</string>
+
+
+    <!-- Transitions -->
+    <string name="transition_avatar">AvatarTransition</string>
+    <string name="transition_morph_view" translatable="false">morph_view_transition</string>
+    <string name="transition_name" translatable="false">square_transition</string>
+    <string name="transition_toolbar_name" translatable="false">toolbar_transition</string>
+    <string name="transition_shared_toolbar" translatable="false">shared_toolbar_transition</string>
+
+
+    <!-- Activity Labels -->
+    <string name="label_view_property_animator">View Property Animator</string>
+    <string name="label_object_animator">Object Animator</string>
+    <string name="label_morph_transitions">Morph transitions</string>
+    <string name="label_circular_reveal">Circular Reveal</string>
+    <string name="label_shared_content_transitions">Shared Elements</string>
+    <string name="label_explode_window_content_transitions">Explode Window Content</string>
+    <string name="label_shared_element_transitions">Shared</string>
+    <string name="label_window_content_transitions">Window Content</string>
+    <string name="label_animated_vector_drawables">Animated Vectors</string>
+    <string name="label_interpolators">Interpolators</string>
+
 </resources>

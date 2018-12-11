@@ -84,10 +84,10 @@ public class CollectionLogActivity extends BaseListTitleBarActivity<BasePresente
         LitePal.findAllAsync(CollectionDB.class).listen(new FindMultiCallback<CollectionDB>() {
             @Override
             public void onFinish(List<CollectionDB> list) {
-                for (int i = 0; i < 20; i++) {
-                    CollectionDB db=  new CollectionDB(System.currentTimeMillis(),0);
-                    list.add(db);
-                }
+//                for (int i = 0; i < 20; i++) {
+//                    CollectionDB db=  new CollectionDB(System.currentTimeMillis(),0);
+//                    list.add(db);
+//                }
                 mAdapter.replaceData(list);
                 mRecyclerView.finishRefresh();
             }

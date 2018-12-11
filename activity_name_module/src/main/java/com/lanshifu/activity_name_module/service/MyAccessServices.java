@@ -37,6 +37,9 @@ public class MyAccessServices extends AccessibilityService {
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
 
+        if (!mShowPackageName && (!mZhifubaoTounengliang || !mTimerStar)){
+            return;
+        }
 
         if (event == null || event.getPackageName() == null || event.getClassName() == null){
             return;
