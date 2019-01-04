@@ -1,5 +1,7 @@
 package com.lanshifu.baselibrary.utils;
 
+import com.lanshifu.baselibrary.log.LogHelper;
+
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -19,7 +21,7 @@ public class TUtil {
                     .getGenericSuperclass())).getActualTypeArguments()[i])
                     .newInstance();
         } catch (Exception e) {
-            e.printStackTrace();
+            LogHelper.e(e.getMessage());
         }
         return null;
     }

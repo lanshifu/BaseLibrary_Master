@@ -26,7 +26,6 @@ import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.baselibrary.tools.avoidonresult.ActivityResultInfo;
 import com.lanshifu.baselibrary.tools.avoidonresult.AvoidOnResult;
-import com.lanshifu.baselibrary.utils.NetworkUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.VersionAdapterUtil;
 import com.lanshifu.commonservice.demo.DemoInfo;
@@ -119,24 +118,24 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         FinalClass finalClass = new FinalClass();
         finalClass.staticName = "更改静态变量";
-        LogHelper.d("staticName = " + finalClass.staticName);
+        LogHelper.d("staticName == " + finalClass.staticName);
         finalClass.setName("12");
 
         //long 越界
         long l = Long.MAX_VALUE + 1000L;
         LogHelper.d("Long.MAX_VALUE = " + Long.MAX_VALUE);
-        LogHelper.d("long越界 l = " + l);
+        LogHelper.d("long越界 long = " + l);
 
 //        UETool.showUETMenu();
 
-        handlerThreadTest();
+//        handlerThreadTest();
 
-        mWifiProxy = NetworkUtils.isWifiProxy(this);
+//        mWifiProxy = NetworkUtils.isWifiProxy(this);
         Log.i(TAG, "initView: ");
 
 
         long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
-        LogHelper.d("当前时间戳："+time);
+        LogHelper.d("当前时间戳是："+time);
 
         ProducerConsumerTest test = new ProducerConsumerTest();
         test.Test();
@@ -224,7 +223,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_behavior, R2.id.btn_behavior2, R2.id.btn_bottom_sheet_behavior
             , R2.id.btn_guide, R2.id.btn_webview, R2.id.btn_shared_element, R2.id.btn_map
             , R2.id.btn_anim, R2.id.btn_ndk, R2.id.btn_unknow_resource, R2.id.btn_notify1
-            , R2.id.btn_notify2})
+            , R2.id.btn_notify2, R2.id.btn_get_config})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -311,6 +310,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             NotifyManager.getInstance(DemoMainActivity.this)
                     .showOtherNotify(DemoMainActivity.this,"即时消息通知","content2",
                             new Intent(DemoMainActivity.this,DemoMainActivity.class));
+        }else if (viewId == R.id.btn_get_config) {
+            mPresenter.initConfig();
         }
     }
 

@@ -253,6 +253,23 @@
 -keep class tv.danmaku.ijk.media.player.IjkMediaPlayer{*;}
 -keep class tv.danmaku.ijk.media.player.ffmpeg.FFmpegApi{*;}
 
+#litepal 混淆配置
+-keep class org.litepal.** {
+    *;
+}
+
+-keep class * extends org.litepal.crud.DataSupport {
+    *;
+}
+
+-keep class * extends org.litepal.crud.LitePalSupport {
+    *;
+}
+
+#腾讯Bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
 #日历控件
 -keepclasseswithmembers class * {
     public <init>(android.content.Context);

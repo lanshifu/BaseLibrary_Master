@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="list_item_normal">#ffffff</color>
+    <color name="list_item_pressed">#f2f2f2</color>
+    <color name="dialog_transparent">#50000000</color>
+    <color name="header_view_bg_color">#12b3b3</color>
+    <color name="title_view_text_color">#ffffff</color>
+    <color name="general_header_divider_color">#d6d6d6</color>
+
+</resources>

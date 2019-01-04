@@ -125,10 +125,11 @@
     </LinearLayout>
 
 
-    <EditText
+    <Button
+        android:id="@+id/btn_start_zhifubao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="default"
+        android:text="root授权并启动支付宝"
         android:textColor="@color/text_color"/>
 
 </LinearLayout>

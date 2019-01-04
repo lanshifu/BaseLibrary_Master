@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.lanshifu.activity_name_module.service.MyAccessServices;
 import com.lanshifu.activity_name_module.utils.AccessServiceUtil;
+import com.lanshifu.activity_name_module.utils.UIUtil;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 
@@ -27,23 +28,29 @@ public class ZhifubaoModule {
 
     public static final int MSG_BACK = 0;
     public static final int MSG_HOME = 1;
+    public static final int MSG_OPEN_ZHIFUBAO = 2;
 
-    private static class H extends Handler{
+    private static class H extends Handler {
         boolean i = hadScroll;
     }
-    private final static H mHandler = new H(){
+
+    private final static H mHandler = new H() {
         @Override
         public void handleMessage(Message msg) {
             MyAccessServices myAccessService = (MyAccessServices) msg.obj;
-            switch (msg.what){
+            switch (msg.what) {
                 case MSG_BACK:
                     mIsInH5Actibity = false;
                     AccessServiceUtil.performBackClick(myAccessService);
                     break;
 
-              case MSG_HOME:
-                  mIsInH5Actibity = false;
+                case MSG_HOME:
+                    mIsInH5Actibity = false;
                     myAccessService.performGlobalAction(GLOBAL_ACTION_HOME);
+                    break;
+                case MSG_OPEN_ZHIFUBAO:
+                    mIsInH5Actibity = false;
+                    UIUtil.openZhifubao(myAccessService);
                     break;
             }
         }
@@ -51,7 +58,7 @@ public class ZhifubaoModule {
 
     public static void onAccessibilityEvent(MyAccessServices myAccessServices, AccessibilityEvent event) {
 
-        if(mCurrentCount > mMaxTimes){
+        if (mCurrentCount > mMaxTimes) {
             LogHelper.d("打开次数已经最大");
             return;
         }
@@ -67,7 +74,7 @@ public class ZhifubaoModule {
 
             boolean click = AccessServiceUtil.clickTextViewByText(rootNodeInfo, "蚂蚁森林");
             LogHelper.d("蚂蚁森林 " + click);
-            if (!click){
+            if (!click) {
                 //不在首页，点击首页，然后返回
                 LogHelper.d("支付宝不在首页界面，点击首页，然后返回");
                 AccessServiceUtil.clickTextViewByText(rootNodeInfo, "首页");
@@ -81,29 +88,29 @@ public class ZhifubaoModule {
             mCurrentCount++;
             ToastUtil.showShortToast("进入蚂蚁森林，10秒后返回");
             mIsInH5Actibity = true;
-            sendMessage(MSG_BACK,myAccessServices,10000);
+            sendMessage(MSG_BACK, myAccessServices, 10000);
 
-        }else if ("com.lanshifu.activity_name_module".equals(pkgName)){
-            ToastUtil.showShortToast("10秒后返回");
-            sendMessage(MSG_BACK,myAccessServices,10000);
-        } else {
-            ToastUtil.showShortToast("不知道当前在哪个界面，5秒后回");
-            sendMessage(MSG_BACK,myAccessServices,5000);
+        } else if ("com.lanshifu.activity_name_module".equals(pkgName)) {
+
+            sendMessage(MSG_OPEN_ZHIFUBAO, myAccessServices, 5000);
+            ToastUtil.showShortToast("5秒后启动支付宝");
         }
 
     }
 
-    public static void sendMessage(int what,Object obj,int delay){
+    public static void sendMessage(int what, Object obj, int delay) {
         Message message = Message.obtain();
         message.what = what;
         message.obj = obj;
         mHandler.removeMessages(what);
-        mHandler.sendMessageDelayed(message,delay);
+        mHandler.sendMessageDelayed(message, delay);
     }
 
-    public static void removeHandlerMessages(){
+    public static void removeHandlerMessages() {
         mHandler.removeMessages(MSG_HOME);
         mHandler.removeMessages(MSG_BACK);
+        mHandler.removeMessages(MSG_OPEN_ZHIFUBAO);
+
     }
 
 }

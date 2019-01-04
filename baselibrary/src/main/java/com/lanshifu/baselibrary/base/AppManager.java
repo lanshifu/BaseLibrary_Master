@@ -20,7 +20,7 @@ import java.util.Stack;
 import io.reactivex.functions.Consumer;
 
 /**
- * activity管理
+ * 封装了activity栈管理，全局弹snackbar
  */
 public class AppManager {
     private static Stack<Activity> mActivityStack;
@@ -31,7 +31,6 @@ public class AppManager {
     public static final int KILL_ALL = 5002;
     public static final int APP_EXIT = 5003;
     public static final int TOAST = 5004;
-    private static RxManager mMRxManager;
     private Context mContext;
 
     public void init(Context context) {
@@ -39,7 +38,6 @@ public class AppManager {
     }
 
     private AppManager() {
-        mMRxManager = new RxManager();
         RxBus.getInstance().register(RxTag.TAG_APP_MANAGER, new Consumer<Message>() {
             @Override
             public void accept(Message message) throws Exception {

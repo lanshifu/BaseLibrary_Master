@@ -155,10 +155,12 @@ public class Sort {
     public static int getMiddle(int[] numbers, int low, int high) {
         int temp = numbers[low]; //数组的第一个作为中轴
         while (low < high) {
+            //从后到前比较，直到找到比中轴小的，移动到左边
             while (low < high && numbers[high] >= temp) {
                 high--;
             }
-            numbers[low] = numbers[high];//比中轴小的记录移到低端
+            numbers[low] = numbers[high];
+
 
             while (low < high && numbers[low] <= temp) {
                 low++;

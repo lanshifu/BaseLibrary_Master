@@ -27,7 +27,9 @@ import com.lanshifu.activity_name_module.receiver.ScreenControlAlarmReceiver;
 import com.lanshifu.activity_name_module.receiver.ScreenControlAlarmStopReceiver;
 import com.lanshifu.activity_name_module.service.WindowService;
 import com.lanshifu.activity_name_module.utils.AccessServiceUtil;
+import com.lanshifu.activity_name_module.utils.CmdUtil;
 import com.lanshifu.activity_name_module.utils.NotificationUtils;
+import com.lanshifu.activity_name_module.utils.ScreenUtil;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.utils.SPUtils;
@@ -126,6 +128,18 @@ public class ShowActivityNameMainActivity extends BaseTitleBarActivity implement
         mTvAutoCollectionTime.setText(mStartHour + ":" + mStartMinute + "---" + mEndHour + ":" + mEndMinute);
 
 
+        findViewById(R.id.btn_start_zhifubao).setOnClickListener(v -> {
+
+            mHandler.postDelayed(() -> {
+                ScreenUtil.wakeUpAndUnlock(this);
+                CmdUtil.swipUp();
+            },3000);
+            mHandler.postDelayed(() -> {
+                CmdUtil.inputPinIfNeeded();
+                startAppLauncher("com.eg.android.AlipayGphone");
+            },4000);
+
+        });
     }
 
     private static final int REQUEST_CODE = 1;
@@ -310,5 +324,15 @@ public class ShowActivityNameMainActivity extends BaseTitleBarActivity implement
             startActivity(new Intent(ShowActivityNameMainActivity.this, CollectionLogActivity.class));
 
         }
+    }
+
+
+    /**
+     * 启动应用
+     */
+    private void startAppLauncher(String packageName) {
+        Intent intent = this.getPackageManager().getLaunchIntentForPackage(packageName);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

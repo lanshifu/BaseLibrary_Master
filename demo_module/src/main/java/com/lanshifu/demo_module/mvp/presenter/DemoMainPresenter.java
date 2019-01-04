@@ -1,6 +1,7 @@
 package com.lanshifu.demo_module.mvp.presenter;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -12,15 +13,12 @@ import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.HttpResult;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
-import com.lanshifu.baselibrary.utils.GsonUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
-import com.lanshifu.demo_module.bean.AppInfo;
-import com.lanshifu.demo_module.bean.VideoListItemBean;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.lanshifu.demo_module.network.DemoApi;
+import com.lanshifu.demo_module.receiver.ConfigReceiver;
 import com.lanshifu.demo_module.test.ProxyDemo;
-import com.lanshifu.demo_module.ui.activity.DemoMainActivity;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -46,7 +44,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DemoMainPresenter extends BasePresenter<DemoMainView> {
 
-    public void test(){
+    public void test() {
         ProxyDemo dynamicFactory = new ProxyDemo();
         dynamicFactory.test();
         mView.textResult("哈哈哈");
@@ -54,33 +52,33 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
 
 
     //只能更新单个文件，文件夹无效
-    public void updateMedia(){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/aaa/胖妞.gif";
+    public void updateMedia() {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/aaa/胖妞.gif";
         LogHelper.d("path = " + path);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             MediaScannerConnection.scanFile(mContext, new String[]{path}, null,
                     new MediaScannerConnection.MediaScannerConnectionClient() {
-                @Override
-                public void onMediaScannerConnected() {
-                    ToastUtil.showShortToast("onMediaScannerConnected");
-                }
+                        @Override
+                        public void onMediaScannerConnected() {
+                            ToastUtil.showShortToast("onMediaScannerConnected");
+                        }
 
-                @Override
-                public void onScanCompleted(String path, Uri uri) {
-                    ToastUtil.showShortToast("onScanCompleted");
-                }
-            });
-        }else {
+                        @Override
+                        public void onScanCompleted(String path, Uri uri) {
+                            ToastUtil.showShortToast("onScanCompleted");
+                        }
+                    });
+        } else {
             mContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.fromFile(new File(path))));
         }
 
         UIUtil.snackbarText("刷新媒体库中，请稍后查看");
     }
 
-    public void request(){
+    public void request() {
         RetrofitHelper.getInstance().createApi(DemoApi.class)
-                .request(1,10,0)
-                .compose(RxScheduler.io_main_lifecycler((DemoMainActivity) mView))
+                .request(1, 10, 0)
+                .compose(RxScheduler.io_main_lifecycler((LifecycleProvider<ActivityEvent>) mView))
                 .subscribe(new BaseObserver<HttpResult>() {
                     @Override
                     public void _onNext(HttpResult result) {
@@ -94,26 +92,34 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
                 });
     }
 
-    public void testMethod(){
+
+
+    public void initConfig() {
+        try {
+            Intent intent = new Intent();
+            intent.setClassName("com.suntek.mway.carrier_configuation",
+                    "com.suntek.mway.carrier_configuation.MainService");
+            mContext.startService(intent);
+            LogHelper.d("启动服务");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        LogHelper.d("finalize");
-    }
-
-    class Parent{
+    class Parent {
 
     }
 
-    class Self extends Parent{
+    class Self extends Parent {
 
     }
 
-    class Son extends Self{}
+    class Son extends Self {
+    }
 
-    void method(){
+    void method() {
 
         // 上界<? extends T> 不能往里存，只能往外取
         List<? extends Self> list1 = new ArrayList<Son>();
@@ -133,11 +139,11 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
     }
 
     public void test_thread() {
-        Thread thread1 = new Thread(){
+        Thread thread1 = new Thread() {
             @Override
             public void run() {
                 super.run();
-                LogHelper.d("线程1："+Thread.currentThread().getName());
+                LogHelper.d("线程1：" + Thread.currentThread().getName());
             }
         };
         thread1.start();
@@ -146,7 +152,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                LogHelper.d("线程2："+Thread.currentThread().getName());
+                LogHelper.d("线程2：" + Thread.currentThread().getName());
             }
         });
         thread2.start();
@@ -156,7 +162,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         FutureTask<String> futureTask = new FutureTask<String>(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                LogHelper.d("线程3："+Thread.currentThread().getName());
+                LogHelper.d("线程3：" + Thread.currentThread().getName());
                 return null;
             }
         });
@@ -167,9 +173,9 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         SemaphoreTest();
     }
 
-    public void SemaphoreTest(){
+    public void SemaphoreTest() {
         for (int i = 0; i < 5; i++) {
-            new Thread(){
+            new Thread() {
                 @Override
                 public void run() {
                     doSomething();
@@ -181,7 +187,8 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
 
     //Semaphore 控制并发数量
     private Semaphore mSemaphore = new Semaphore(2);
-    private void doSomething(){
+
+    private void doSomething() {
         try {
             mSemaphore.acquire();
         } catch (InterruptedException e) {
@@ -244,27 +251,43 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
                     }
                 });
 
-                Flowable.just("")
-                        .subscribe(new FlowableSubscriber<String>() {
-                            @Override
-                            public void onSubscribe(Subscription s) {
-                            }
+        Flowable.just("")
+                .subscribe(new FlowableSubscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                    }
 
-                            @Override
-                            public void onNext(String s) {
+                    @Override
+                    public void onNext(String s) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onError(Throwable t) {
+                    @Override
+                    public void onError(Throwable t) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                            }
-                        });
+                    }
+                });
     }
 
+
+    ConfigReceiver receiver = new ConfigReceiver();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.suntek.mway.carrier_configuation.intent.action.CARRIER_CONFIG_CHANGED");
+        mContext.registerReceiver(receiver, filter);
+    }
+
+    @Override
+    public void onDestory() {
+        super.onDestory();
+        mContext.unregisterReceiver(receiver);
+    }
 }

@@ -195,7 +195,9 @@ public abstract class BaseListTitleBarActivity<P extends BasePresenter, T> exten
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOnRefreshListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
-        mRecyclerView.autoRefresh();
+        if (isAutoRefresh()) {
+            mRecyclerView.autoRefresh();
+        }
     }
 
     /**
@@ -219,4 +221,8 @@ public abstract class BaseListTitleBarActivity<P extends BasePresenter, T> exten
      * @param data
      */
     protected abstract void convertData(BaseViewHolder baseViewHolder, T data);
+
+    protected boolean isAutoRefresh(){
+        return true;
+    }
 }

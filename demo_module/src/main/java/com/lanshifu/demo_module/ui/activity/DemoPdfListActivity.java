@@ -1,5 +1,6 @@
 package com.lanshifu.demo_module.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -8,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.base.activity.BaseListTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
+import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.bean.PdfData;
@@ -39,8 +41,13 @@ public class DemoPdfListActivity extends BaseListTitleBarActivity<DemoPdfPresent
 
     @Override
     public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-        String path = mAdapter.getItem(i).path;
-        ToastUtil.showShortToast(path);
+        String path = mAdapter.getData().get(i).path;
+        String name = mAdapter.getData().get(i).name;
+        LogHelper.d("path =" + path);
+        Intent intent = new Intent(this,DemoFileDisplayActivity.class);
+        intent.putExtra("path",path);
+        intent.putExtra("name",name);
+        startActivity(intent);
     }
 
     @Override

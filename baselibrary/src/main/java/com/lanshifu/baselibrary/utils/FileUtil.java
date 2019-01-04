@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import com.lanshifu.baselibrary.fileprovider.FileProvider7;
 import com.lanshifu.baselibrary.log.LogHelper;
 
 import java.io.BufferedOutputStream;
@@ -905,5 +906,14 @@ public final class FileUtil {
         return btmp;
     }
 
+
+    public static void playVideo(Context context,String videoPath) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String bpath = "file://" + videoPath;
+        Uri uriForFile = FileProvider7.getUriForFile(context, new File(bpath));
+        intent.setDataAndType(uriForFile, "video/*");
+        mContext.startActivity(intent);
+
+    }
 
 }

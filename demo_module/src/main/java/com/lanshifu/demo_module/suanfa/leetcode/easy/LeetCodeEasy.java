@@ -1082,7 +1082,8 @@ public class LeetCodeEasy {
      * @return
      */
     public ListNode reverseList(ListNode head) {
-        ListNode preNode = null; // preNode 是 head的上一个，开始是null
+        // preNode 是 head的上一个，开始是null
+        ListNode preNode = null;
         ListNode nextNode;
         while (head != null){
             nextNode = head.next;

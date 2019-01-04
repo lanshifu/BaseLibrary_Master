@@ -23,9 +23,6 @@ import com.lanshifu.baselibrary.R;
 import java.lang.ref.WeakReference;
 
 
-/**
- * Created by Hammad Akram on 5/24/2017.
- */
 
 public class TopToast implements View.OnClickListener {
 
@@ -44,7 +41,7 @@ public class TopToast implements View.OnClickListener {
     private static WeakReference<TopToastContentView> layoutWeakReference;
     private static WeakReference<Activity> contextWeakReference;
     private static boolean mIsCircular = false;
-    private static OnSneakerClickListener mListener = null;
+    private static OnContentClickListener mListener = null;
     private static Typeface mTypeFace = null;
     private ViewGroup viewGroup;
 
@@ -302,7 +299,7 @@ public class TopToast implements View.OnClickListener {
      * @param listener
      * @return
      */
-    public TopToast setOnSneakerClickListener(OnSneakerClickListener listener) {
+    public TopToast setOnContentClickListener(OnContentClickListener listener) {
         mListener = listener;
         return this;
     }
@@ -554,12 +551,12 @@ public class TopToast implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (mListener != null) {
-            mListener.onSneakerClick(view);
+            mListener.onContentClick(view);
         }
         hide();
     }
 
-    public interface OnSneakerClickListener {
-        void onSneakerClick(View view);
+    public interface OnContentClickListener {
+        void onContentClick(View view);
     }
 }
