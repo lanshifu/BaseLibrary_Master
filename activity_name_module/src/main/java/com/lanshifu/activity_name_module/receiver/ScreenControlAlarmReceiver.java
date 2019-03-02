@@ -44,7 +44,7 @@ public class ScreenControlAlarmReceiver extends BroadcastReceiver {
                 mHandler.postDelayed(() -> {
                     LogHelper.d("输入密码解锁");
                     CmdUtil.inputPinIfNeeded();
-                    openZhifubaoDelay(context);
+                    sendNoticeDelay(context);
 
                 },5000);
 
@@ -58,14 +58,22 @@ public class ScreenControlAlarmReceiver extends BroadcastReceiver {
 
     }
 
+    private void sendNoticeDelay(Context context){
+        mHandler.postDelayed(() -> {
+            LogHelper.d("10秒后发送通知");
+            RxBus.getInstance().post(RxEvent.EVENT_ZHIFUBAO_TOUNENGLIANG_START_TIME,true);
+            openZhifubaoDelay(context);
+        },10000);
+    }
 
     private void openZhifubaoDelay(Context context){
         mHandler.postDelayed(() -> {
-            LogHelper.d("打开支付宝");
-            RxBus.getInstance().post(RxEvent.EVENT_ZHIFUBAO_TOUNENGLIANG_START_TIME,true);
+            LogHelper.d("2秒后打开支付宝");
             UIUtil.openZhifubao(context);
-        },20000);
+        },2000);
     }
+
+
 
 
 }

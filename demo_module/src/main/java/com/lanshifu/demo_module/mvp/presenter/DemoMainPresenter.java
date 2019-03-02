@@ -48,6 +48,20 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         ProxyDemo dynamicFactory = new ProxyDemo();
         dynamicFactory.test();
         mView.textResult("哈哈哈");
+
+        Integer.valueOf(10);
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    sleep(1000000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
     }
 
 
@@ -78,7 +92,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
     public void request() {
         RetrofitHelper.getInstance().createApi(DemoApi.class)
                 .request(1, 10, 0)
-                .compose(RxScheduler.io_main_lifecycler((LifecycleProvider<ActivityEvent>) mView))
+                .compose(RxScheduler.io_main_lifecycle((LifecycleProvider<ActivityEvent>) mView))
                 .subscribe(new BaseObserver<HttpResult>() {
                     @Override
                     public void _onNext(HttpResult result) {
@@ -272,6 +286,16 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
 
                     }
                 });
+    }
+
+    public void blockCanaryTest(){
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 

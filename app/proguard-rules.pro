@@ -270,6 +270,7 @@
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 
+
 #日历控件
 -keepclasseswithmembers class * {
     public <init>(android.content.Context);

@@ -3,9 +3,12 @@ package com.lanshifu.demo_module.ui.activity;
 import android.os.Bundle;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
+import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.demo_module.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -41,36 +44,65 @@ public class DemoRxjavaActivity extends BaseTitleBarActivity {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                LogHelper.d("ObservableOnSubscribe--subscribe");
+                LogHelper.d("ObservableOnSubscribe--发射数据...");
                 emitter.onNext("1");
+                emitter.onNext("2");
+                emitter.onComplete();
+                LogHelper.d("ObservableOnSubscribe--数据发射完成");
             }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                LogHelper.d("Observer--onSubscribe");
+            }
 
-                    }
-                }).subscribeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<String, ObservableSource<Integer>>() {
-                    @Override
-                    public ObservableSource<Integer> apply(String s) throws Exception {
-                        Integer integer = Integer.parseInt(s);
-                        return Observable.just(integer);
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
+            @Override
+            public void onNext(String s) {
+                LogHelper.d("Observer--onNext：" + s);
+            }
 
+            @Override
+            public void onError(Throwable e) {
+                LogHelper.d("Observer--onError");
+            }
+
+            @Override
+            public void onComplete() {
+                LogHelper.d("Observer--onComplete");
+            }
+        });
+
+        Observable.just("1","2")
+                .flatMap(new Function<String, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(String s) throws Exception {
+                        return Observable.create(new ObservableOnSubscribe<String>() {
+                            @Override
+                            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                                emitter.onNext(s);
+                            }
+                        });
                     }
                 });
+
+        String str = "111";
+        Integer i = 1;
+        List list = new ArrayList();
+        StringBuilder sb = new StringBuilder();
+        sb.reverse();
+
+
+
 
     }
 
 
     /**
-     *善用 zip 操作符，实现多个接口数据共同更新 UI
+     * 善用 zip 操作符，实现多个接口数据共同更新 UI
      */
     private void zip() {
         //

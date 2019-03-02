@@ -19,7 +19,7 @@ import com.lanshifu.baselibrary.utils.ToastUtil;
  * Created by Administrator on 2018\4\29 0029.
  */
 
-public abstract class BaseTitleBarActivity<P extends BasePresenter> extends BaseSwipeBackActivity {
+public abstract class BaseTitleBarActivity<P extends BasePresenter> extends BaseSlideBackActivity {
 
     public P mPresenter;
     private Menu mTBMenu;

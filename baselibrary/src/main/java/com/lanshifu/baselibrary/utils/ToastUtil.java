@@ -55,7 +55,7 @@ public class ToastUtil {
     }
 
     private static void showToast(Context context, CharSequence hint, int duration) {
-        LogHelper.d(hint.toString());
+        LogHelper.d("toast:" + hint.toString());
         if (mToast == null) {
             mToast = Toast.makeText(context, hint, duration);
         } else {
@@ -80,7 +80,7 @@ public class ToastUtil {
                 .setMessage(content,R.color.black)
                 .setBackgroundColor(R.color.white)
                 .setIcon(R.drawable.icon_success)
-                .setDuration(2000)
+                .setDuration(3000)
                 .show();
     }
 

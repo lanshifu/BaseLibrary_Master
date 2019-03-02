@@ -6,6 +6,8 @@ import org.litepal.crud.LitePalSupport;
 public class DownloadVideoDB extends LitePalSupport {
 
     int id;
+    //下载的id
+    int download_id;
     String title;
     @Column(unique = true)
     String url;
@@ -14,6 +16,23 @@ public class DownloadVideoDB extends LitePalSupport {
     boolean downloading;
     boolean download_success;
     boolean download_pause;
+    String path;  //保存路径
+
+    public int getDownload_id() {
+        return download_id;
+    }
+
+    public void setDownload_id(int download_id) {
+        this.download_id = download_id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public int getId() {
         return id;

@@ -52,7 +52,7 @@ public class RxScheduler {
      * @param <T>
      * @return
      */
-    public static <T> ObservableTransformer<T, T> io_main_lifecycler(final LifecycleProvider<ActivityEvent> lifecycleProvider) {
+    public static <T> ObservableTransformer<T, T> io_main_lifecycle(final LifecycleProvider<ActivityEvent> lifecycleProvider) {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(io.reactivex.Observable<T> observable) {

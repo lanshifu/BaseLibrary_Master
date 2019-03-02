@@ -45,13 +45,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+
         <activity android:name=".ui.activity.DemoAppInfoActivity"/>
         <activity android:name=".ui.activity.DemoWifiPasswordActivity"/>
         <activity android:name=".ui.activity.DemoSignCheckActivity"/>
         <activity android:name=".ui.activity.DemoInstalledAppListActivity"/>
         <activity android:name=".ui.activity.DemoPdfListActivity"/>
         <activity android:name=".ui.activity.DemoLeakActivity"/>
-        <activity android:name=".ui.activity.DemoSwipeBackActivity"/>
+        <activity android:name=".ui.activity.DemoSlideBackActivity"/>
         <activity android:name=".ui.activity.DemoTestActivity"
             android:process=":remote"/>
         <activity android:name=".ui.activity.DemoTabActivity"/>
@@ -72,6 +77,9 @@
         <activity android:name=".ui.activity.DemoSharedElementDetailActivity" />
         <activity android:name=".ui.activity.DemoAnimateActivity" />
         <activity android:name=".ui.activity.DemoFileDisplayActivity" />
+        <activity android:name=".ui.activity.SnapHelperTestActivity" />
+        <activity android:name=".ui.activity.DemoSdCardFindActivity" />
+        <activity android:name=".ui.activity.DemoHandleTouchEventActivity" />
 
 
         <service android:name=".service.GuardService"

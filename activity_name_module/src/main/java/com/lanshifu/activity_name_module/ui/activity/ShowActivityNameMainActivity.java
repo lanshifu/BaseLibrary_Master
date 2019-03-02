@@ -213,7 +213,7 @@ public class ShowActivityNameMainActivity extends BaseTitleBarActivity implement
         instance.set(Calendar.SECOND, ss);//秒
 
         Intent alarmIntent;
-        AlarmManager alarmService = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (openOrClose) {
             alarmIntent = new Intent(context, ScreenControlAlarmReceiver.class)
                     .setAction(ScreenControlAlarmReceiver.ACTION);
@@ -224,10 +224,10 @@ public class ShowActivityNameMainActivity extends BaseTitleBarActivity implement
         PendingIntent broadcast = PendingIntent.getBroadcast(context, requestCode, alarmIntent, 0);//通过广播接收
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //低电量仍然能执行闹钟任务
-            alarmService.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, instance.getTimeInMillis(), broadcast);
-            alarmService.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, instance.getTimeInMillis(), broadcast);
+            manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, instance.getTimeInMillis(), broadcast);
+            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, instance.getTimeInMillis(), broadcast);
         } else {
-            alarmService.set(AlarmManager.RTC_WAKEUP, instance.getTimeInMillis(), broadcast);
+            manager.set(AlarmManager.RTC_WAKEUP, instance.getTimeInMillis(), broadcast);
         }
     }
 
@@ -332,6 +332,10 @@ public class ShowActivityNameMainActivity extends BaseTitleBarActivity implement
      */
     private void startAppLauncher(String packageName) {
         Intent intent = this.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent == null){
+            ToastUtil.showShortToast("打开应用失败，应用不存在");
+            return;
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

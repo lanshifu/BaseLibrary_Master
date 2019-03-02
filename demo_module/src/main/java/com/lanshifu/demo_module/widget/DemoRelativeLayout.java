@@ -40,6 +40,7 @@ public class DemoRelativeLayout extends RelativeLayout{
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         LogHelper.d("ViewGroup->dispatchTouchEvent:" + getEventName(ev));
+        requestDisallowInterceptTouchEvent(true);
         return super.dispatchTouchEvent(ev);
 //        return false;
     }
@@ -47,6 +48,7 @@ public class DemoRelativeLayout extends RelativeLayout{
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         LogHelper.d("ViewGroup->onInterceptTouchEvent:" + getEventName(ev));
+
         return super.onInterceptTouchEvent(ev);
 //        return true;
     }

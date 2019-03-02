@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:padding="8dp"
     android:layout_height="wrap_content"
     android:background="@color/colorAccent">
@@ -17,6 +19,7 @@
         />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +28,14 @@
         android:textColor="@color/text_color"
         android:background="@color/default_background"
         android:text="下载进度"/>
+
+    <com.lanshifu.video_module.widget.FlikerProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:textSize="12sp"
+        app:loadingColor="#40c4ff"
+        app:stopColor="#ff9800"/>
 
 
 </LinearLayout>

@@ -55,26 +55,26 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
             }
         });
 
-        tvChild.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                LogHelper.d("child onTouch");
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        return true;
+//        tvChild.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                LogHelper.d("child onTouch");
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
 //                        break;
-                }
-                /**
-                 * onTouch 返回true 就不会走onClick,因为OnTouchEvet不会走
-                 * 见源码 dispachTouchEvent()
-                 * */
-                return false;
-            }
-        });
+//                    case MotionEvent.ACTION_MOVE:
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        return true;
+////                        break;
+//                }
+//                /**
+//                 * onTouch 返回true 就不会走onClick,因为OnTouchEvet不会走
+//                 * 见源码 dispachTouchEvent()
+//                 * */
+//                return false;
+//            }
+//        });
 
 
         rlRoot.setOnClickListener(new View.OnClickListener() {

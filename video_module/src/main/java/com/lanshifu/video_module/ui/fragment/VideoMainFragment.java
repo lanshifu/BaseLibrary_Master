@@ -14,6 +14,7 @@ import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.base.fragment.BaseListFragment;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.utils.StorageUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.video_module.R;
 import com.lanshifu.video_module.bean.VideoListItemBean;
@@ -75,6 +76,9 @@ public class VideoMainFragment extends BaseListFragment<VideoMainPresenter, Vide
                     public void onClick(DialogInterface dialog, int which) {
                         RetrofitUrlManager.getInstance().setRun(false);
                         mPresenter.downLoad(title + ".mp4", url);
+
+//                        String fileName = title + ".mp4";
+//                        mPresenter.download2(url,StorageUtil.getDownloadDir() + fileName,title);
                     }
                 }).show();
     }
@@ -169,15 +173,15 @@ public class VideoMainFragment extends BaseListFragment<VideoMainPresenter, Vide
 
 
     //setUserVisibileHint() 来知道当前一个fragment对用户来说是隐藏还是显示，
-    // 这个方法仅仅工作在FragmentPagerAdapter中，不能被使用在一个普通的activity中。
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        LogHelper.d("setUserVisibleHint isVisibleToUser = " + isVisibleToUser);
-        //懒加载，可见的时候才去请求网络
-        if (isVisibleToUser && !mIsVisiable){
-            mIsVisiable = true;
-            refresh();
-        }
-        super.setUserVisibleHint(isVisibleToUser);
-    }
+//    // 这个方法仅仅工作在FragmentPagerAdapter中，不能被使用在一个普通的activity中。
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        LogHelper.d("setUserVisibleHint isVisibleToUser = " + isVisibleToUser);
+//        //懒加载，可见的时候才去请求网络
+//        if (isVisibleToUser && !mIsVisiable){
+//            mIsVisiable = true;
+//            refresh();
+//        }
+//        super.setUserVisibleHint(isVisibleToUser);
+//    }
 }

@@ -57,7 +57,7 @@ public class DemoView extends View {
 //                return false;
 //            }
 //        });
-        invalidate();
+//        invalidate();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DemoView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                return true;
-//                break;
+                break;
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:

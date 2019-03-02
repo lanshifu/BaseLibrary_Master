@@ -353,6 +353,12 @@ public class SystemUtil {
         return dm.widthPixels;
     }
 
+    public static int getScreenHeigh(Activity activity) {
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
+    }
+
 
     /**
      * 获取版本号

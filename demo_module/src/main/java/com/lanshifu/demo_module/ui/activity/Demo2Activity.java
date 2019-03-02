@@ -41,10 +41,9 @@ public class Demo2Activity extends BaseTitleBarActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        
-
 
         setTitleText("测试");
+
 
 
         int i = INT;

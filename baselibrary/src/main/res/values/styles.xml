@@ -30,6 +30,10 @@
         <!--<item name="android:windowBackground">@drawable/logo</item>  &lt;!&ndash; 默认背景&ndash;&gt;-->
     </style>
 
+    <style name="AppThemefullScreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
     <!--main_menu_style-->
     <style name="MenuStyle">

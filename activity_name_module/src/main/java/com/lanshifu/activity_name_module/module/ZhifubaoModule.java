@@ -69,29 +69,28 @@ public class ZhifubaoModule {
             return;
         }
 
-        if (pkgName.equals("com.eg.android.AlipayGphone") &&
-                "com.eg.android.AlipayGphone.AlipayLogin".equals(className)) {
-
-            boolean click = AccessServiceUtil.clickTextViewByText(rootNodeInfo, "蚂蚁森林");
-            LogHelper.d("蚂蚁森林 " + click);
-            if (!click) {
-                //不在首页，点击首页，然后返回
-                LogHelper.d("支付宝不在首页界面，点击首页，然后返回");
-                AccessServiceUtil.clickTextViewByText(rootNodeInfo, "首页");
-                AccessServiceUtil.performBackClick(myAccessServices);
+        if (pkgName.equals("com.eg.android.AlipayGphone")){
+            if ("com.eg.android.AlipayGphone.AlipayLogin".equals(className)){
+                boolean click = AccessServiceUtil.clickTextViewByText(rootNodeInfo, "蚂蚁森林");
+                LogHelper.d("蚂蚁森林 " + click);
+                if (!click) {
+                    //不在首页，点击首页，然后返回
+                    LogHelper.d("支付宝不在首页界面，点击首页，然后返回");
+                    AccessServiceUtil.clickTextViewByText(rootNodeInfo, "首页");
+                    AccessServiceUtil.performBackClick(myAccessServices);
+                }
+            }else if (pkgName.equals("com.eg.android.AlipayGphone") &&
+                    "com.alipay.mobile.nebulacore.ui.H5Activity".equals(className)){
+                //记录打开次数
+                mCurrentCount++;
+                ToastUtil.showShortToast("进入蚂蚁森林，10秒后返回");
+                mIsInH5Actibity = true;
+                sendMessage(MSG_BACK, myAccessServices, 10000);
+            }else {
+                LogHelper.d("跳转到其它界面了，5秒后返回");
+                sendMessage(MSG_BACK, myAccessServices, 5000);
             }
-
-        } else if (pkgName.equals("com.eg.android.AlipayGphone") &&
-                "com.alipay.mobile.nebulacore.ui.H5Activity".equals(className)) {
-
-            //记录打开次数
-            mCurrentCount++;
-            ToastUtil.showShortToast("进入蚂蚁森林，10秒后返回");
-            mIsInH5Actibity = true;
-            sendMessage(MSG_BACK, myAccessServices, 10000);
-
-        } else if ("com.lanshifu.activity_name_module".equals(pkgName)) {
-
+        }else if ("com.lanshifu.activity_name_module".equals(pkgName)) {
             sendMessage(MSG_OPEN_ZHIFUBAO, myAccessServices, 5000);
             ToastUtil.showShortToast("5秒后启动支付宝");
         }

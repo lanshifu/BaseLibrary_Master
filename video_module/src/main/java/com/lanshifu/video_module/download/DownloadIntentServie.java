@@ -94,7 +94,7 @@ public class DownloadIntentServie extends IntentService {
                         mDownloadVideoDB.setDuration(progressInfo.getPercent());
                         mDownloadVideoDB.setDownloading(true);
                         mDownloadVideoDB.setDownload_pause(false);
-                        mDownloadVideoDB.save();
+                        mDownloadVideoDB.saveAsync();
                         //进度通知
                     }
 
@@ -108,7 +108,6 @@ public class DownloadIntentServie extends IntentService {
                     protected void onDownLoadSuccess() {
                         LogHelper.d("onDownLoadSuccess");
                         UIUtil.snackbarText("下载成功");
-
                         DownloadVideoDB downloadVideoDB = LitePal.find(DownloadVideoDB.class, finalId);
                         if (downloadVideoDB != null) {
                             downloadVideoDB.setDownload_success(true);
@@ -116,20 +115,16 @@ public class DownloadIntentServie extends IntentService {
                             downloadVideoDB.setDownload_pause(true);
                             downloadVideoDB.save();
                         }
-
                     }
 
                     @Override
                     protected void onDownFailed(String error) {
                         LogHelper.d("onDownFailed " + error);
-
-
                         mDownloadVideoDB.setDownload_success(false);
                         mDownloadVideoDB.setDownloading(false);
                         mDownloadVideoDB.setDownload_pause(true);
                         mDownloadVideoDB.save();
-
-                        RxBus.getInstance().post(RxTag.TAG_DOWNLOAD_ERROR,"");
+                        RxBus.getInstance().post(RxTag.TAG_DOWNLOAD_ERROR +url,"");
                     }
                 });
     }

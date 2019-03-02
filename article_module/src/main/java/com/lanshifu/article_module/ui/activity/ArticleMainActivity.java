@@ -20,7 +20,6 @@ import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.baselibrary.network.ServerResponseFunc;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class ArticleMainActivity extends BaseListTitleBarActivity<BasePresenter,
         RetrofitHelper.getInstance().createApi(ArticleApi.class)
                 .getArtileList(mCurrentPage,mPageCount)
                 .map(new ServerResponseFunc<List<ArticleBean>>())
-                .compose(RxScheduler.io_main_lifecycler(this))
+                .compose(RxScheduler.io_main_lifecycle(this))
                 .subscribe(new BaseObserver<List<ArticleBean>>() {
                     @Override
                     public void _onNext(List<ArticleBean> articleBeans) {

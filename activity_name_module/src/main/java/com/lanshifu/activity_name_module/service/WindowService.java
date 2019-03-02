@@ -144,7 +144,6 @@ public class WindowService extends Service {
             }
         };
         mWindowView.setOnTouchListener(onTouchListener);
-//        mTvAppend.setOnTouchListener(onTouchListener);
 
         mWindowView.setOnClickListener(new View.OnClickListener() {
             @Override

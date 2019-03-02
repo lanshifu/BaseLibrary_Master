@@ -384,20 +384,20 @@ public class TopToast implements View.OnClickListener {
         }
 
         // Main layout
-        final TopToastContentView layout = new TopToastContentView(getContext());
-        layoutWeakReference = new WeakReference<>(layout);
+        final TopToastContentView topToastContentView = new TopToastContentView(getContext());
+        layoutWeakReference = new WeakReference<>(topToastContentView);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeight == DEFAULT_VALUE ? (getStatusBarHeight() + convertToDp(56)) : convertToDp(mHeight));
-        layout.setLayoutParams(layoutParams);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setGravity(Gravity.CENTER_VERTICAL);
-        layout.setPadding(46, getStatusBarHeight(), 46, 0);
+        topToastContentView.setLayoutParams(layoutParams);
+        topToastContentView.setOrientation(LinearLayout.HORIZONTAL);
+        topToastContentView.setGravity(Gravity.CENTER_VERTICAL);
+        topToastContentView.setPadding(46, getStatusBarHeight(), 46, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            layout.setElevation(6);
+            topToastContentView.setElevation(6);
         }
 
         // Background color
-        layout.setBackgroundColor(mBackgroundColor);
+        topToastContentView.setBackgroundColor(mBackgroundColor);
 
         // Icon
         // If icon is set
@@ -412,7 +412,7 @@ public class TopToast implements View.OnClickListener {
 //                if (mIconColorFilterColor != DEFAULT_VALUE) {
 //                    ivIcon.setColorFilter(mIconColorFilterColor);
 //                }
-                layout.addView(ivIcon);
+                topToastContentView.addView(ivIcon);
             } else {
                 ImageView ivIcon = new ImageView(getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertToDp(24), convertToDp(24));
@@ -423,7 +423,7 @@ public class TopToast implements View.OnClickListener {
 //                if (mIconColorFilterColor != DEFAULT_VALUE) {
 //                    ivIcon.setColorFilter(mIconColorFilterColor);
 //                }
-                layout.addView(ivIcon);
+                topToastContentView.addView(ivIcon);
             }
         }
 
@@ -476,19 +476,19 @@ public class TopToast implements View.OnClickListener {
             tvMessage.setClickable(false);
             textLayout.addView(tvMessage);
         }
-        layout.addView(textLayout);
+        topToastContentView.addView(textLayout);
 
         viewGroup = getActivityDecorView();
         getExistingOverlayInViewAndRemove(viewGroup);
 
-        layout.setOnClickListener(this);
+        topToastContentView.setOnClickListener(this);
         //发送延时handler消息，如果view销毁，会自动取消消息，在SneakerContentView 中处理了
-        layout.mHandler.sendEmptyMessageDelayed(TopToastContentView.WHAT, mDuration);
-        layout.setOnHandlerCallBackListner(new TopToastContentView.OnHandlerCallBackListner() {
+        topToastContentView.mHandler.sendEmptyMessageDelayed(TopToastContentView.WHAT, mDuration);
+        topToastContentView.setOnHandlerCallBackListner(new TopToastContentView.OnHandlerCallBackListner() {
             @Override
             public void handlerMsg() {
                 if (mAutoHide) {
-                    layout.mHandler.post(new Runnable() {
+                    topToastContentView.mHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             //展示4秒 消失
@@ -499,8 +499,8 @@ public class TopToast implements View.OnClickListener {
                 }
             }
         });
-        viewGroup.addView(layout);
-        layout.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.popup_show));
+        viewGroup.addView(topToastContentView);
+        topToastContentView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.popup_show));
 
     }
 

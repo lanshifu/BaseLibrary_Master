@@ -2,11 +2,14 @@ package com.lanshifu.demo_module;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 
+import com.github.moduth.blockcanary.BlockCanary;
 import com.lanshifu.baselibrary.app.BaseApplication;
 import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.demo_module.block.AppBlockCanaryContext;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.BufferedReader;
@@ -31,10 +34,27 @@ public class DemoApplication extends BaseApplication {
         // 设置是否为上报进程
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
+
         // 初始化Bugly
-        CrashReport.initCrashReport(context, "e5d168a687", true, strategy);
+//        CrashReport.initCrashReport(context, "e5d168a687", true, strategy);
         // 如果通过“AndroidManifest.xml”来配置APP信息，初始化方法如下
         // CrashReport.initCrashReport(context, strategy);
+        Bugly.init(getApplicationContext(), "e5d168a687", true);
+        //
+        Bugly.setIsDevelopmentDevice(getApplicationContext(), true);
+
+        // 在主进程初始化调用哈
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
+
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        // you must install multiDex whatever tinker is installed!
+        initMultiDex();
+        // 安装tinker
+        Beta.installTinker();
     }
 
     @Override
@@ -73,4 +93,5 @@ public class DemoApplication extends BaseApplication {
         }
         return null;
     }
+
 }

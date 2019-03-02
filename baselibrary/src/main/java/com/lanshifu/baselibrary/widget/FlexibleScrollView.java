@@ -15,7 +15,7 @@ public class FlexibleScrollView extends ScrollView {
 
     private static final String TAG = "FLEXIBLESCROLLVIEW";
     // 移动因子，是一个百分比，比如手指移动了100px，那么view只移动50px，目的是达到一个延迟的效果。
-    private static final float MOVE_FACTOR = 0.3f;
+    private static final float MOVE_FACTOR = 0.2f;
     // 手指松开时，界面回到原始位置动画所需的时间
     private static final int ANIM_TIME = 300;
     // ScrollView唯一的一个子view

@@ -2,10 +2,10 @@ package com.lanshifu.demo_module.ui.activity;
 
 import android.os.Bundle;
 
-import com.lanshifu.baselibrary.base.activity.BaseSwipeBackActivity;
+import com.lanshifu.baselibrary.base.activity.BaseSlideBackActivity;
 import com.lanshifu.demo_module.R;
 
-public class DemoSwipeBackActivity extends BaseSwipeBackActivity {
+public class DemoSlideBackActivity extends BaseSlideBackActivity {
 
 
     @Override

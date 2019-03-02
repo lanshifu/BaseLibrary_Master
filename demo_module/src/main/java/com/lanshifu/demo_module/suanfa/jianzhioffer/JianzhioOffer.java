@@ -413,7 +413,7 @@ public class JianzhioOffer {
     /**
      * 从上往下打印出二叉树的每个节点，同层节点从左至右打印。
      * <p>
-     * 利用队列
+     * 利用队列，广度优先遍历
      * 1.先将root节点加到队列，然后while 循环从队列取出节点，判断左节点和右节点是否为空，不为空则加到队列
      */
     public ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {

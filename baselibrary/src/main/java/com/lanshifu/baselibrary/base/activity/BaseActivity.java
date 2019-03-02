@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
+import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.ScreenUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
@@ -242,4 +244,24 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected abstract void initView(Bundle savedInstanceState);
 
+
+    /** 防止快速点击启动多次activity --开始*/
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        if (startActivityCheck()){
+            super.startActivityForResult(intent, requestCode, options);
+        }
+    }
+
+    private long mActivityJumpTime;
+    private boolean startActivityCheck() {
+        if (mActivityJumpTime >= (System.currentTimeMillis() -500)){
+            LogHelper.d("");
+            return false;
+        }
+
+        mActivityJumpTime = System.currentTimeMillis();
+        return true;
+    }
+    /** 防止快速启动多次activity --结束*/
 }

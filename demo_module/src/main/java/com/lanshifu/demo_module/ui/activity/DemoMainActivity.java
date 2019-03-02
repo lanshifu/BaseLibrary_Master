@@ -100,6 +100,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         setTitleText("demo组件");
         mHandler = new H(this);
+        mHandler.sendEmptyMessage(1);
 
         ARouter.getInstance().inject(this);
         StringBuilder sb = new StringBuilder();
@@ -143,6 +144,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 //        mPresenter.test_thread();
 
         mPresenter.rxjavaTest();
+
     }
 
     private void handlerThreadTest() {
@@ -162,6 +164,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         handler.post(() -> {
             LogHelper.d("任务2执行完");
         });
+
 
 
     }
@@ -223,7 +226,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_behavior, R2.id.btn_behavior2, R2.id.btn_bottom_sheet_behavior
             , R2.id.btn_guide, R2.id.btn_webview, R2.id.btn_shared_element, R2.id.btn_map
             , R2.id.btn_anim, R2.id.btn_ndk, R2.id.btn_unknow_resource, R2.id.btn_notify1
-            , R2.id.btn_notify2, R2.id.btn_get_config})
+            , R2.id.btn_notify2, R2.id.btn_get_config, R2.id.btn_block_canary, R2.id.btn_check_update
+            , R2.id.btn_SnapHelper, R2.id.btn_sd_search, R2.id.btn_test_io, R2.id.btn_event_fit
+            , R2.id.btn_rxjava2})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -237,13 +242,13 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         } else if (viewId == R.id.btn_installed_app) {
             startActivity(DemoInstalledAppListActivity.class);
         } else if (viewId == R.id.btn_crash) {
-            int i = 3 / 0;
+            testCrash();
         } else if (viewId == R.id.btn_pdf_list) {
             startActivity(DemoPdfListActivity.class);
         } else if (viewId == R.id.btn_leak) {
             startActivity(DemoLeakActivity.class);
         } else if (viewId == R.id.btn_swipeback) {
-            startActivity(DemoSwipeBackActivity.class);
+            startActivity(DemoSlideBackActivity.class);
         } else if (viewId == R.id.btn_test) {
             Intent intent = new Intent(this, DemoTestActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
@@ -312,9 +317,29 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                             new Intent(DemoMainActivity.this,DemoMainActivity.class));
         }else if (viewId == R.id.btn_get_config) {
             mPresenter.initConfig();
+        }else if (viewId == R.id.btn_block_canary) {
+            mPresenter.blockCanaryTest();
+        }else if (viewId == R.id.btn_check_update) {
+//            Beta.checkUpgrade(false,false);
+
+            ToastUtil.showSuccessToast(this,"成功谈通知","内容");
+        }else if (viewId == R.id.btn_SnapHelper) {
+            startActivity(SnapHelperTestActivity.class);
+        }else if (viewId == R.id.btn_sd_search) {
+            startActivity(DemoSdCardFindActivity.class);
+        }else if (viewId == R.id.btn_test_io) {
+//            startActivity(DemoTestIOActivity.class);
+        }else if (viewId == R.id.btn_event_fit) {
+            startActivity(DemoHandleTouchEventActivity.class);
+        }else if (viewId == R.id.btn_rxjava2) {
+            startActivity(DemoRxjavaActivity.class);
         }
     }
 
+    private void testCrash(){
+//        int i = 3 / 0;
+        ToastUtil.showShortToast("bug已经被修复");
+    }
 
     private void requestPermission() {
         new RxPermissions(this)
@@ -433,6 +458,32 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         //等待countDown 到0的时候才继续下一步
         countDownLatch.await();
         return 10;
+    }
+
+    private void test(){
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == 1){
+                    //
+                }
+            }
+        };
+
+        Message message = Message.obtain();
+        message.what = 1;
+
+        //1
+        handler.sendMessage(message);
+        //2
+        handler.sendMessageDelayed(message,1000);
+        //3
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 
 

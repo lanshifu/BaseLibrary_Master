@@ -1,6 +1,7 @@
 package com.lanshifu.video_module.mvp.presenter;
 
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
+import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxTag;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.BaseObserver;
@@ -15,8 +16,10 @@ import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.video_module.bean.DownloadDurationBean;
 import com.lanshifu.video_module.bean.VideoListItemBean;
 import com.lanshifu.video_module.db.DownloadVideoDB;
+import com.lanshifu.video_module.download.DownloadManager;
 import com.lanshifu.video_module.mvp.view.VideoMainView;
 import com.lanshifu.video_module.network.VideoApi;
+import com.liulishuo.filedownloader.util.FileDownloadUtils;
 
 import org.litepal.LitePal;
 
@@ -79,6 +82,7 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
             downloadVideoDB.setTitle(title);
             downloadVideoDB.setUrl(url);
             downloadVideoDB.setDownloading(true);
+            downloadVideoDB.setPath(path);
             downloadVideoDB.save();
             downloadId = downloadVideoDB.getId();
             ToastUtil.showShortToast("开始下载");
@@ -116,6 +120,8 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
                             finalDownloadVideoDB.setDownload_pause(true);
                             finalDownloadVideoDB.save();
                         }
+                        RxBus.getInstance().post(RxTag.TAG_DOWNLOAD_DURAGION + url, new DownloadDurationBean(url, 100));
+
 
                     }
 
@@ -125,9 +131,36 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
                         finalDownloadVideoDB.setDownload_success(false);
                         finalDownloadVideoDB.setDownloading(false);
                         finalDownloadVideoDB.setDownload_pause(true);
-                        finalDownloadVideoDB.save();
+                        finalDownloadVideoDB.saveAsync();
+                        RxBus.getInstance().post(RxTag.TAG_DOWNLOAD_ERROR + url, "");
+
                     }
                 });
+    }
+
+
+
+    public void download2(String url,String path,String fileName){
+        DownloadManager.getImpl().startDownload(url,path,fileName);
+
+        //插入数据库
+        DownloadVideoDB downloadVideoDB = LitePal.where("url like ?", url)
+                .order("duration")
+                .findFirst(DownloadVideoDB.class);
+        if (downloadVideoDB == null) {
+            downloadVideoDB = new DownloadVideoDB();
+            downloadVideoDB.setTitle(fileName);
+            downloadVideoDB.setUrl(url);
+            downloadVideoDB.setDownloading(true);
+            downloadVideoDB.setPath(path);
+            //设置下载id
+            downloadVideoDB.setDownload_id(FileDownloadUtils.generateId(url, path));
+            downloadVideoDB.save();
+            ToastUtil.showShortToast("开始下载");
+        }else {
+            ToastUtil.showShortToast("继续下载");
+        }
+
     }
 
 }
