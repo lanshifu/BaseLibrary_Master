@@ -55,7 +55,7 @@ dependencies {
     implementation 'io.supercharge:shimmerlayout:2.1.0'
 
     //接入flutter,引入库
-//    implementation project(':flutter')
+    implementation project(':flutter')
 
 
 }

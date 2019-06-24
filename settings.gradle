@@ -15,7 +15,8 @@ include ':app',
 
 
 //接入flutter需要
-//setBinding(new Binding([gradle: this]))
-//evaluate(new File(
-//        'flutter_module/.android/include_flutter.groovy'
-//))
+
+setBinding(new Binding([gradle:this]))
+evaluate(new File(
+        'flutter_module/.android/include_flutter.groovy'
+))
