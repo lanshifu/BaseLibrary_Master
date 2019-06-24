@@ -52,6 +52,7 @@ dependencies {
     api(rootProject.ext.dependencies["butterknife"]) {
         exclude module: 'support-annotations'
     }
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     //rx
     api rootProject.ext.dependencies["rxjava2"]

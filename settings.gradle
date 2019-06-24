@@ -1,14 +1,21 @@
 include ':app',
         ':baselibrary',
         ':CommonService',
-        ':video_module',
-        ':picture_module',
-        ':activity_name_module',
-        ':wandroid_module',
+//        ':video_module',
+//        ':picture_module',
+//        ':activity_name_module',
+//        ':wandroid_module',
         ':demo_module',
-        ':share_module',
-        ':plugin_core',
-        ':plugin_module',
-        ':map_module',
-        ':reader',
-        ':article_module'
+//        ':share_module',
+        ':plugin_core'
+//        ':plugin_module',
+//        ':map_module',
+//        ':reader',
+//        ':article_module',
+
+
+//接入flutter需要
+//setBinding(new Binding([gradle: this]))
+//evaluate(new File(
+//        'flutter_module/.android/include_flutter.groovy'
+//))

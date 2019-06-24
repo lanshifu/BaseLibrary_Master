@@ -37,6 +37,7 @@ import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.lanshifu.demo_module.ndk.JniTest;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.bugly.beta.Beta;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.CountDownLatch;
@@ -228,7 +229,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_anim, R2.id.btn_ndk, R2.id.btn_unknow_resource, R2.id.btn_notify1
             , R2.id.btn_notify2, R2.id.btn_get_config, R2.id.btn_block_canary, R2.id.btn_check_update
             , R2.id.btn_SnapHelper, R2.id.btn_sd_search, R2.id.btn_test_io, R2.id.btn_event_fit
-            , R2.id.btn_rxjava2})
+            , R2.id.btn_rxjava2, R2.id.btn_hongyang_opne_api, R2.id.btn_flutter, R2.id.btn_camera2
+            , R2.id.btn_glsurfaceview})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -320,7 +322,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         }else if (viewId == R.id.btn_block_canary) {
             mPresenter.blockCanaryTest();
         }else if (viewId == R.id.btn_check_update) {
-//            Beta.checkUpgrade(false,false);
+            Beta.checkUpgrade(false,false);
 
             ToastUtil.showSuccessToast(this,"成功谈通知","内容");
         }else if (viewId == R.id.btn_SnapHelper) {
@@ -333,6 +335,16 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             startActivity(DemoHandleTouchEventActivity.class);
         }else if (viewId == R.id.btn_rxjava2) {
             startActivity(DemoRxjavaActivity.class);
+        }else if (viewId == R.id.btn_hongyang_opne_api) {
+            startActivity(DemoHongyangOpenApiActivity.class);
+        }else if (viewId == R.id.btn_flutter) {
+            Intent intent = new Intent();
+            intent.setClass(this, DwmoFlutterActivity.class);
+            startActivity(intent);
+        }else if (viewId == R.id.btn_camera2) {
+            startActivity(DemoCamera2Activity.class);
+        }else if (viewId == R.id.btn_glsurfaceview) {
+//            startActivity(DemoSurFaceViewActivity.class);
         }
     }
 
@@ -344,7 +356,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     private void requestPermission() {
         new RxPermissions(this)
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
                 .compose(RxScheduler.io_main())
                 .subscribe(new Consumer<Boolean>() {
                     @Override

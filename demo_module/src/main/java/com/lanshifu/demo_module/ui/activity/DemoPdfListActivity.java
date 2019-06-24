@@ -3,10 +3,13 @@ package com.lanshifu.demo_module.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
+import com.ethanhua.skeleton.Skeleton;
 import com.lanshifu.baselibrary.base.activity.BaseListTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
@@ -21,6 +24,9 @@ import java.util.List;
 
 public class DemoPdfListActivity extends BaseListTitleBarActivity<DemoPdfPresenter, PdfData>
         implements DemoPdfView {
+
+    private RecyclerViewSkeletonScreen mSkeletonScreen;
+
     @Override
     protected BaseView bindView() {
         return this;
@@ -70,11 +76,13 @@ public class DemoPdfListActivity extends BaseListTitleBarActivity<DemoPdfPresent
     public void loadPdfSuccess(List<PdfData> datas) {
         mRecyclerView.finishRefresh();
         mAdapter.replaceData(datas);
+        mSkeletonScreen.hide();
     }
 
     @Override
     public void loadPdfError(String error) {
         mRecyclerView.finishRefresh(false);
+        mSkeletonScreen.hide();
     }
 
     @Override
@@ -87,4 +95,18 @@ public class DemoPdfListActivity extends BaseListTitleBarActivity<DemoPdfPresent
 
     }
 
+    @Override
+    protected void setAdapter(RecyclerView.Adapter adapter) {
+//        super.setAdapter(adapter);
+        mSkeletonScreen = Skeleton.bind(mRecyclerView.getRecyclerView())
+                                .adapter(mAdapter)
+                                .load(R.layout.demo_list_item_loading)
+                                .shimmer(true)      // whether show shimmer animation.                      default is true
+                                .count(10)          // the recycler view item count.                        default is 10
+                                .color(R.color.shimmer_color)       // the shimmer color.                                   default is #a2878787
+                                .angle(20)          // the shimmer angle.                                   default is 20;
+                                .duration(1000)     // the shimmer animation duration.                      default is 1000;
+                                .frozen(false)
+                                .show();
+    }
 }

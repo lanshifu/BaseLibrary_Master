@@ -1,6 +1,7 @@
 package com.lanshifu.baselibrary.base.activity;
 
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -192,12 +193,17 @@ public abstract class BaseListTitleBarActivity<P extends BasePresenter, T> exten
         };
 
         mAdapter.setOnItemClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
+//        mRecyclerView.setAdapter(mAdapter);
+        setAdapter(mAdapter);
         mRecyclerView.setOnRefreshListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         if (isAutoRefresh()) {
             mRecyclerView.autoRefresh();
         }
+    }
+
+    protected void setAdapter(RecyclerView.Adapter adapter){
+        mRecyclerView.setAdapter(adapter);
     }
 
     /**

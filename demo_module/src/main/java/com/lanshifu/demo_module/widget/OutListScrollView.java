@@ -51,10 +51,10 @@ public class OutListScrollView extends ScrollView {
     }
 
 
-    int left;
-    int right;
-    int top;
-    int bottom;
+    private int left;
+    private int right;
+    private int top;
+    private int bottom;
 
     /**
      * 外部拦截的条件

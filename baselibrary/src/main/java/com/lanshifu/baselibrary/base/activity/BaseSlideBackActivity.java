@@ -1,6 +1,7 @@
 package com.lanshifu.baselibrary.base.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,19 +18,17 @@ import com.lanshifu.baselibrary.utils.SystemUtil;
 public abstract class BaseSlideBackActivity extends BaseActivity {
 
 
+    private static final String TAG = "BaseSlideBackActivity";
     private int mScreenWidth = 0;
     private int mScreenHeight = 0;
-
-    //
     private int mShouldFinishPix = 0;
+    //手指按下左边距离左边多远，触发滑动
     private static final int CANSLIDE_LENGTH = 16;
-
     //判断是否从左边缘划过来
-    boolean mIsEdge = false;
-    float x;
-    float downX;
-
-    int offset;
+    private boolean mIsEdge = false;
+    private float mDownX;
+    private float mMoveX;
+    private int offset = 0;
     private SlideBackView mSlideBackView;
 
     @Override
@@ -53,34 +52,28 @@ public abstract class BaseSlideBackActivity extends BaseActivity {
         slideBackView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent motionEvent) {
-                downX = motionEvent.getRawX();
 
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        downX = motionEvent.getRawX();
+                        mDownX = motionEvent.getRawX();
+                        Log.d(TAG, "mDownX: " + mDownX);
 
                         //判断点击范围与设置的滑出区域是否符合
-                        if (downX > mScreenWidth / 2) {
-                            //在右侧区域，直接return
+                        if (mDownX > DensityUtil.dp2px(CANSLIDE_LENGTH)) {
                             return false;
-                        } else {
-                            offset = 0;
                         }
 
-
-                        //手指落在左边16dp距离
-                        if (x <= DensityUtil.dp2px(CANSLIDE_LENGTH)) {
-                            mIsEdge = true;
-                            slideBackView.updateControlPoint(Math.abs(x), offset);
-                            setBackViewY(slideBackView, (int) (motionEvent.getRawY()));
-                        }
+                        //手指落在左边8dp距离
+                        mIsEdge = true;
+                        slideBackView.updateControlPoint(0, offset);
+                        setBackViewY(slideBackView, (int) (motionEvent.getRawY()));
                         break;
 
                     case MotionEvent.ACTION_MOVE:
                         if (mIsEdge) {
-                            float moveX = Math.abs(mScreenWidth * offset - x) - downX;
-                            if (Math.abs(moveX) <= mShouldFinishPix) {
-                                slideBackView.updateControlPoint(Math.abs(moveX) / 2, offset);
+                            mMoveX = motionEvent.getRawX() - mDownX;
+                            if (Math.abs(mMoveX) <= mShouldFinishPix) {
+                                slideBackView.updateControlPoint(Math.abs(mMoveX) / 2, offset);
                             }
                             setBackViewY(slideBackView, (int) (motionEvent.getRawY()));
                         }
@@ -89,7 +82,7 @@ public abstract class BaseSlideBackActivity extends BaseActivity {
                     case MotionEvent.ACTION_UP:
                         //从左边缘划过来，并且最后在屏幕的三分之一外
                         if (mIsEdge) {
-                            if (x >= mShouldFinishPix) {
+                            if (mMoveX >= mShouldFinishPix) {
                                 slideBackSuccess();
                             }
                         }

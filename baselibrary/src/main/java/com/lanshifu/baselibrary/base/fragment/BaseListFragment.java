@@ -54,10 +54,18 @@ public abstract class BaseListFragment<P extends BasePresenter, T> extends BaseF
         };
 
         mAdapter.setOnItemClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
+        setAdapter(mAdapter);
         mRecyclerView.setOnRefreshListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
         mRecyclerView.autoRefresh();
+    }
+
+    /**
+     * 暴露一个方法，如果子类要实现骨架屏，可以重写此方法，自己设置adapter
+     * @param mAdapter
+     */
+    protected void setAdapter(BaseQuickAdapter mAdapter){
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 

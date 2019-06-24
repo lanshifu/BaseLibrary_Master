@@ -1,9 +1,19 @@
 package com.lanshifu.demo_module.test;
 
 public class Foo {
-    public static void main(String[] args) {
-        boolean flag = true;
-        if (flag) System.out.println("Hello, Java!");
-        if (flag == true) System.out.println("Hello, JVM!");
+    private int tryBlock;
+    private int catchBlock;
+    private int finallyBlock;
+    private int methodExit;
+
+    public void test() {
+        try {
+            tryBlock = 0;
+        } catch (Exception e) {
+            catchBlock = 1;
+        } finally {
+            finallyBlock = 2;
+        }
+        methodExit = 3;
     }
 }

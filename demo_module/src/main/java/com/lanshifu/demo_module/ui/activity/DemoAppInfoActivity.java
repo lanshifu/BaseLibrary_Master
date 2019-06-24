@@ -13,6 +13,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
+import com.ethanhua.skeleton.Skeleton;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
@@ -45,6 +47,7 @@ public class DemoAppInfoActivity extends BaseTitleBarActivity {
 
     private List<AppInfo> mlistAppInfo = new ArrayList<>();
     private BaseQuickAdapter<AppInfo, BaseViewHolder> mAdapter;
+    private RecyclerViewSkeletonScreen mSkeletonScreen;
 
     @Override
     protected int getLayoutId() {
@@ -74,7 +77,19 @@ public class DemoAppInfoActivity extends BaseTitleBarActivity {
             }
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
+//        mRecyclerView.setAdapter(mAdapter);
+        //骨架屏
+        mSkeletonScreen = Skeleton.bind(mRecyclerView.getRecyclerView())
+                .adapter(mAdapter)
+                .load(R.layout.demo_list_item_loading)
+                .shimmer(true)      // whether show shimmer animation.                      default is true
+                .count(10)          // the recycler view item count.                        default is 10
+                .color(R.color.shimmer_color)       // the shimmer color.                                   default is #a2878787
+                .angle(20)          // the shimmer angle.                                   default is 20;
+                .duration(1000)     // the shimmer animation duration.                      default is 1000;
+                .frozen(false)
+                .show();
+
         mRecyclerView.setEnableLoadMore(false);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -103,6 +118,7 @@ public class DemoAppInfoActivity extends BaseTitleBarActivity {
                 .subscribe(new BaseObserver<List<AppInfo>>() {
                     @Override
                     public void _onNext(List<AppInfo> appInfos) {
+                        mSkeletonScreen.hide();
                         mAdapter.replaceData(appInfos);
                         LogHelper.e("size "+appInfos.size());
                         showShortToast("size "+appInfos.size());
@@ -113,6 +129,7 @@ public class DemoAppInfoActivity extends BaseTitleBarActivity {
 
                     @Override
                     public void _onError(String e) {
+                        mSkeletonScreen.hide();
                         showErrorToast(e);
                         mRecyclerView.finishRefresh();
                     }

@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import skin.support.SkinCompatManager;
-import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
 
 /**
@@ -137,8 +136,11 @@ public abstract class BaseApplication extends Application {
         MultiDex.install(this);
     }
 
+    public static final String DOMAIN_WANANDROID = "wanandroid";
+    public static final String DOMAIN_GOPEN_API = "open_api";
     protected void initRetrofitUrlManager() {
-        RetrofitUrlManager.getInstance().putDomain("wanandroid", ApiConstant.URL_WANDROID);
+        RetrofitUrlManager.getInstance().putDomain(DOMAIN_WANANDROID, ApiConstant.URL_WANDROID);
+        RetrofitUrlManager.getInstance().putDomain(DOMAIN_GOPEN_API, ApiConstant.URL_OPEN);
         // 全局 BaseUrl 的优先级低于 Domain-Name header 中单独配置的,其他未配置的接口将受全局 BaseUrl 的影响
         RetrofitUrlManager.getInstance().setGlobalDomain(ApiConstant.URL_DERAULT);
         RetrofitUrlManager.getInstance().setDebug(BuildConfig.DEBUG);

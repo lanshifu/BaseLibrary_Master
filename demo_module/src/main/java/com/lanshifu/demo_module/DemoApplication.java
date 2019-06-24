@@ -39,7 +39,7 @@ public class DemoApplication extends BaseApplication {
 //        CrashReport.initCrashReport(context, "e5d168a687", true, strategy);
         // 如果通过“AndroidManifest.xml”来配置APP信息，初始化方法如下
         // CrashReport.initCrashReport(context, strategy);
-        Bugly.init(getApplicationContext(), "e5d168a687", true);
+        Bugly.init(getApplicationContext(), "8c0ef3e06a", true);
         //
         Bugly.setIsDevelopmentDevice(getApplicationContext(), true);
 

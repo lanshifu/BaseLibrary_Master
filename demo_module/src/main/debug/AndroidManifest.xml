@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lanshifu.demo_module">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,6 +29,8 @@
     <uses-permission android:name="com.suntek.mway.carrier_configuation.permission.READ_CARRIER_CONFIG"/>
     <permission android:name="com.suntek.mway.carrier_configuation.permission.READ_CARRIER_CONFIG"/>
 
+    <!-- Tell the system this app requires OpenGL ES 2.0. -->
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -80,6 +85,12 @@
         <activity android:name=".ui.activity.SnapHelperTestActivity" />
         <activity android:name=".ui.activity.DemoSdCardFindActivity" />
         <activity android:name=".ui.activity.DemoHandleTouchEventActivity" />
+        <activity android:name=".nfc.DemoNocActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".ui.activity.DemoHongyangOpenApiActivity" />
+        <activity android:name=".ui.activity.DwmoFlutterActivity" />
+        <activity android:name=".ui.activity.DemoCamera2Activity" />
+        <activity android:name=".ui.activity.DemoSurFaceViewActivity" />
 
 
         <service android:name=".service.GuardService"

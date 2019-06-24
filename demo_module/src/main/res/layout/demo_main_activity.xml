@@ -205,6 +205,26 @@
             style="@style/default_button"
             android:text="RxJava2" />
 
+        <Button
+            android:id="@+id/btn_hongyang_opne_api"
+            style="@style/default_button"
+            android:text="洪洋开放api" />
+        <Button
+
+            android:id="@+id/btn_flutter"
+            style="@style/default_button"
+            android:text="启动Flutter界面" />
+
+       <Button
+            android:id="@+id/btn_camera2"
+            style="@style/default_button"
+            android:text="cmaera2" />
+
+       <Button
+            android:id="@+id/btn_glsurfaceview"
+            style="@style/default_button"
+            android:text="glsurfaceview" />
+
 
         <include layout="@layout/demo_background_list" />
 

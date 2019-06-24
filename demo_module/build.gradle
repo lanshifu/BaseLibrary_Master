@@ -24,6 +24,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //饿了么开源的查看控件属性
     debugCompile 'me.ele:uetool:1.0.15'
     releaseCompile 'me.ele:uetool-no-op:1.0.15'
@@ -48,6 +49,13 @@ dependencies {
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
     debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
     releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
+
+    //骨架屏，头条第一次进入的时候
+    implementation 'com.ethanhua:skeleton:1.1.2'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+
+    //接入flutter,引入库
+//    implementation project(':flutter')
 
 
 }
