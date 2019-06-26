@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.base.AppManager;
-import com.lanshifu.baselibrary.log.LogHandler;
-import com.lanshifu.baselibrary.widget.SkinCompactClassicsHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -17,11 +15,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 public class CommonUtils {
 
-    public static void init(Context context){
-
-        LogHandler logHandler = new LogHandler(context);
-        logHandler.setName("LogHandler");
-        logHandler.start();
+    public static void init(Context context) {
 
         ToastUtil.init(context);
 
@@ -36,7 +30,7 @@ public class CommonUtils {
         AppManager.getInstance().init(context);
     }
 
-    private static void initSmartRefreshLayoutHeader(){
+    private static void initSmartRefreshLayoutHeader() {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {

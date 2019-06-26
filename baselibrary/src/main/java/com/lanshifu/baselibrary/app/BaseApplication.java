@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -13,6 +14,8 @@ import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.ApiConstant;
 import com.lanshifu.baselibrary.utils.CommonUtils;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.mars.xlog.Log;
+import com.tencent.mars.xlog.Xlog;
 
 import org.litepal.LitePal;
 
@@ -36,10 +39,13 @@ public abstract class BaseApplication extends Application {
         return context;
     }
 
-    /**线程池开始*/
+    /**
+     * 线程池开始
+     */
     private static ThreadPoolExecutor pool;
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int INIT_THREAD_COUNT = CPU_COUNT + 1;
+
     static {
         pool = new ThreadPoolExecutor(
                 INIT_THREAD_COUNT,
@@ -50,10 +56,15 @@ public abstract class BaseApplication extends Application {
                 new ThreadPoolExecutor.CallerRunsPolicy()
         );
     }
-    public static ThreadPoolExecutor getThreadPool(){
+
+    public static ThreadPoolExecutor getThreadPool() {
         return pool;
     }
-    /**线程池结束*/
+
+
+    /**
+     * 线程池结束
+     */
 
     @Override
     public void onCreate() {
@@ -77,6 +88,7 @@ public abstract class BaseApplication extends Application {
 
     /**
      * Application 初始化
+     *
      * @param application
      */
     public abstract void initModuleApp(Application application);
@@ -138,6 +150,7 @@ public abstract class BaseApplication extends Application {
 
     public static final String DOMAIN_WANANDROID = "wanandroid";
     public static final String DOMAIN_GOPEN_API = "open_api";
+
     protected void initRetrofitUrlManager() {
         RetrofitUrlManager.getInstance().putDomain(DOMAIN_WANANDROID, ApiConstant.URL_WANDROID);
         RetrofitUrlManager.getInstance().putDomain(DOMAIN_GOPEN_API, ApiConstant.URL_OPEN);
@@ -148,10 +161,11 @@ public abstract class BaseApplication extends Application {
 
     /**
      * 换肤跟background 库不能同时使用，所以先不用
+     *
      * @param application
      */
     protected void initSkin(Application application) {
-        if (true){
+        if (true) {
             return;
         }
         //换肤框架初始化

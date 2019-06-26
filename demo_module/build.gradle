@@ -57,6 +57,10 @@ dependencies {
     //接入flutter,引入库
     implementation project(':flutter')
 
+    // https://mvnrepository.com/artifact/com.aliyun.ams/alicloud-android-utdid
+//    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.4'
+
+
 
 }
 

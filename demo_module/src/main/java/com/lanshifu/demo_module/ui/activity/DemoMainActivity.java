@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -17,6 +18,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lanshifu.baselibrary.BuildConfig;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.app.MainApplication;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
@@ -38,6 +40,7 @@ import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.lanshifu.demo_module.ndk.JniTest;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.mars.xlog.Xlog;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.CountDownLatch;
@@ -99,6 +102,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     @Override
     protected void initView(Bundle bundle) {
 
+
         setTitleText("demo组件");
         mHandler = new H(this);
         mHandler.sendEmptyMessage(1);
@@ -146,6 +150,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         mPresenter.rxjavaTest();
 
+        initXLog();
     }
 
     private void handlerThreadTest() {
@@ -199,6 +204,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+        LogHelper.d("onDestroy");
+        LogHelper.closeLog();
     }
 
 
@@ -230,7 +237,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_notify2, R2.id.btn_get_config, R2.id.btn_block_canary, R2.id.btn_check_update
             , R2.id.btn_SnapHelper, R2.id.btn_sd_search, R2.id.btn_test_io, R2.id.btn_event_fit
             , R2.id.btn_rxjava2, R2.id.btn_hongyang_opne_api, R2.id.btn_flutter, R2.id.btn_camera2
-            , R2.id.btn_glsurfaceview})
+            , R2.id.btn_uid})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -343,7 +350,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             startActivity(intent);
         }else if (viewId == R.id.btn_camera2) {
             startActivity(DemoCamera2Activity.class);
-        }else if (viewId == R.id.btn_glsurfaceview) {
+        }else if (viewId == R.id.btn_uid) {
 //            startActivity(DemoSurFaceViewActivity.class);
         }
     }
@@ -498,6 +505,36 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             }
         });
     }
+
+
+    private void initXLog(){
+        System.loadLibrary("c++_shared");
+        System.loadLibrary("marsxlog");
+
+        final String SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final String logPath = SDCARD + "/marssample/log";
+
+        // this is necessary, or may crash for SIGBUS
+        final String cachePath = this.getFilesDir() + "/xlog";
+
+        //init xlog
+        if (BuildConfig.DEBUG) {
+            Xlog.appenderOpen(Xlog.LEVEL_DEBUG, Xlog.AppednerModeAsync, cachePath, logPath, "MarsSample", 0, "");
+            Xlog.setConsoleLogOpen(true);
+
+        } else {
+            Xlog.appenderOpen(Xlog.LEVEL_INFO, Xlog.AppednerModeAsync, cachePath, logPath, "MarsSample", 0, "");
+            Xlog.setConsoleLogOpen(false);
+        }
+
+        com.tencent.mars.xlog.Log.setLogImp(new Xlog());
+
+        com.tencent.mars.xlog.Log.d("lxb","测试xlog");
+        com.tencent.mars.xlog.Log.d("lxb","cachePath = " + cachePath);
+        com.tencent.mars.xlog.Log.d("lxb","SDCARD = " + SDCARD);
+
+    }
+
 
 
 }

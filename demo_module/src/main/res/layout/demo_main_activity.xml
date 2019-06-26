@@ -220,10 +220,11 @@
             style="@style/default_button"
             android:text="cmaera2" />
 
-       <Button
-            android:id="@+id/btn_glsurfaceview"
+
+        <Button
+            android:id="@+id/btn_uid"
             style="@style/default_button"
-            android:text="glsurfaceview" />
+            android:text="UID" />
 
 
         <include layout="@layout/demo_background_list" />

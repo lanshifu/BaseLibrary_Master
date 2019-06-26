@@ -142,4 +142,8 @@ dependencies {
     api 'skin.support:skin-support-cardview:3.1.0-beta1'          // skin-support-cardview CardView 控件支持[可选]
     api 'skin.support:skin-support-constraint-layout:3.1.0-beta1' // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 
+
+    //腾讯xlog： https://github.com/Tencent/mars#mars_cn
+    api 'com.tencent.mars:mars-xlog:1.0.7'
+
 }
