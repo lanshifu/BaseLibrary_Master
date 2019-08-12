@@ -1,6 +1,6 @@
 
 apply from:"../common_component_build.gradle"
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 android {
     resourcePrefix "demo_" //给 Module 内的资源名增加前缀, 避免资源名冲突
 
@@ -10,21 +10,20 @@ android {
 //            jni.srcDirs = [] //屏蔽掉默认的jni编译生成过程
 //        }
 //    }
-
-
-
 }
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(':baselibrary')
     api project(':CommonService')
     api project(':plugin_core')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     //饿了么开源的查看控件属性
     debugCompile 'me.ele:uetool:1.0.15'
     releaseCompile 'me.ele:uetool-no-op:1.0.15'
@@ -53,6 +52,8 @@ dependencies {
     //骨架屏，头条第一次进入的时候
     implementation 'com.ethanhua:skeleton:1.1.2'
     implementation 'io.supercharge:shimmerlayout:2.1.0'
+
+//    debugImplementation rootProject.ext.dependencies["canary-debug"]
 
     //接入flutter,引入库
     implementation project(':flutter')

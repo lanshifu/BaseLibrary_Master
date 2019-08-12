@@ -16,4 +16,16 @@ public class A {
     static{
         System.out.print(" staticA");
     }
+
+    void method1(int i,int ii,int iii){
+
+    }
+
+    void method2(String s){
+
+    }
+
+    void method2(String s,String ss,long l){
+
+    }
 }

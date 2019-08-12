@@ -1,7 +1,7 @@
 package com.lanshifu.demo_module.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.lanshifu.baselibrary.base.activity.BaseTabActivity;
 import com.lanshifu.demo_module.ui.fragment.DemoTabFragment;

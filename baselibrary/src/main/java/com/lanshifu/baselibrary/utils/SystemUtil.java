@@ -20,12 +20,10 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.provider.Telephony;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -41,7 +39,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;

@@ -19,7 +19,6 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/> <!--安装未知来源应用的权限-->
 
@@ -90,7 +89,6 @@
         <activity android:name=".ui.activity.DemoHongyangOpenApiActivity" />
         <activity android:name=".ui.activity.DwmoFlutterActivity" />
         <activity android:name=".ui.activity.DemoCamera2Activity" />
-        <activity android:name=".ui.activity.DemoSurFaceViewActivity" />
 
 
         <service android:name=".service.GuardService"

@@ -1,10 +1,10 @@
 package com.lanshifu.picture_module.ui.fragment;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,7 +17,6 @@ import com.lanshifu.baselibrary.base.fragment.BaseListFragment;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.utils.ToastUtil;
-import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.picture_module.R;
 import com.lanshifu.picture_module.bean.PictureListItemBean;
 import com.lanshifu.picture_module.mvp.presenter.PictureMainPresenter;

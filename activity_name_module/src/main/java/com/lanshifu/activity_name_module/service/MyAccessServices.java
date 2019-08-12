@@ -5,12 +5,11 @@ import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Path;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.lanshifu.activity_name_module.RxEvent;
-import com.lanshifu.activity_name_module.base.BaseAccessibilityService;
 import com.lanshifu.activity_name_module.db.CollectionDB;
 import com.lanshifu.activity_name_module.module.MainActivityModule;
 import com.lanshifu.activity_name_module.module.ZhifubaoModule;

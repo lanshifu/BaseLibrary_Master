@@ -2,8 +2,8 @@ package com.lanshifu.demo_module.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,7 +13,6 @@ import com.ethanhua.skeleton.Skeleton;
 import com.lanshifu.baselibrary.base.activity.BaseListTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.bean.PdfData;
 import com.lanshifu.demo_module.mvp.presenter.DemoPdfPresenter;

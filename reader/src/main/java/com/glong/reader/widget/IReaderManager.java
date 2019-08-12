@@ -1,7 +1,7 @@
 package com.glong.reader.widget;
 
 import android.graphics.Canvas;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.glong.reader.TurnStatus;
 

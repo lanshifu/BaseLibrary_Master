@@ -1,6 +1,7 @@
 package com.lanshifu.demo_module.ui.activity;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -536,5 +537,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     }
 
 
+    private void test2() {
+        Application application = getApplication();
+        Context applicationContext = getApplicationContext();
+    }
 
 }

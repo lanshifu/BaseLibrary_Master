@@ -1,6 +1,6 @@
 package com.lanshifu.baselibrary.baserxjava;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.lanshifu.baselibrary.network.RxScheduler;

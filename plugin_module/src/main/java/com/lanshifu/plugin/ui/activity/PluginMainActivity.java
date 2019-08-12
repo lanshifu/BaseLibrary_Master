@@ -1,14 +1,12 @@
 package com.lanshifu.plugin.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+
 import android.view.View;
 
-import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.plugin.R;
 import com.lanshifu.plugin_core.BasePluginActivity;
-import com.lanshifu.plugin_core.PluginProxyActivity;
 
 public class PluginMainActivity extends BasePluginActivity {
 

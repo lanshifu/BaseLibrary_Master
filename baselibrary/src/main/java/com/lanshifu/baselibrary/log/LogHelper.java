@@ -1,7 +1,7 @@
 
 package com.lanshifu.baselibrary.log;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,8 +12,6 @@ import com.tencent.mars.xlog.Xlog;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
 
 public final class LogHelper {
     public static boolean mIsDebugMode = true;

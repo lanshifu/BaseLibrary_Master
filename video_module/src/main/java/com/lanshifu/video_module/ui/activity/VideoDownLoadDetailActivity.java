@@ -1,7 +1,7 @@
 package com.lanshifu.video_module.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

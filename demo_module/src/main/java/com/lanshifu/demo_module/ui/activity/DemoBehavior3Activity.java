@@ -1,20 +1,18 @@
 package com.lanshifu.demo_module.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lanshifu.baselibrary.base.AppManager;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.lanshifu.baselibrary.base.activity.BaseActivity;
 import com.lanshifu.baselibrary.utils.ToastUtil;
-import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.demo_module.R;
 
 import java.util.ArrayList;

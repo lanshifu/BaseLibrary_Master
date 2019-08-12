@@ -2,8 +2,8 @@ package com.lanshifu.activity_name_module.ui.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

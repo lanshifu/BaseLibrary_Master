@@ -6,13 +6,12 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.LayoutInflaterCompat;
-import android.view.LayoutInflater;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.ContextCompat;
+
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -25,8 +24,6 @@ import com.lanshifu.baselibrary.widget.LoadingDialog;
 import com.lanshifu.baselibrary.widget.StatusBarCompat;
 import com.noober.background.BackgroundLibrary;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-
-import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

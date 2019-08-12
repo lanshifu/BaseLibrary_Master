@@ -19,7 +19,6 @@ public class MainApplication extends BaseApplication {
 
 
         initSkin(this); //换肤
-        initLeakCanary(getContext());
         initMultiDex();
 
     }

@@ -1,8 +1,8 @@
 package com.glong.reader.config;
 
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
+import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 
 /**
  * Created by Garrett on 2018/11/17.

@@ -19,7 +19,7 @@
                 android:background="@color/green"
                 android:text="外部拦截"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.appcompat.widget.RecyclerView
                 android:id="@+id/recyclerView_outer"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>

@@ -1,12 +1,10 @@
 package com.lanshifu.demo_module.widget;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
-
-import com.lanshifu.baselibrary.log.LogHelper;
 
 /**
  * ScrollView嵌套listveiw 滑动冲突外部拦截法

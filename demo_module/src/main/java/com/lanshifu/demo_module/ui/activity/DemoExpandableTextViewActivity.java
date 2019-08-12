@@ -1,9 +1,7 @@
 package com.lanshifu.demo_module.ui.activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.text.util.LinkifyCompat;
+import androidx.core.text.util.LinkifyCompat;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;

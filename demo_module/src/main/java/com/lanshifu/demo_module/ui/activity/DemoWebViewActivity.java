@@ -3,14 +3,13 @@ package com.lanshifu.demo_module.ui.activity;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.view.View;
+import androidx.annotation.RequiresApi;
+
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.utils.ToastUtil;
@@ -18,7 +17,6 @@ import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by lanshifu on 2018/11/7.

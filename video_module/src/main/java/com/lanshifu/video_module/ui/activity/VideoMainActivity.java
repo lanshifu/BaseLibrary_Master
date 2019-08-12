@@ -3,22 +3,19 @@ package com.lanshifu.video_module.ui.activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.MenuItem;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lanshifu.baselibrary.RouterHub;
-import com.lanshifu.baselibrary.app.DefaultApplication;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
 import com.lanshifu.video_module.R;
 import com.lanshifu.video_module.ui.fragment.VideoMainFragment;
-import com.liulishuo.filedownloader.FileDownloader;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import cn.jzvd.JZVideoPlayer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 @Route(path = RouterHub.VIDEO_MAIN_ACTIVITY)
 public class VideoMainActivity extends BaseTitleBarActivity {

@@ -6,9 +6,9 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.baserxjava.RxTag;

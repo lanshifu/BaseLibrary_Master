@@ -1,8 +1,8 @@
 package com.lanshifu.video_module.ui.fragment;
 
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -13,8 +13,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.base.fragment.BaseListFragment;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.baselibrary.utils.StorageUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.video_module.R;
 import com.lanshifu.video_module.bean.VideoListItemBean;

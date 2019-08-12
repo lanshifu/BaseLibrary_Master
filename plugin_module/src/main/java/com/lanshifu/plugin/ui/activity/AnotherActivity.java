@@ -1,7 +1,7 @@
 package com.lanshifu.plugin.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.lanshifu.plugin.R;
 import com.lanshifu.plugin_core.BasePluginActivity;

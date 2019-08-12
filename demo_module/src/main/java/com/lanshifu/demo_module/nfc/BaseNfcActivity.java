@@ -3,7 +3,7 @@ package com.lanshifu.demo_module.nfc;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 1.子类需要在onCreate方法中做Activity初始化。

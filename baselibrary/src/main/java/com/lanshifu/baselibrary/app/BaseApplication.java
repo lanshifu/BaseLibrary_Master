@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.multidex.MultiDex;
+
+import androidx.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.BuildConfig;
@@ -13,9 +13,6 @@ import com.lanshifu.baselibrary.base.AppManager;
 import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.ApiConstant;
 import com.lanshifu.baselibrary.utils.CommonUtils;
-import com.squareup.leakcanary.LeakCanary;
-import com.tencent.mars.xlog.Log;
-import com.tencent.mars.xlog.Xlog;
 
 import org.litepal.LitePal;
 
@@ -187,15 +184,5 @@ public abstract class BaseApplication extends Application {
         ARouter.init(application); // 尽可能早，推荐在Application中初始化
     }
 
-    protected void initLeakCanary(Context context) {
-        //内存泄漏检测
-        if (LeakCanary.isInAnalyzerProcess(context)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LogHelper.d("LeakCanary.install(this);");
-        LeakCanary.install(this);
-    }
 
 }

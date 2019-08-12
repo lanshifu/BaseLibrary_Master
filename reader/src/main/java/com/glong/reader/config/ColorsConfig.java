@@ -1,6 +1,6 @@
 package com.glong.reader.config;
 
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 /**
  * Created by Garrett on 2018/11/18.

@@ -16,7 +16,7 @@
         android:textSize="18sp"
         app:layout_behavior="@string/behavior_sample_header" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         app:layout_behavior="@string/behavior_recyclerview"

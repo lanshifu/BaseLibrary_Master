@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -59,7 +59,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by lanshifu on 2018/11/16.

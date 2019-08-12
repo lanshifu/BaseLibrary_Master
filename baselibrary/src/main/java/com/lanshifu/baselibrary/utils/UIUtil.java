@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.base.AppManager;
@@ -32,7 +31,7 @@ public class UIUtil {
     }
 
     /**
-     * 使用 {@link Snackbar} 显示文本消息
+     * 显示文本消息
      *
      * @param text
      */
