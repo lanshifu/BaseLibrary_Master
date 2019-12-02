@@ -17,7 +17,7 @@ import io.flutter.view.FlutterView;
  * 集成看这篇 https://blog.csdn.net/c10wtiybq1ye3/article/details/88415077
  *
  * */
-public class DwmoFlutterActivity extends AppCompatActivity {
+public class DemoFlutterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

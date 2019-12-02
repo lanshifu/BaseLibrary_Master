@@ -14,7 +14,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.util.List;
 
@@ -74,7 +74,7 @@ public class BaseAccessibilityService extends AccessibilityService {
         while (nodeInfo != null) {
             if (nodeInfo.isClickable()) {
                 boolean click = nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                LogHelper.d("click == " +click);
+                LogUtil.d("click == " +click);
                 if (click){
                     return true;
                 }
@@ -181,7 +181,7 @@ public class BaseAccessibilityService extends AccessibilityService {
         }
         List<AccessibilityNodeInfo> nodeInfoList = accessibilityNodeInfo.findAccessibilityNodeInfosByText(text);
         if (nodeInfoList != null && !nodeInfoList.isEmpty()) {
-            LogHelper.d("包含关键字 "+text);
+            LogUtil.d("包含关键字 "+text);
             boolean clickResult = false;
             for (AccessibilityNodeInfo nodeInfo : nodeInfoList) {
                 if (nodeInfo != null) {

@@ -6,7 +6,7 @@ import android.os.Environment;
 import android.view.View;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
@@ -49,14 +49,14 @@ public class DemoPluginActivity extends BaseTitleBarActivity {
      * @param apkPath
      */
     private void loadApk(String apkPath) {
-        LogHelper.d("loadApk,path = " +apkPath);
+        LogUtil.d("loadApk,path = " +apkPath);
         File dexOpt = this.getDir("dexOpt", MODE_PRIVATE);
         //optimizedDirectory：解压后的.dex文件的存储路径，不能为空。这个路径强烈建议使用应用程序的私有路径
         //libraryPath：os库的存放路径，可以为空，若有os库，必须填写。
         //parent：父亲加载器，一般为context.getClassLoader(),使用当前上下文的类加载器。
         DexClassLoader classloader = new DexClassLoader(apkPath, dexOpt.getAbsolutePath(),
                 null, this.getClassLoader());
-        LogHelper.d("Searching for class : com.lanshifu.plugin.ClassToBeLoad");
+        LogUtil.d("Searching for class : com.lanshifu.plugin.ClassToBeLoad");
 
         try {
             Class<?> classToLoad = (Class<?>) classloader.loadClass("com.lanshifu.plugin.ClassToBeLoad");

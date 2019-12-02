@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.lanshifu.baselibrary.base.activity.BaseActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
@@ -23,7 +22,6 @@ import com.lanshifu.demo_module.network.HongYangOpenApiRespFun;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Function;
 

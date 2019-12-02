@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.suanfa.niuke.Niuke;
@@ -30,7 +30,7 @@ public class DemoTestActivity extends BaseTitleBarActivity {
         niuke.test();
 
         ListNode listNode = new ListNode();
-        LogHelper.d(listNode.value +"");
+        LogUtil.d(listNode.value +"");
 
         ToastUtil.showShortToast("多个任务列表");
     }

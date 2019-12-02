@@ -1,5 +1,4 @@
-
-apply from:"../common_component_build.gradle"
+apply from: "../common_component_build.gradle"
 //apply from: 'tinker-support.gradle'
 android {
     resourcePrefix "demo_" //给 Module 内的资源名增加前缀, 避免资源名冲突
@@ -10,8 +9,14 @@ android {
 //            jni.srcDirs = [] //屏蔽掉默认的jni编译生成过程
 //        }
 //    }
-}
 
+    defaultConfig {
+        //分包1,指定某个类在maindex，例如LeakCanary启动的时候会初始化一个ContentProvider
+        multiDexEnabled true
+        multiDexKeepProguard file('multiDexKeep.pro') // 打包到main dex的这些类的混淆规制，没特殊需求就给个空文件
+        multiDexKeepFile file('maindexlist.txt') // keep specific classes
+    }
+}
 
 
 dependencies {
@@ -19,6 +24,7 @@ dependencies {
     api project(':baselibrary')
     api project(':CommonService')
     api project(':plugin_core')
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -54,8 +60,8 @@ dependencies {
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.6'
 
 
-    //骨架屏，头条第一次进入的时候
-    implementation 'com.ethanhua:skeleton:1.1.2'
+    //骨架屏，头条第一次进入的时候（不支持androidx，拷代码）
+//    implementation 'com.ethanhua:skeleton:1.1.2'
 
     implementation 'io.supercharge:shimmerlayout:2.1.0'
 
@@ -64,13 +70,26 @@ dependencies {
     releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
 
 
-    debugImplementation rootProject.ext.dependencies["canary-debug"]
+//    debugImplementation rootProject.ext.dependencies["canary-debug"]
+
+    //图库
+//    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
 
     //接入flutter,引入库
     implementation project(':flutter')
 
     // https://mvnrepository.com/artifact/com.aliyun.ams/alicloud-android-utdid
 //    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.4'
+
+    //编译期 将布局xml 转换成java代码
+//    annotationProcessor 'com.zhangyue.we:x2c-apt:1.1.2'
+//    implementation 'com.zhangyue.we:x2c-lib:1.0.6'
+
+    implementation 'com.facebook.fresco:fresco:2.0.0'
+
+    //https://github.com/didi/DoraemonKit/blob/master/Doc/android_cn_guide.md
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:2.0.1'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:2.0.1'
 
 
 }

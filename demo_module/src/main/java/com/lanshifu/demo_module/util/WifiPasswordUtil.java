@@ -3,7 +3,7 @@ package com.lanshifu.demo_module.util;
 import android.os.Build;
 import android.util.Xml;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.bean.WifiInfo;
 
@@ -67,7 +67,7 @@ public class WifiPasswordUtil {
             inputStreamReader.close();
             process.waitFor();
         } catch (Exception e) {
-            LogHelper.e(e.getMessage());
+            LogUtil.e(e.getMessage());
             ToastUtil.showShortToastInThread(e.getMessage());
             return wifiInfos;
         } finally {
@@ -80,7 +80,7 @@ public class WifiPasswordUtil {
                 }
                 process.destroy();
             } catch (Exception e) {
-                LogHelper.e(e.getMessage());
+                LogUtil.e(e.getMessage());
             }
         }
 
@@ -131,7 +131,7 @@ public class WifiPasswordUtil {
             return xmlParse(dataInputStream);
 
         } catch (Exception e) {
-            LogHelper.e("readWifiInfoAndroidO error" + e.getMessage());
+            LogUtil.e("readWifiInfoAndroidO error" + e.getMessage());
             ToastUtil.showShortToastInThread(e.getMessage());
             return wifiInfos;
         } finally {
@@ -144,7 +144,7 @@ public class WifiPasswordUtil {
                 }
                 process.destroy();
             } catch (Exception e) {
-                LogHelper.e("readWifiInfoAndroidO Exception error" + e.getMessage());
+                LogUtil.e("readWifiInfoAndroidO Exception error" + e.getMessage());
             }
 
         }

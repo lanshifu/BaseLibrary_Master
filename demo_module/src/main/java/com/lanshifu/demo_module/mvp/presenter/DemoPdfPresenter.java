@@ -7,7 +7,7 @@ import android.provider.MediaStore;
 
 import com.lanshifu.baselibrary.base.activity.BaseActivity;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.demo_module.bean.PdfData;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class DemoPdfPresenter extends BasePresenter<DemoPdfView> {
@@ -40,7 +39,7 @@ public class DemoPdfPresenter extends BasePresenter<DemoPdfView> {
 
                     @Override
                     public void _onError(String e) {
-                        LogHelper.e(e);
+                        LogUtil.e(e);
                         mView.loadPdfError(e);
                     }
                 });
@@ -89,11 +88,11 @@ public class DemoPdfPresenter extends BasePresenter<DemoPdfView> {
                         size = file.length();
                         fileInfo.size = size;
                     } catch (Exception e) {
-                        LogHelper.e("getfileSize error " + e.getMessage());
+                        LogUtil.e("getfileSize error " + e.getMessage());
                     }
                     fileInfoList.add(fileInfo);
                 } catch (Exception e) {
-                    LogHelper.e("------>>>" + e.getMessage());
+                    LogUtil.e("------>>>" + e.getMessage());
                 }
 
             }

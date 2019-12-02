@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.github.moduth.blockcanary.internal.BlockInfo;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.NetworkUtils;
 import com.lanshifu.demo_module.DemoApplication;
 
@@ -62,7 +62,7 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
      * @return threshold in mills
      */
     public int provideBlockThreshold() {
-        return 200;
+        return 500;
     }
 
     /**
@@ -161,6 +161,6 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
      * Block interceptor, developer may provide their own actions.
      */
     public void onBlock(Context context, BlockInfo blockInfo) {
-        LogHelper.d("捕获到主线程耗时："+blockInfo.toString());
+        LogUtil.d("捕获到主线程耗时："+blockInfo.toString());
     }
 }

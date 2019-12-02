@@ -8,7 +8,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.demo_module.ProcessConnection;
 
@@ -19,14 +19,14 @@ public class GuardService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        LogHelper.d("GuardService:onBind");
+        LogUtil.d("GuardService:onBind");
         return new ProcessConnection.Stub() {
         };
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogHelper.d("GuardService:onStartCommand");
+        LogUtil.d("GuardService:onStartCommand");
         startForeground(0, NotifyManager.getInstance(this).getNormalNotify(this,"","",null));
         //绑定建立链接
         bindService(new Intent(this, MainService.class),
@@ -39,12 +39,12 @@ public class GuardService extends Service {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             //链接上
-            LogHelper.d("GuardService:建立链接");
+            LogUtil.d("GuardService:建立链接");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            LogHelper.d("GuardService:断开链接");
+            LogUtil.d("GuardService:断开链接");
             //断开链接
             startService(new Intent(GuardService.this, MainService.class));
             //重新绑定

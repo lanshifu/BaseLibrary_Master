@@ -4,7 +4,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -226,7 +226,7 @@ public class ImsiUtil {
                 statephoneType_2 = (Integer) mx.invoke(obj);
                 flag = (Boolean) is.invoke(obj);
             } catch (Exception e) {
-                LogHelper.e("initQualcommDoubleSim: "+e);
+                LogUtil.e("initQualcommDoubleSim: "+e);
             }
             imsInfo = new IMSInfo();
             imsInfo.chipName = "高通芯片-getPreferredDataSubscription:" + statephoneType_2 + ",\nflag:" + flag;

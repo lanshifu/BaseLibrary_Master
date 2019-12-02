@@ -15,7 +15,7 @@ import com.lanshifu.activity_name_module.module.MainActivityModule;
 import com.lanshifu.activity_name_module.module.ZhifubaoModule;
 import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.SPUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 
@@ -47,7 +47,7 @@ public class MyAccessServices extends AccessibilityService {
         int eventType = event.getEventType();
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                LogHelper.d("窗口改变");
+                LogUtil.d("窗口改变");
                 handeWindowStateChanged(event);
                 break;
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
@@ -55,11 +55,11 @@ public class MyAccessServices extends AccessibilityService {
                 handleWindowContentChanged(event);
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
-                LogHelper.d("界面点击");
+                LogUtil.d("界面点击");
                 //界面点击
                 break;
             case AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED:
-                LogHelper.d("界面文字改动");
+                LogUtil.d("界面文字改动");
                 //界面文字改动
                 break;
         }
@@ -74,7 +74,7 @@ public class MyAccessServices extends AccessibilityService {
     private void handeWindowStateChanged(AccessibilityEvent event) {
         String pkgName = event.getPackageName().toString();
         String className = event.getClassName().toString();
-        LogHelper.d(pkgName + "\n类名：" + className);
+        LogUtil.d(pkgName + "\n类名：" + className);
         if (mRxManager == null) {
             mRxManager = new RxManager();
         }
@@ -143,13 +143,13 @@ public class MyAccessServices extends AccessibilityService {
                 @Override
                 public void onCompleted(GestureDescription gestureDescription) {
                     super.onCompleted(gestureDescription);
-                    LogHelper.d("滑动结束");
+                    LogUtil.d("滑动结束");
                 }
 
                 @Override
                 public void onCancelled(GestureDescription gestureDescription) {
                     super.onCancelled(gestureDescription);
-                    LogHelper.d("滑动取消");
+                    LogUtil.d("滑动取消");
                 }
             },null);
         }
@@ -190,9 +190,9 @@ public class MyAccessServices extends AccessibilityService {
             public void accept(Boolean aBoolean) throws Exception {
                 mTimerStar = aBoolean;
                 ToastUtil.showShortToast("收到闹钟通知 mTimerStar = " +aBoolean);
-                LogHelper.d("收到闹钟通知 mTimerStar = " +aBoolean);
+                LogUtil.d("收到闹钟通知 mTimerStar = " +aBoolean);
                 if(!mTimerStar){
-                    LogHelper.d("结束任务，写入数据库");
+                    LogUtil.d("结束任务，写入数据库");
                     int count = ZhifubaoModule.mCurrentCount;
                     CollectionDB db = new CollectionDB(System.currentTimeMillis(),count);
                     db.save();
@@ -208,7 +208,7 @@ public class MyAccessServices extends AccessibilityService {
     //如果允许服务监听按键操作,该方法是按键事件的回调
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
-        LogHelper.d("onKeyEvent " + event.getAction());
+        LogUtil.d("onKeyEvent " + event.getAction());
         return super.onKeyEvent(event);
     }
 }

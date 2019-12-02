@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 public class DemoRelativeLayout extends RelativeLayout{
 
@@ -39,7 +39,7 @@ public class DemoRelativeLayout extends RelativeLayout{
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        LogHelper.d("ViewGroup->dispatchTouchEvent:" + getEventName(ev));
+        LogUtil.d("ViewGroup->dispatchTouchEvent:" + getEventName(ev));
         requestDisallowInterceptTouchEvent(true);
         return super.dispatchTouchEvent(ev);
 //        return false;
@@ -47,7 +47,7 @@ public class DemoRelativeLayout extends RelativeLayout{
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        LogHelper.d("ViewGroup->onInterceptTouchEvent:" + getEventName(ev));
+        LogUtil.d("ViewGroup->onInterceptTouchEvent:" + getEventName(ev));
 
         return super.onInterceptTouchEvent(ev);
 //        return true;
@@ -55,7 +55,7 @@ public class DemoRelativeLayout extends RelativeLayout{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LogHelper.d("ViewGroup->onTouchEvent:" + getEventName(event));
+        LogUtil.d("ViewGroup->onTouchEvent:" + getEventName(event));
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                return true;

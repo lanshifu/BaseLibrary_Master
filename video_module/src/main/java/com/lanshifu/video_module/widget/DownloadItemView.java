@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.video_module.R;
 import com.lanshifu.video_module.VideoApplication;
 import com.lanshifu.video_module.db.DownloadVideoDB;
@@ -168,7 +168,7 @@ public class DownloadItemView extends LinearLayout {
         @Override
         public void update(BaseDownloadTask task) {
             byte status = task.getStatus();
-            LogHelper.d("update status = " + status);
+            LogUtil.d("update status = " + status);
 
             if (!task.getUrl().equals(mUrl)){
                 return;

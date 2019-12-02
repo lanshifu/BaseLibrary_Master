@@ -1,14 +1,13 @@
 package com.lanshifu.demo_module.mvp.presenter;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.HttpResult;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
@@ -17,7 +16,6 @@ import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.lanshifu.demo_module.network.DemoApi;
-import com.lanshifu.demo_module.receiver.ConfigReceiver;
 import com.lanshifu.demo_module.test.ProxyDemo;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -68,7 +66,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
     //只能更新单个文件，文件夹无效
     public void updateMedia() {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/aaa/胖妞.gif";
-        LogHelper.d("path = " + path);
+        LogUtil.d("path = " + path);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             MediaScannerConnection.scanFile(mContext, new String[]{path}, null,
                     new MediaScannerConnection.MediaScannerConnectionClient() {
@@ -114,7 +112,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
             intent.setClassName("com.suntek.mway.carrier_configuation",
                     "com.suntek.mway.carrier_configuation.MainService");
             mContext.startService(intent);
-            LogHelper.d("启动服务");
+            LogUtil.d("启动服务");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,7 +155,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
             @Override
             public void run() {
                 super.run();
-                LogHelper.d("线程1：" + Thread.currentThread().getName());
+                LogUtil.d("线程1：" + Thread.currentThread().getName());
             }
         };
         thread1.start();
@@ -166,7 +164,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                LogHelper.d("线程2：" + Thread.currentThread().getName());
+                LogUtil.d("线程2：" + Thread.currentThread().getName());
             }
         });
         thread2.start();
@@ -176,7 +174,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         FutureTask<String> futureTask = new FutureTask<String>(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                LogHelper.d("线程3：" + Thread.currentThread().getName());
+                LogUtil.d("线程3：" + Thread.currentThread().getName());
                 return null;
             }
         });
@@ -208,13 +206,13 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        LogHelper.d(Thread.currentThread().getName() + " 进来了");
+        LogUtil.d(Thread.currentThread().getName() + " 进来了");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        LogHelper.d(Thread.currentThread().getName() + " 出去了");
+        LogUtil.d(Thread.currentThread().getName() + " 出去了");
         mSemaphore.release();
     }
 
@@ -223,7 +221,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-                LogHelper.d("subscribe 当前线程" + Thread.currentThread());
+                LogUtil.d("subscribe 当前线程" + Thread.currentThread());
                 Thread.sleep(5000);
                 emitter.onNext(123);
             }
@@ -233,7 +231,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
                 .map(new Function<Integer, String>() {
                     @Override
                     public String apply(Integer integer) throws Exception {
-                        LogHelper.d("apply 当前线程 " + Thread.currentThread());
+                        LogUtil.d("apply 当前线程 " + Thread.currentThread());
                         //这里打印的是 RxCachedThreadScheduler ，说明subscribeOn 只有第一次有效
                         return integer.toString();
                     }
@@ -243,13 +241,13 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        LogHelper.d("onSubscribe 当前线程 " + Thread.currentThread());
+                        LogUtil.d("onSubscribe 当前线程 " + Thread.currentThread());
 
                     }
 
                     @Override
                     public void onNext(String s) {
-                        LogHelper.d("onNext 当前线程 " + Thread.currentThread());
+                        LogUtil.d("onNext 当前线程 " + Thread.currentThread());
 
                     }
 
@@ -260,7 +258,7 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
 
                     @Override
                     public void onComplete() {
-                        LogHelper.d("onComplete 当前线程 " + Thread.currentThread());
+                        LogUtil.d("onComplete 当前线程 " + Thread.currentThread());
 
                     }
                 });
@@ -290,28 +288,33 @@ public class DemoMainPresenter extends BasePresenter<DemoMainView> {
 
     public void blockCanaryTest(){
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+    }
+    public void blockCanaryTest2(){
+        long startTime = System.currentTimeMillis();
 
+        LogUtil.d("blockCanaryTest2");
+
+        long methodTime = System.currentTimeMillis() - startTime;//方法耗时
+    }
+
+    public void blockCanaryTest3(){
+        LogUtil.d("blockCanaryTest2");
     }
 
 
-    ConfigReceiver receiver = new ConfigReceiver();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.suntek.mway.carrier_configuation.intent.action.CARRIER_CONFIG_CHANGED");
-        mContext.registerReceiver(receiver, filter);
     }
 
     @Override
     public void onDestory() {
         super.onDestory();
-        mContext.unregisterReceiver(receiver);
     }
 }

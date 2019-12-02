@@ -10,9 +10,8 @@ import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.lanshifu.baselibrary.baserxjava.RxBus;
-import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.baserxjava.RxTag;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 
 import java.util.Stack;
@@ -200,7 +199,7 @@ public class AppManager {
 
     public Activity getTopActivity() {
         if (mActivityStack == null || mActivityStack.empty()) {
-            LogHelper.e("mActivityList == null when getTopActivity()");
+            LogUtil.e("mActivityList == null when getTopActivity()");
             return null;
         }
         return mActivityStack.size() > 0 ? mActivityStack.get(mActivityStack.size() - 1) : null;
@@ -223,7 +222,7 @@ public class AppManager {
      */
     public void showSnackbar(String message, boolean isLong) {
         if (getCurrentActivity() == null) {
-            LogHelper.e("mCurrentActivity == null when showSnackbar(String,boolean)");
+            LogUtil.e("mCurrentActivity == null when showSnackbar(String,boolean)");
             return;
         }
         View view = getCurrentActivity().getWindow().getDecorView().findViewById(android.R.id.content);
@@ -244,7 +243,7 @@ public class AppManager {
      */
     public void startActivity(Intent intent) {
         if (getTopActivity() == null) {
-            LogHelper.d("mCurrentActivity == null when startActivity(Intent)");
+            LogUtil.d("mCurrentActivity == null when startActivity(Intent)");
             //如果没有前台的activity就使用new_task模式启动activity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);

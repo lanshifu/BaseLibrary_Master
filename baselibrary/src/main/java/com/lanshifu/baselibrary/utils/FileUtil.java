@@ -10,7 +10,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.lanshifu.baselibrary.fileprovider.FileProvider7;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -784,7 +784,7 @@ public final class FileUtil {
             fos.flush();
             fos.close();
         } catch (Exception e) {
-            LogHelper.d("保存文件识别");
+            LogUtil.d("保存文件识别");
         }
     }
 

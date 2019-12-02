@@ -11,7 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.base.fragment.BaseFragment;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
@@ -151,22 +151,22 @@ public class MainMvpFragment extends BaseFragment {
 
                     @Override
                     public void onFound(Postcard postcard) {
-                        LogHelper.d("onFound");
+                        LogUtil.d("onFound");
                     }
 
                     @Override
                     public void onLost(Postcard postcard) {
-                        LogHelper.d("onLost");
+                        LogUtil.d("onLost");
                     }
 
                     @Override
                     public void onArrival(Postcard postcard) {
-                        LogHelper.d("onArrival");
+                        LogUtil.d("onArrival");
                     }
 
                     @Override
                     public void onInterrupt(Postcard postcard) {
-                        LogHelper.d("onInterrupt");
+                        LogUtil.d("onInterrupt");
                     }
                 });
                 break;
@@ -205,7 +205,7 @@ public class MainMvpFragment extends BaseFragment {
                     @Override
                     public void _onError(String e) {
                         UIUtil.snackbarText("_onError：" + e);
-                        LogHelper.e(e);
+                        LogUtil.e(e);
                         ToastUtil.showShortToast(e);
                     }
                 });
@@ -231,7 +231,7 @@ public class MainMvpFragment extends BaseFragment {
                     @Override
                     public void _onError(String e) {
                         UIUtil.snackbarText(e);
-                        LogHelper.e(e);
+                        LogUtil.e(e);
                         ToastUtil.showShortToast(e);
                     }
                 });
@@ -244,12 +244,12 @@ public class MainMvpFragment extends BaseFragment {
                 .subscribe(new BaseObserver<TempBean>() {
                     @Override
                     public void _onNext(TempBean pictureResp) {
-                        LogHelper.d("getTempList_onNext " +pictureResp.toString());
+                        LogUtil.d("getTempList_onNext " +pictureResp.toString());
                     }
 
                     @Override
                     public void _onError(String e) {
-                        LogHelper.d("getTempList_onError " +e);
+                        LogUtil.d("getTempList_onError " +e);
                     }
                 });
     }
@@ -260,6 +260,6 @@ public class MainMvpFragment extends BaseFragment {
         if (requestCode == REQUEST_CODE_DEMO_ACTIVITY){
             ToastUtil.showShortToast("返回参数 "+data.getStringExtra("result"));
         }
-        LogHelper.d("onActivityResult requestCode = " + requestCode);
+        LogUtil.d("onActivityResult requestCode = " + requestCode);
     }
 }

@@ -15,20 +15,20 @@ package com.lanshifu.demo_module.suanfa;
 public class Sort {
 
 
-    public void test() {
+    public static void main(String []args) {
         System.out.println("test");
 
-        bubbleSort(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
-        selectSort(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
+//        bubbleSort(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
+//        selectSort(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
 //        insertSort(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
-//        quick(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
+        quick(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1});
 
-        System.out.println("二分查找 ");
-        int find = findBy2(new int[]{3,3,3,3,3,3,5,6,7,8,9},3);
-        System.out.println(find);
-
-        int circleIndex = findCircleIndex(new int[]{4, 5, 6, 1, 2, 3}, 2);
-        System.out.println("循环链表查找：" + circleIndex);
+//        System.out.println("二分查找 ");
+//        int find = findBy2(new int[]{3,3,3,3,3,3,5,6,7,8,9},3);
+//        System.out.println(find);
+//
+//        int circleIndex = findCircleIndex(new int[]{4, 5, 6, 1, 2, 3}, 2);
+//        System.out.println("循环链表查找：" + circleIndex);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Sort {
      *
      * @param nums
      */
-    public int[] bubbleSort(int nums[]) {
+    public static int[] bubbleSort(int nums[]) {
         //4321  3421  3241  3214  第一趟
         //3214  2314  2134        第二趟
         //2134  1234              第三趟
@@ -69,7 +69,7 @@ public class Sort {
      *
      * @param nums
      */
-    public void selectSort(int nums[]) {
+    public static void selectSort(int nums[]) {
         for (int i = 0; i < nums.length; i++) {
 
             int min = nums[i]; //假设第一个最小
@@ -168,7 +168,7 @@ public class Sort {
             numbers[high] = numbers[low]; //比中轴大的记录移到高端
         }
         numbers[low] = temp; //中轴记录到尾
-        return low; // 返回中轴的位置
+        return low; // 返回中轴的位置，此时左边的都变中间小，右边的都比中间大，两边再以这种方式继续
     }
 
     /**
@@ -191,7 +191,7 @@ public class Sort {
      * @param findNumber 查找的数
      * @return
      */
-    public int findBy2(int[] numbers,int findNumber){
+    public static int findBy2(int[] numbers,int findNumber){
         int start = 0;
         int end = numbers.length;
         while (start <= end) {
@@ -221,7 +221,7 @@ public class Sort {
     }
 
     //二分法,递归方式
-    public int findBy2(int[] numbers,int findNumber,int start,int end){
+    public static int findBy2(int[] numbers,int findNumber,int start,int end){
         while (start <= end) {
             int mid = (start + end) / 2;
             if (findNumber == numbers[mid]) {
@@ -252,7 +252,7 @@ public class Sort {
      如果有序数组是一个循环有序数组,比如 4,5,6,1,2,3,针对这种情况,
      如何实现一个求“值等于给定值”的二分查找算法呢
      */
-    public int findCircleIndex(int[] numbers, int findNumber){
+    public static int findCircleIndex(int[] numbers, int findNumber){
         //找到临界点,分成两个有序数组,4,5,6 和 1,2,3，分别二分查找
         int index = 0;
         for (int i = 0; i < numbers.length-1; i++) {
@@ -268,6 +268,5 @@ public class Sort {
         return findBy2(numbers,findNumber,index +1,numbers.length);
         
     }
-
 
 }

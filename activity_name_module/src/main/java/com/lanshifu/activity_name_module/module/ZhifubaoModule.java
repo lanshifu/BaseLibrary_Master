@@ -8,7 +8,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.lanshifu.activity_name_module.service.MyAccessServices;
 import com.lanshifu.activity_name_module.utils.AccessServiceUtil;
 import com.lanshifu.activity_name_module.utils.UIUtil;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 
 import static android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_HOME;
@@ -59,7 +59,7 @@ public class ZhifubaoModule {
     public static void onAccessibilityEvent(MyAccessServices myAccessServices, AccessibilityEvent event) {
 
         if (mCurrentCount > mMaxTimes) {
-            LogHelper.d("打开次数已经最大");
+            LogUtil.d("打开次数已经最大");
             return;
         }
         String pkgName = event.getPackageName().toString();
@@ -72,10 +72,10 @@ public class ZhifubaoModule {
         if (pkgName.equals("com.eg.android.AlipayGphone")){
             if ("com.eg.android.AlipayGphone.AlipayLogin".equals(className)){
                 boolean click = AccessServiceUtil.clickTextViewByText(rootNodeInfo, "蚂蚁森林");
-                LogHelper.d("蚂蚁森林 " + click);
+                LogUtil.d("蚂蚁森林 " + click);
                 if (!click) {
                     //不在首页，点击首页，然后返回
-                    LogHelper.d("支付宝不在首页界面，点击首页，然后返回");
+                    LogUtil.d("支付宝不在首页界面，点击首页，然后返回");
                     AccessServiceUtil.clickTextViewByText(rootNodeInfo, "首页");
                     AccessServiceUtil.performBackClick(myAccessServices);
                 }
@@ -87,7 +87,7 @@ public class ZhifubaoModule {
                 mIsInH5Actibity = true;
                 sendMessage(MSG_BACK, myAccessServices, 10000);
             }else {
-                LogHelper.d("跳转到其它界面了，5秒后返回");
+                LogUtil.d("跳转到其它界面了，5秒后返回");
                 sendMessage(MSG_BACK, myAccessServices, 5000);
             }
         }else if ("com.lanshifu.activity_name_module".equals(pkgName)) {

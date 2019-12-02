@@ -224,7 +224,21 @@
         <Button
             android:id="@+id/btn_uid"
             style="@style/default_button"
-            android:text="UID" />
+            android:text="frida测试" />
+
+        <Button
+            android:id="@+id/btn_picture_select"
+            style="@style/default_button"
+            android:text="图库" />
+        <Button
+            android:id="@+id/btn_xml2code"
+            style="@style/default_button"
+            android:text="xml转代码" />
+
+        <Button
+            android:id="@+id/btn_channel"
+            style="@style/default_button"
+            android:text="获取渠道号channel" />
 
 
         <include layout="@layout/demo_background_list" />

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 public class DemoView extends View {
 
@@ -60,13 +60,13 @@ public class DemoView extends View {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        LogHelper.d("View->dispatchTouchEvent:" + getEventName(event));
+        LogUtil.d("View->dispatchTouchEvent:" + getEventName(event));
         return super.dispatchTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LogHelper.d("View->onTouchEvent:" + getEventName(event));
+        LogUtil.d("View->onTouchEvent:" + getEventName(event));
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                return true;

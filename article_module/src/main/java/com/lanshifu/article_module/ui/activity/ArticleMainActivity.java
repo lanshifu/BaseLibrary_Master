@@ -13,7 +13,7 @@ import com.lanshifu.article_module.bean.ArticleBean;
 import com.lanshifu.baselibrary.base.activity.BaseListTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
@@ -57,7 +57,7 @@ public class ArticleMainActivity extends BaseListTitleBarActivity<BasePresenter,
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ArticleBean articleBean = mAdapter.getData().get(position);
-        LogHelper.d(articleBean.toString());
+        LogUtil.d(articleBean.toString());
         Intent intent = new Intent(this,ArticleReaderActivity.class);
         intent.putExtra("id",articleBean.getId());
         startActivity(intent);

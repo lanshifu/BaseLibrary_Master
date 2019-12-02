@@ -13,11 +13,9 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
-import com.ethanhua.skeleton.Skeleton;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.baselibrary.utils.ToastUtil;
@@ -25,6 +23,8 @@ import com.lanshifu.baselibrary.widget.CommRecyclerView;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
 import com.lanshifu.demo_module.bean.AppInfo;
+import com.lanshifu.demo_module.widget.skeleton.RecyclerViewSkeletonScreen;
+import com.lanshifu.demo_module.widget.skeleton.Skeleton;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -120,7 +120,7 @@ public class DemoAppInfoActivity extends BaseTitleBarActivity {
                     public void _onNext(List<AppInfo> appInfos) {
                         mSkeletonScreen.hide();
                         mAdapter.replaceData(appInfos);
-                        LogHelper.e("size "+appInfos.size());
+                        LogUtil.e("size "+appInfos.size());
                         showShortToast("size "+appInfos.size());
                         mRecyclerView.finishRefresh();
                         mlistAppInfo.clear();

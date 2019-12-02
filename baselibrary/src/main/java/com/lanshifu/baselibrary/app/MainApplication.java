@@ -2,9 +2,7 @@ package com.lanshifu.baselibrary.app;
 
 import android.app.Application;
 
-import com.lanshifu.baselibrary.log.LogHelper;
-
-import org.litepal.LitePal;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * Created by Administrator on 2018\4\22 0022.
@@ -15,7 +13,7 @@ public class MainApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        LogHelper.d("MainApplication ->onCreate");
+        LogUtil.d("MainApplication ->onCreate");
 
 
         initSkin(this); //换肤

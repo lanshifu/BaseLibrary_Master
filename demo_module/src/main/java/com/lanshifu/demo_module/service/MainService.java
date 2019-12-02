@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.demo_module.ProcessConnection;
 import com.lanshifu.demo_module.receiver.ScreenReceiver;
@@ -28,7 +28,7 @@ public class MainService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        LogHelper.d("MainService:onBind");
+        LogUtil.d("MainService:onBind");
         return new ProcessConnection.Stub() {
         };
     }
@@ -36,7 +36,7 @@ public class MainService extends Service {
     @TargetApi(Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogHelper.d("MainService:onStartCommand");
+        LogUtil.d("MainService:onStartCommand");
         startForeground(0, NotifyManager.getInstance(this).getNormalNotify(this,"","",null));
         //绑定建立链接
         bindService(new Intent(this, GuardService.class),
@@ -48,12 +48,12 @@ public class MainService extends Service {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             //链接上
-            LogHelper.d("MainService:建立链接");
+            LogUtil.d("MainService:建立链接");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            LogHelper.d("MainService:断开链接");
+            LogUtil.d("MainService:断开链接");
             //断开链接
             startService(new Intent(MainService.this, GuardService.class));
             //重新绑定
@@ -65,7 +65,7 @@ public class MainService extends Service {
 
     public void onCreate() {
         super.onCreate();
-        LogHelper.d("MainService:oncreate");
+        LogUtil.d("MainService:oncreate");
         mStartTime = System.currentTimeMillis();
         registerReceiver();
 
@@ -76,7 +76,7 @@ public class MainService extends Service {
     }
 
     private void registerReceiver() {
-        LogHelper.d("registerReceiver");
+        LogUtil.d("registerReceiver");
         /* 注册屏幕唤醒/锁屏的广播 */
         IntentFilter mScreenOnFilter = new IntentFilter("android.intent.action.SCREEN_ON");
         mScreenOnFilter.addAction("android.intent.action.SCREEN_ON");
@@ -93,9 +93,9 @@ public class MainService extends Service {
                 while (true) {
                     try {
                         sleep(5000);
-                        LogHelper.d("run...");
+                        LogUtil.d("run...");
                         if (System.currentTimeMillis() - mStartTime > CLEAR_HISTORY_TIME) {
-                            LogHelper.d("run: 定时做一些事情...");
+                            LogUtil.d("run: 定时做一些事情...");
                             mStartTime = System.currentTimeMillis();
 
                         }
@@ -111,7 +111,7 @@ public class MainService extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        LogHelper.d("MainService:onDestroy");
+        LogUtil.d("MainService:onDestroy");
         MainService.this.unregisterReceiver(mScreenOReceiver);
     }
 

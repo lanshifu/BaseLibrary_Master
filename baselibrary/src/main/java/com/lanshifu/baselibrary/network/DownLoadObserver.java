@@ -1,16 +1,13 @@
 package com.lanshifu.baselibrary.network;
 
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.progress.ProgressListener;
 import com.lanshifu.baselibrary.network.progress.ProgressManager;
 import com.lanshifu.baselibrary.network.progress.body.ProgressInfo;
-import com.lanshifu.baselibrary.utils.FileUtil;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 import io.reactivex.Observable;
@@ -43,7 +40,7 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
     public DownLoadObserver(String url, String filePath,long range) {
        this.mFilepath = filePath;
        this.mRange = range;
-        LogHelper.d("lxb ->url " +url);
+        LogUtil.d("lxb ->url " +url);
         ProgressManager.getInstance().addDownLoadListener(url, new ProgressListener() {
             @Override
             public void onProgress(ProgressInfo progressInfo) {
@@ -53,7 +50,7 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
 
             @Override
             public void onError(long id, Exception e) {
-                LogHelper.e("lxb ->DownLoadObserver "+e);
+                LogUtil.e("lxb ->DownLoadObserver "+e);
                 onDownFailed(e.getMessage());
             }
         });
@@ -71,7 +68,7 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
         ResponseBody responseBody = null;
         //保存到文件
         if(!(t instanceof ResponseBody)){
-            LogHelper.e("lxb -> 传入类型非ResponseBody");
+            LogUtil.e("lxb -> 传入类型非ResponseBody");
             onDownFailed("传入类型非ResponseBody");
             return;
         }
@@ -82,7 +79,7 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        LogHelper.e("lxb ->onError "+e);
+        LogUtil.e("lxb ->onError "+e);
         onDownFailed(e.getMessage());
 
     }
@@ -150,15 +147,15 @@ public abstract class DownLoadObserver<T> implements Observer<T> {
                 //通知太频繁,1秒发一次通知
                 if (System.currentTimeMillis() - currentIime > 1000){
                     currentIime = System.currentTimeMillis();
-                    LogHelper.d("保存进度 total =" + (total*100) +",randomAccessFile.length() = " +randomAccessFile.length() );
-                    LogHelper.d("保存进度 " + progress);
-                    LogHelper.d("保存进度 " + progress);
+                    LogUtil.d("保存进度 total =" + (total*100) +",randomAccessFile.length() = " +randomAccessFile.length() );
+                    LogUtil.d("保存进度 " + progress);
+                    LogUtil.d("保存进度 " + progress);
                     DownLoadObserver.this.onContinueDownloadProgress(false,progress);
                 }
             }
             return true;
         } catch (Exception e) {
-            LogHelper.e("下载失败 ：receipts " +e.getMessage());
+            LogUtil.e("下载失败 ：receipts " +e.getMessage());
             return false;
         } finally {
             closeQuietly(randomAccessFile);

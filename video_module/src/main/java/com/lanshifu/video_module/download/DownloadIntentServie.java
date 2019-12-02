@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxTag;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.DownLoadObserver;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
@@ -70,7 +70,7 @@ public class DownloadIntentServie extends IntentService {
                 return;
             }
             range = mDownloadVideoDB.getDownload_size();
-            LogHelper.d("range = " +range);
+            LogUtil.d("range = " +range);
         } else {
             mDownloadVideoDB = new DownloadVideoDB();
             mDownloadVideoDB.setTitle(title);
@@ -87,7 +87,7 @@ public class DownloadIntentServie extends IntentService {
                 .subscribe(new DownLoadObserver<ResponseBody>(url, path,range) {
                     @Override
                     protected void onProgress(ProgressInfo progressInfo) {
-                        LogHelper.d(progressInfo.toString());
+                        LogUtil.d(progressInfo.toString());
 
                         mDownloadVideoDB.setDownload_size(progressInfo.getCurrentbytes());
                         mDownloadVideoDB.setTotal_size(progressInfo.getContentLength());
@@ -106,7 +106,7 @@ public class DownloadIntentServie extends IntentService {
 
                     @Override
                     protected void onDownLoadSuccess() {
-                        LogHelper.d("onDownLoadSuccess");
+                        LogUtil.d("onDownLoadSuccess");
                         UIUtil.snackbarText("下载成功");
                         DownloadVideoDB downloadVideoDB = LitePal.find(DownloadVideoDB.class, finalId);
                         if (downloadVideoDB != null) {
@@ -119,7 +119,7 @@ public class DownloadIntentServie extends IntentService {
 
                     @Override
                     protected void onDownFailed(String error) {
-                        LogHelper.d("onDownFailed " + error);
+                        LogUtil.d("onDownFailed " + error);
                         mDownloadVideoDB.setDownload_success(false);
                         mDownloadVideoDB.setDownloading(false);
                         mDownloadVideoDB.setDownload_pause(true);

@@ -1,17 +1,9 @@
 package com.lanshifu.video_module.download;
 
-import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
-
-import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.video_module.db.DownloadVideoDB;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.liulishuo.filedownloader.util.FileDownloadUtils;
-
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +88,7 @@ public class DownloadManager {
     };
 
     private void update(final BaseDownloadTask task){
-        LogHelper.d("update :" + task.getStatus());
+        LogUtil.d("update :" + task.getStatus());
         final List<DownloadStatusUpdater> updaterListCopy = (List<DownloadStatusUpdater>) updaterList.clone();
         for (DownloadStatusUpdater downloadStatusUpdater : updaterListCopy) {
             downloadStatusUpdater.update(task);

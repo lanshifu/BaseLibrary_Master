@@ -3,7 +3,7 @@ package com.lanshifu.video_module.mvp.presenter;
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxTag;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.DownLoadObserver;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
@@ -76,7 +76,7 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
             }
             range = downloadVideoDB.getDownload_size();
             ToastUtil.showShortToast("继续下载: " + downloadVideoDB.getDuration() + "%");
-            LogHelper.d("range = " +range);
+            LogUtil.d("range = " +range);
         } else {
             downloadVideoDB = new DownloadVideoDB();
             downloadVideoDB.setTitle(title);
@@ -95,7 +95,7 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
                 .subscribe(new DownLoadObserver<ResponseBody>(url, path,range) {
                     @Override
                     protected void onProgress(ProgressInfo progressInfo) {
-                        LogHelper.d(progressInfo.toString());
+                        LogUtil.d(progressInfo.toString());
                         finalDownloadVideoDB.setDownload_size(progressInfo.getCurrentbytes());
                         finalDownloadVideoDB.setTotal_size(progressInfo.getContentLength());
                         finalDownloadVideoDB.setDuration(progressInfo.getPercent());
@@ -112,7 +112,7 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
 
                     @Override
                     protected void onDownLoadSuccess() {
-                        LogHelper.d("onDownLoadSuccess");
+                        LogUtil.d("onDownLoadSuccess");
                         UIUtil.snackbarText("下载成功");
                         if (finalDownloadVideoDB != null) {
                             finalDownloadVideoDB.setDownload_success(true);
@@ -127,7 +127,7 @@ public class VideoMainPresenter extends BasePresenter<VideoMainView> {
 
                     @Override
                     protected void onDownFailed(String error) {
-                        LogHelper.d("onDownFailed " + error);
+                        LogUtil.d("onDownFailed " + error);
                         finalDownloadVideoDB.setDownload_success(false);
                         finalDownloadVideoDB.setDownloading(false);
                         finalDownloadVideoDB.setDownload_pause(true);

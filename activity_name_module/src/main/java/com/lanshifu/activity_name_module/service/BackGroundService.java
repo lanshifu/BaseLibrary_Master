@@ -6,7 +6,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 import com.lanshifu.activity_name_module.utils.ScreenUtil;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * 后台检查是否自动收能量，不自动则让它自动
@@ -29,7 +29,7 @@ public class BackGroundService extends Service {
             @Override
             public void run() {
                 //每隔30秒检测一下屏幕是否亮，不亮则点亮并解锁，跳转activity
-                LogHelper.d("每隔30秒检测一下屏幕是否亮，不亮则点亮并解锁，跳转activity");
+                LogUtil.d("每隔30秒检测一下屏幕是否亮，不亮则点亮并解锁，跳转activity");
                 ScreenUtil.wakeUpAndUnlock(BackGroundService.this);
                 try {
                     Thread.sleep(30000);

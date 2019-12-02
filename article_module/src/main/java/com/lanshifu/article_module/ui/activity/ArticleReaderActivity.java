@@ -19,7 +19,7 @@ import com.lanshifu.article_module.R;
 import com.lanshifu.article_module.R2;
 import com.lanshifu.article_module.bean.ArticleBean;
 import com.lanshifu.baselibrary.base.activity.BaseActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RetrofitHelper;
 import com.lanshifu.baselibrary.network.RxScheduler;
@@ -65,7 +65,7 @@ public class ArticleReaderActivity extends BaseActivity {
 
     private void loadData() {
         int id = getIntent().getIntExtra("id",0);
-        LogHelper.d("id = "+id);
+        LogUtil.d("id = "+id);
         RetrofitHelper.getInstance().createApi(ArticleApi.class)
                 .getArtileDetail(id)
                 .map(new ServerResponseFunc<ArticleBean>())
@@ -171,7 +171,7 @@ public class ArticleReaderActivity extends BaseActivity {
                      * 离开屏幕的位置
                      */
                     case MotionEvent.ACTION_UP:
-                        LogHelper.d("onTouch: " + "结束位置：(" + event.getX() + "," + event.getY());
+                        LogUtil.d("onTouch: " + "结束位置：(" + event.getX() + "," + event.getY());
                         if (mIntercept && event.getX() >300 && event.getX() <700){
                             return true;
                         }

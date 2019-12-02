@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.demo_module.ui.activity.DemoGuardActivity;
 
 import static android.content.Context.KEYGUARD_SERVICE;
@@ -24,9 +24,9 @@ public class ScreenReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if ("android.intent.action.SCREEN_ON".equals(action)) {
-            LogHelper.d("onReceive: —— SCREEN_ON ——");
+            LogUtil.d("onReceive: —— SCREEN_ON ——");
         } else if ("android.intent.action.SCREEN_OFF".equals(action)) {
-            LogHelper.d("onReceive: —— SCREEN_OFF ——");
+            LogUtil.d("onReceive: —— SCREEN_OFF ——");
             wakeUpAndUnlock(context);
 
         }

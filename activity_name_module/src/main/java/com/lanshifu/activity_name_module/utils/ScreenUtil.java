@@ -4,7 +4,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.PowerManager;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 
@@ -29,7 +29,7 @@ public class ScreenUtil {
         // 屏幕锁定
         keyguardLock.reenableKeyguard();
         keyguardLock.disableKeyguard(); // 解锁
-        LogHelper.d("wakeUpAndUnlock: disableKeyguard");
+        LogUtil.d("wakeUpAndUnlock: disableKeyguard");
     }
 
 
@@ -42,7 +42,7 @@ public class ScreenUtil {
         // 获取电源管理器对象
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         boolean screenOn = pm.isScreenOn();
-        LogHelper.d("wakeUpAndUnlock: screenOn =  "+screenOn);
+        LogUtil.d("wakeUpAndUnlock: screenOn =  "+screenOn);
         return screenOn;
     }
 

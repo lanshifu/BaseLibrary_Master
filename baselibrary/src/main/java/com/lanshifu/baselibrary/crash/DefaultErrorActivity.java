@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lanshifu.baselibrary.R;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 
 public final class DefaultErrorActivity extends AppCompatActivity {
@@ -104,8 +104,8 @@ public final class DefaultErrorActivity extends AppCompatActivity {
         mRrrorInfo = CustomActivityOnCrash.getAllErrorDetailsFromIntent(DefaultErrorActivity.this, getIntent());
 
 
-        LogHelper.e("\r\r\r\r<<<<--------crash日志------->>>>：\r\n"+ mRrrorInfo);
-        LogHelper.closeLog();
+        LogUtil.e("\r\r\r\r<<<<--------crash日志------->>>>：\r\n"+ mRrrorInfo);
+        LogUtil.closeLog();
 
 
     }

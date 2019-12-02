@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.base.AppManager;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.widget.TopToast;
 
 import static com.lanshifu.baselibrary.base.AppManager.TOAST;
@@ -55,7 +55,7 @@ public class ToastUtil {
     }
 
     private static void showToast(Context context, CharSequence hint, int duration) {
-        LogHelper.d("toast:" + hint.toString());
+        LogUtil.d("toast:" + hint.toString());
         if (mToast == null) {
             mToast = Toast.makeText(context, hint, duration);
         } else {

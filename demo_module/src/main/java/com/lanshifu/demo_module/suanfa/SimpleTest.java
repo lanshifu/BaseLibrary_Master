@@ -26,8 +26,8 @@ public class SimpleTest {
         simpleLinkList.print();
 
         System.out.println("排序开始》》》");
-        Sort sort = new Sort();
-        sort.test();
+//        Sort sort = new Sort();
+//        sort.test();
         System.out.println("排序结束》》》");
 
         SimpleStack simpleStack = new SimpleStack();

@@ -81,20 +81,20 @@ android {
     }
 
 
-//    signingConfigs {
-//        debug {
-//            keyAlias 'key'
-//            keyPassword '123456'
-//            storeFile file("../key.jks")
-//            storePassword '123456'
-//        }
-//        release {
-//            keyAlias 'key'
-//            keyPassword '123456'
-//            storeFile file("../key.jks")
-//            storePassword '123456'
-//        }
-//    }
+    signingConfigs {
+        debug {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file("../key.jks")
+            storePassword '123456'
+        }
+        release {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file("../key.jks")
+            storePassword '123456'
+        }
+    }
 
     lintOptions {
         disable 'InvalidPackage'

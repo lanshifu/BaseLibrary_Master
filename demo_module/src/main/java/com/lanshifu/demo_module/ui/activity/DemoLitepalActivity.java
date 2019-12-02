@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
-import com.lanshifu.baselibrary.utils.ToastUtil;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
 import com.lanshifu.demo_module.db.DemoDb;
@@ -37,12 +36,12 @@ public class DemoLitepalActivity extends BaseTitleBarActivity {
         LitePal.registerDatabaseListener(new DatabaseListener() {
             @Override
             public void onCreate() {
-                LogHelper.d(" db onCreate");
+                LogUtil.d(" db onCreate");
             }
 
             @Override
             public void onUpgrade(int oldVersion, int newVersion) {
-                LogHelper.d(" db onUpgrade,oldVersion =" + oldVersion + ",newVersion=" + newVersion);
+                LogUtil.d(" db onUpgrade,oldVersion =" + oldVersion + ",newVersion=" + newVersion);
             }
         });
     }
@@ -58,7 +57,7 @@ public class DemoLitepalActivity extends BaseTitleBarActivity {
             new DemoDb("name", 30, 200000).saveAsync().listen(new SaveCallback() {
                 @Override
                 public void onFinish(boolean success) {
-                    LogHelper.d("插入 " + success);
+                    LogUtil.d("插入 " + success);
                     runOnUiThread(() -> {
                         showShortToast("插入 " + success);
                     });
@@ -70,7 +69,7 @@ public class DemoLitepalActivity extends BaseTitleBarActivity {
                     .listen(new FindMultiCallback<DemoDb>() {
                         @Override
                         public void onFinish(List<DemoDb> list) {
-                            LogHelper.d("查询数据总数 " + list.size());
+                            LogUtil.d("查询数据总数 " + list.size());
                             runOnUiThread(() -> {
                                 showShortToast("查询数据总数 " + list.size());
                             });

@@ -29,6 +29,8 @@ public class BasePresenter<V> {
     public void onDestory(){
         //做一些释放资源，回收操作,在activity/fragment ondestory中调用
         mRxManager.clear();
+        mContext = null;
+        mView = null;
     }
 
 

@@ -8,16 +8,17 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
-import com.ethanhua.skeleton.Skeleton;
 import com.lanshifu.baselibrary.base.activity.BaseListTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.bean.PdfData;
 import com.lanshifu.demo_module.mvp.presenter.DemoPdfPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoPdfView;
+import com.lanshifu.demo_module.widget.skeleton.RecyclerViewSkeletonScreen;
+import com.lanshifu.demo_module.widget.skeleton.Skeleton;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class DemoPdfListActivity extends BaseListTitleBarActivity<DemoPdfPresent
     public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
         String path = mAdapter.getData().get(i).path;
         String name = mAdapter.getData().get(i).name;
-        LogHelper.d("path =" + path);
+        LogUtil.d("path =" + path);
         Intent intent = new Intent(this,DemoFileDisplayActivity.class);
         intent.putExtra("path",path);
         intent.putExtra("name",name);

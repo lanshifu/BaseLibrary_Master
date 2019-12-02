@@ -1,7 +1,7 @@
 package com.lanshifu.baselibrary.network;
 
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +34,7 @@ public class RetryWithDelay implements Function<Observable<? extends Throwable>,
                     public ObservableSource<?> apply(@NonNull Throwable throwable) throws Exception {
                         if (++retryCount <= maxRetries) {
                             // When this Observable calls onNext, the original Observable will be retried (i.e. re-subscribed).
-                            LogHelper.d("请求出错，等待重试, it will try after " + retryDelayMillis
+                            LogUtil.d("请求出错，等待重试, it will try after " + retryDelayMillis
                                     + " millisecond, 请求次数 " + retryCount);
 
                             return Observable.timer(retryDelayMillis,

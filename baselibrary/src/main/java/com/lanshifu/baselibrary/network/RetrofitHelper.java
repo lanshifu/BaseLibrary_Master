@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.lanshifu.baselibrary.app.MainApplication;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.cookies.CookieManger;
 import com.lanshifu.baselibrary.network.interceptor.HttpLoggingInterceptor;
 import com.lanshifu.baselibrary.network.progress.ProgressManager;
@@ -53,12 +53,12 @@ public class RetrofitHelper {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                LogHelper.d(message);
+                LogUtil.d(message);
             }
 
             @Override
             public void json(String message) {
-                LogHelper.json(message);
+                LogUtil.json(message);
             }
         });
 

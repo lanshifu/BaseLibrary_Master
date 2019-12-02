@@ -11,17 +11,15 @@ import android.text.TextUtils;
 import android.view.ViewTreeObserver;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.demo_module.R;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 
 import static android.telephony.PhoneNumberUtils.formatNumber;
 
@@ -54,12 +52,12 @@ public class Demo2Activity extends BaseTitleBarActivity {
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void _onNext(String s) {
-                        LogHelper.d("onNext "+s);
+                        LogUtil.d("onNext "+s);
                     }
 
                     @Override
                     public void _onError(String e) {
-                        LogHelper.d("_onError "+e);
+                        LogUtil.d("_onError "+e);
                     }
                 });
 
@@ -82,7 +80,7 @@ public class Demo2Activity extends BaseTitleBarActivity {
         getWindow().getDecorView().getViewTreeObserver().addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
             @Override
             public void onDraw() {
-                LogHelper.d("onDraw");
+                LogUtil.d("onDraw");
 //                Integer.valueOf()
                 // DHCP
             }
@@ -109,7 +107,7 @@ public class Demo2Activity extends BaseTitleBarActivity {
      */
     public boolean insertNewContact(String fullName, String givenName, String
             callName, String remark, ArrayList<String> phoneList, ArrayList<String> groupList) {
-        LogHelper.d("fullName = " + fullName + ", givenName = " + givenName
+        LogUtil.d("fullName = " + fullName + ", givenName = " + givenName
                 + ", callName = " + callName + ", phoneList = " + phoneList
                 + ", groupList = " + groupList + ", remark = " + remark);
         String rawContactId = String.valueOf(createContactToDB());

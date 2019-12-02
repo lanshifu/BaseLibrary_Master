@@ -1,6 +1,7 @@
 package com.lanshifu.demo_module.ui.activity;
 
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,9 @@ import java.util.List;
 import butterknife.BindView;
 
 
-/** https://www.jianshu.com/p/e54db232df62 */
+/**
+ * https://www.jianshu.com/p/e54db232df62
+ */
 //{@link}
 public class SnapHelperTestActivity extends BaseTitleBarActivity {
     @BindView(R.id.recyclerView)
@@ -31,11 +34,16 @@ public class SnapHelperTestActivity extends BaseTitleBarActivity {
     protected void initView(Bundle savedInstanceState) {
 
 
-        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(manager);
         BaseQuickAdapter<String, BaseViewHolder> adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.demo_snaphelper_list_item) {
             @Override
             protected void convert(BaseViewHolder baseViewHolder, String data) {
+                int adapterPosition = baseViewHolder.getAdapterPosition();
+                baseViewHolder.setBackgroundColor(R.id.ll_root,
+                        adapterPosition % 2 == 0 ?
+                                getResources().getColor(R.color.red) : getResources().getColor(R.color.green)
+                );
 
             }
         };
@@ -44,7 +52,7 @@ public class SnapHelperTestActivity extends BaseTitleBarActivity {
 
         List<String> datas = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            datas.add("数据："+i);
+            datas.add("数据：" + i);
         }
         adapter.addData(datas);
 

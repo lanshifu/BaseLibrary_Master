@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lanshifu.baselibrary.BuildConfig;
 import com.lanshifu.baselibrary.base.AppManager;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.ApiConstant;
 import com.lanshifu.baselibrary.utils.CommonUtils;
 
@@ -66,6 +67,8 @@ public abstract class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("lxb", "onCreate: ");
+        long startTime = System.currentTimeMillis();
         context = getApplicationContext();
 
         //工具初始化
@@ -81,6 +84,7 @@ public abstract class BaseApplication extends Application {
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
 
         initModuleApp(this);
+        Log.d("lxb", "BaseApplication onCreate: 耗时：" + (System.currentTimeMillis() - startTime));
     }
 
     /**
@@ -101,48 +105,51 @@ public abstract class BaseApplication extends Application {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             AppManager.getInstance().addActivity(activity);
             //如何区别参数中activity代表你写的哪个activity。
-            LogHelper.v("lxb ->onActivityCreated " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivityCreated " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-            LogHelper.v("lxb ->onActivityStarted " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivityStarted " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-            LogHelper.v("lxb ->onActivityResumed " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivityResumed " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-            LogHelper.v("lxb ->onActivityPaused " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivityPaused " + activity.getClass().getSimpleName());
 
         }
 
         @Override
         public void onActivityStopped(Activity activity) {
-            LogHelper.v("lxb ->onActivityStopped " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivityStopped " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            LogHelper.v("lxb ->onActivitySaveInstanceState " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivitySaveInstanceState " + activity.getClass().getSimpleName());
         }
 
         @Override
         public void onActivityDestroyed(Activity activity) {
             AppManager.getInstance().removeActivity(activity);
-            LogHelper.v("lxb ->onActivityDestroyed " + activity.getClass().getSimpleName());
+            LogUtil.v("lxb ->onActivityDestroyed " + activity.getClass().getSimpleName());
         }
     };
+
 
 
     /**
      * initMultiDex 支持
      */
     protected void initMultiDex() {
+        long startTime = System.currentTimeMillis();
         MultiDex.install(this);
+        Log.d("lxb","MultiDex.install 耗时：" + (System.currentTimeMillis() - startTime));
     }
 
     public static final String DOMAIN_WANANDROID = "wanandroid";

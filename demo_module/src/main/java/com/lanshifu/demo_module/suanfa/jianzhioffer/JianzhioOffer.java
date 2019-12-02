@@ -1,5 +1,7 @@
 package com.lanshifu.demo_module.suanfa.jianzhioffer;
 
+import com.lanshifu.demo_module.suanfa.Sort;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -48,11 +50,11 @@ public class JianzhioOffer {
     /**
      * 链表
      */
-    public static class ListNode {
+    public static class LinkNode {
         int val;
-        ListNode next = null;
+        LinkNode next = null;
 
-        ListNode(int val) {
+        LinkNode(int val) {
             this.val = val;
         }
     }
@@ -83,18 +85,17 @@ public class JianzhioOffer {
     /**
      * 打输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
      *
-     * @param listNode
+     * @param linkNode
      * @return
      */
-    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+    public ArrayList<Integer> printListFromTailToHead(LinkNode linkNode) {
         ArrayList<Integer> list = new ArrayList<>();
-        if (listNode == null) {
+        if (linkNode == null) {
             return list;
         }
-        list.add(0, listNode.val);
-        while (listNode.next != null) {
-            listNode = listNode.next;
-            list.add(0, listNode.val);
+        while (linkNode != null) {
+            list.add(0, linkNode.val);
+            linkNode = linkNode.next;
         }
         return list;
     }
@@ -121,6 +122,30 @@ public class JianzhioOffer {
 
         if (number > 2) {
             result = jumpFloor(number - 1) + jumpFloor(number - 2);
+        }
+
+        return result;
+
+    }
+
+    static int jumpFloor2(int number) {
+
+        //特殊情况
+        if (number == 1) {
+            return 1;
+        }
+
+        if (number == 2) {
+            return 2;
+        }
+
+        int prePre = 1;
+        int pre = 2;
+        int result = 0;
+        for (int i = 3; i <= number; i++) {
+            result = pre + prePre; //结果是前两个相加 3,
+            prePre = pre;//  2
+            pre = result; // 3
         }
 
         return result;
@@ -266,7 +291,7 @@ public class JianzhioOffer {
      * @param head
      * @return
      */
-    public ListNode ReverseList(ListNode head) {
+    public LinkNode ReverseList(LinkNode head) {
 
         //空直接返回
         if (head == null) {
@@ -280,11 +305,11 @@ public class JianzhioOffer {
         // 1->2->3
         // 3->2->1
 
-        ListNode curNode = head;                    //1->2>3   2->3     3->null
-        ListNode nextNode = head.next;              //2->3     3->null  3
+        LinkNode curNode = head;                    //1->2>3   2->3     3->null
+        LinkNode nextNode = head.next;              //2->3     3->null  3
 
         //用递归走到链表的末端，然后再更新每一个node的next 值 ，实现链表的反转
-        ListNode preNode = ReverseList(nextNode);   //通过递归可以找到最后一个节点
+        LinkNode preNode = ReverseList(nextNode);   //通过递归可以找到最后一个节点
         curNode.next.next = curNode;                // ?
         curNode.next = null;  //中断链表
         return preNode;
@@ -297,7 +322,7 @@ public class JianzhioOffer {
      * @param head
      * @return
      */
-    public ListNode ReverseList2(ListNode head) {
+    public LinkNode ReverseList2(LinkNode head) {
 
         //空直接返回
         if (head == null) {
@@ -309,8 +334,8 @@ public class JianzhioOffer {
         }
 
         //记录上一个跟下一个
-        ListNode preNode = null;
-        ListNode nextNode = null;
+        LinkNode preNode = null;
+        LinkNode nextNode = null;
         //       1->2->3->4->5
         // null<-1  2->3->4->5    第1次循环
         // null<-1<-2  3->4->5     第2次循环
@@ -362,7 +387,7 @@ public class JianzhioOffer {
     /**
      * 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
      */
-    static public ListNode Merge(ListNode list1, ListNode list2) {
+    static public LinkNode Merge(LinkNode list1, LinkNode list2) {
         //两个量链表对比，如果list1的节点小，则作为新链表节点，然后list1的next节点跟list2比较
         if (list1 == null) {
             return list2;
@@ -370,12 +395,12 @@ public class JianzhioOffer {
         if (list2 == null) {
             return list1;
         }
-        ListNode newNode = null;
+        LinkNode newNode = null;
         if (list1.val < list2.val) {
-            newNode = new ListNode(list1.val);
+            newNode = new LinkNode(list1.val);
             newNode.next = Merge(list1.next, list2);
         } else {
-            newNode = new ListNode(list2.val);
+            newNode = new LinkNode(list2.val);
             newNode.next = Merge(list1, list2.next);
         }
 
@@ -453,7 +478,7 @@ public class JianzhioOffer {
      * @param k
      * @return
      */
-    public ListNode FindKthToTail(ListNode head, int k) {
+    public LinkNode FindKthToTail(LinkNode head, int k) {
 
         //使用两个指针，第一个到达k的时候，第二个开始动
         //当第一个指针null的时候，第二个指针刚好是倒数k的位置，返回即可。
@@ -461,7 +486,7 @@ public class JianzhioOffer {
         if (head == null) {
             return null;
         }
-        ListNode listNodek = head;
+        LinkNode linkNodek = head;
         for (int i = 1; i <= k; i++) {
             if (head != null) {
                 head = head.next;
@@ -473,9 +498,9 @@ public class JianzhioOffer {
 
         while (head != null) {
             head = head.next;
-            listNodek = listNodek.next;
+            linkNodek = linkNodek.next;
         }
-        return listNodek;
+        return linkNodek;
 
 
     }
@@ -1011,14 +1036,14 @@ public class JianzhioOffer {
      * 1.可以利用两个栈，先入栈，然后尾部比较
      * 2.先比较长度，然后长的先走若干步，然后比较
      */
-    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+    public LinkNode FindFirstCommonNode(LinkNode pHead1, LinkNode pHead2) {
         if (pHead1 == null || pHead2 == null) {
             return null;
         }
         int length1 = getNodeLength(pHead1);
         int length2 = getNodeLength(pHead2);
-        ListNode longNode = length1 > length2 ? pHead1 : pHead2;
-        ListNode shortNode = length1 < length2 ? pHead1 : pHead2;
+        LinkNode longNode = length1 > length2 ? pHead1 : pHead2;
+        LinkNode shortNode = length1 < length2 ? pHead1 : pHead2;
         int lengttth = length1 > length2 ? length1 - length2 : length2 - length1;
         for (int i = 0; i < lengttth; i++) {
             longNode = longNode.next;
@@ -1034,11 +1059,11 @@ public class JianzhioOffer {
         return null;
     }
 
-    public int getNodeLength(ListNode listNode) {
+    public int getNodeLength(LinkNode linkNode) {
         int length = 0;
-        while (listNode != null) {
+        while (linkNode != null) {
             length++;
-            listNode = listNode.next;
+            linkNode = linkNode.next;
         }
         return length;
     }
@@ -1548,18 +1573,18 @@ public class JianzhioOffer {
      * @param pHead
      * @return
      */
-    public ListNode deleteDuplication(ListNode pHead) {
+    public LinkNode deleteDuplication(LinkNode pHead) {
 
         if (pHead == null) {
             return null;
         }
 
         //因为可以第一二个相同，所以new一个ListNode，作为头结点
-        ListNode preNodeHead = new ListNode(-1);
+        LinkNode preNodeHead = new LinkNode(-1);
         preNodeHead.next = pHead;
-        ListNode preNode = preNodeHead;  //这个代表上一个节点，用于移动和删除
+        LinkNode preNode = preNodeHead;  //这个代表上一个节点，用于移动和删除
 
-        ListNode currNode = pHead.next;//先走一步;
+        LinkNode currNode = pHead.next;//先走一步;
         int preValue = pHead.val;  //保存上一个节点的值
         boolean canDelete = false; //是否可以删除
         while (currNode != null) {
@@ -1622,7 +1647,7 @@ public class JianzhioOffer {
 
             char charAt = str.charAt(i);
             if (charAt >= '0' && charAt <= '9') {
-                //1:49   2:50
+                //
                 if (result == -1) {
                     result = charAt - '0';
                 } else {
@@ -1641,6 +1666,43 @@ public class JianzhioOffer {
             return -result;
         }
 
+    }
+
+    public static int strToInt(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+
+
+        //默认是正数
+        boolean isPositive = true;
+        char firstChar = str.charAt(0);
+        //加减号
+        if (firstChar == '+') {
+            str = str.substring(1);
+            isPositive = true;
+        } else if (firstChar == '-') {
+            str = str.substring(1);
+            isPositive = false;
+        }
+
+        int result = 0;
+
+        //遍历 1998
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c > '0' && c < '9') {
+                //0到9之间，否则抛异常
+                result = result * 10 + (c - '0');
+                // 1,19,199,1998
+            } else {
+                return 0;
+            }
+
+        }
+
+
+        return isPositive ? result : -result;
     }
 
 
@@ -1689,10 +1751,10 @@ public class JianzhioOffer {
      * @param pHead
      * @return
      */
-    public ListNode EntryNodeOfLoop(ListNode pHead) {
+    public LinkNode EntryNodeOfLoop(LinkNode pHead) {
         // 1-2-3-4-5-6-4-5-6-...
-        ListNode slow = pHead;
-        ListNode fast = pHead;
+        LinkNode slow = pHead;
+        LinkNode fast = pHead;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -1867,6 +1929,116 @@ public class JianzhioOffer {
         }
         return resultList;
 
+    }
+
+
+    private static LinkNode reverseNode(LinkNode head) {
+        LinkNode preNode = null;
+        LinkNode tempNode;
+
+        while (head != null) {
+            tempNode = head.next;  //保存下个节点
+            head.next = preNode; //head的指针指向上个节点，tempNode 不受影响
+            preNode = head;      //上个节点更正
+            head = tempNode;
+        }
+
+        return preNode;
+
+    }
+
+    private static  void printNode(LinkNode head){
+        while (head != null){
+            System.out.println(head.val + "->");
+            head = head.next;
+        }
+
+    }
+
+    private static int[] quickSort(int []input){
+
+        if (input.length <=1){
+            return input;
+        }
+
+        quickSort(input,0,input.length -1);
+
+        return input;
+
+    }
+
+    private static void quickSort(int []input,int low, int hight){
+        if (low < hight){
+            int mid = getMid(input,low,hight);
+            quickSort(input, low, mid);
+            quickSort(input, mid +1, hight);
+
+        }
+
+    }
+
+    private static int getMid(int[] input, int low, int hight) {
+        int temp = input[0]; //假设第一个为中值，
+        //右边开始往前找，右边必须比中间大，遇到不满足条件，跳出循环，记录下标，要移动到左边
+        //测试数据：2 1 4 3 ，low：0，hight：3
+        while (low < hight){
+
+            //第一趟，右边开始比较，到1的时候不满足，hight = 1
+            while (low < hight && input[temp] <= input[hight]){
+                hight --;
+            }
+            input[low] = input[hight]; //1 1 4 3  //hight 被挖走了，需要把temp 填进去，左边遍历
+
+            while (low < hight && input[low] <= input[temp]){
+                low ++;  //low = 1
+            }
+
+            input[hight] = input[low];
+        }
+
+        //填坑
+        input[hight] = input[temp];
+
+
+        return low;
+    }
+
+    private static int[] bubbleSort(int[] input){
+        for (int i = 0; i < input.length; i++) {
+
+            boolean isSorted = true;
+            for (int j = 0; j < input.length -i -1; j++) {
+                if (input[j] > input[j+1]){ //交换位置
+                    int temp = input[j];
+                    input[j] = input[j+1];
+                    input[j+1] = temp;
+                    isSorted = false;
+                }
+
+            }
+            if (isSorted){
+                break;
+            }
+        }
+
+        return input;
+
+    }
+
+    public static void main(String args[]) {
+        LinkNode node1 =new LinkNode(1);
+        LinkNode node2 =new LinkNode(2);
+        LinkNode node3 =new LinkNode(3);
+        node1.next = node2;
+        node2.next = node3;
+//
+//        printNode(reverseNode(node1));
+
+//        int[] ints = bubbleSort(new int[]{3, 5, 2, 7, 6, 8, 9,1,4});
+        int[] ints = quickSort(new int[]{3, 5, 2, 7, 6, 8, 9,1,4});
+        for (int anInt : ints) {
+            System.out.println(anInt);
+        }
     }
 
 }

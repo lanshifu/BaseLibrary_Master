@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;;
 
 import com.lanshifu.baselibrary.R;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * Created by lanxiaobin on 2017/8/1.
@@ -51,7 +51,7 @@ public  abstract class BaseTabActivity extends BaseActivity implements ViewPager
     protected void setupTabLayout(String[] titles, Fragment[] fragments) {
 
         if (titles.length != fragments.length){
-            LogHelper.e("titles 和 fragments 大小不一致");
+            LogUtil.e("titles 和 fragments 大小不一致");
             throw new IllegalArgumentException("titles 和 fragments 大小不一致");
         }
         mViewPager.addOnPageChangeListener(this);

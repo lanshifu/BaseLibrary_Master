@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.base.fragment.BaseListFragment;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.picture_module.R;
 import com.lanshifu.picture_module.bean.PictureListItemBean;
@@ -94,7 +94,7 @@ public class PictureMainFragment extends BaseListFragment<PictureMainPresenter, 
 
         //动画
         String transitionName = ViewCompat.getTransitionName(view.findViewById(R.id.imageView));
-        LogHelper.d("transitionName == null?" + (transitionName == null));
+        LogUtil.d("transitionName == null?" + (transitionName == null));
         Pair squareParticipant = new Pair<>(view, transitionName);
         ActivityOptionsCompat transitionActivityOptions =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(

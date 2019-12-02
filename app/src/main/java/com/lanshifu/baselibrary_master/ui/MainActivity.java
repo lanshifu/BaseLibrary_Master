@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lanshifu.baselibrary.base.activity.BaseActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.baselibrary_master.DefaultMvpFragment;
 import com.lanshifu.baselibrary_master.R;
@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity {
         if (mPictureFragment == null) {
             mPictureFragment = UIUtil.navigationFragment(RouterHub.PICTURE_MAIN_FRAGMENT);
             if (mPictureFragment == null) {
-                LogHelper.e("图片组件加载失败");
+                LogUtil.e("图片组件加载失败");
                 mPictureFragment = new DefaultMvpFragment();
                 ((DefaultMvpFragment) mPictureFragment).setContextText("图片组件加载失败");
             }
@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity {
         if (mAboutFragment == null) {
             mAboutFragment = UIUtil.navigationFragment(RouterHub.WANDROID_MAIN_FRAGMENT);
             if (mAboutFragment == null) {
-                LogHelper.e("玩安卓组件加载失败");
+                LogUtil.e("玩安卓组件加载失败");
                 mAboutFragment = new DefaultMvpFragment();
                 ((DefaultMvpFragment) mAboutFragment).setContextText("玩安卓组件加载失败");
             }
@@ -189,7 +189,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showFragment(int index) {
-        LogHelper.d("showFragment:" + index);
+        LogUtil.d("showFragment:" + index);
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (index) {
             case 0:
@@ -289,14 +289,14 @@ public class MainActivity extends BaseActivity {
      * @param index
      */
     private void showUnreadIcon(int index,int count) {
-        LogHelper.d("showUnreadIcon index =" + index + ",count="+count);
+        LogUtil.d("showUnreadIcon index =" + index + ",count="+count);
         //如果
 
         //获取整个的NavigationView
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         //这里就是获取所添加的每一个Tab(或者叫menu)，
         if (menuView == null){
-            LogHelper.e("menuView == null");
+            LogUtil.e("menuView == null");
             return;
         }
         View tab = menuView.getChildAt(index);

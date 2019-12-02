@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * 顶部toast布局，主要处理消失时候取消handler消息
@@ -48,7 +48,7 @@ public class TopToastContentView extends LinearLayout {
             @Override
             public void run() {
                 mWidth = getMeasuredWidth();
-                LogHelper.d("mWidth = " + mWidth);
+                LogUtil.d("mWidth = " + mWidth);
             }
         });
         setTouchListener();
@@ -79,7 +79,7 @@ public class TopToastContentView extends LinearLayout {
                         if (needIntercept()) {
                             //退出动画
                             int moveX = mEndX - mStartX;
-                            LogHelper.d("moveX "+moveX);
+                            LogUtil.d("moveX "+moveX);
 
                             if (moveX > (getMeasuredWidth() /3)){
                                 animOut();
@@ -125,7 +125,7 @@ public class TopToastContentView extends LinearLayout {
     }
 
     private void animIn(){
-        LogHelper.d("animIn getX() " + getX());
+        LogUtil.d("animIn getX() " + getX());
 //        TranslateAnimation animationIn = new TranslateAnimation(getX(), 0, getY(), getY());
 //        animationIn.setDuration(1000);
 //        animationIn.setFillAfter(true);

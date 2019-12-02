@@ -3,7 +3,7 @@ package com.lanshifu.demo_module.ui.activity;
 import android.os.Bundle;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.demo_module.R;
 
@@ -16,7 +16,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
@@ -44,12 +43,12 @@ public class DemoRxjavaActivity extends BaseTitleBarActivity {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                LogHelper.d("ObservableOnSubscribe--subscribe");
-                LogHelper.d("ObservableOnSubscribe--发射数据...");
+                LogUtil.d("ObservableOnSubscribe--subscribe");
+                LogUtil.d("ObservableOnSubscribe--发射数据...");
                 emitter.onNext("1");
                 emitter.onNext("2");
                 emitter.onComplete();
-                LogHelper.d("ObservableOnSubscribe--数据发射完成");
+                LogUtil.d("ObservableOnSubscribe--数据发射完成");
             }
         })
         .subscribeOn(Schedulers.io())
@@ -57,22 +56,22 @@ public class DemoRxjavaActivity extends BaseTitleBarActivity {
         .subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-                LogHelper.d("Observer--onSubscribe");
+                LogUtil.d("Observer--onSubscribe");
             }
 
             @Override
             public void onNext(String s) {
-                LogHelper.d("Observer--onNext：" + s);
+                LogUtil.d("Observer--onNext：" + s);
             }
 
             @Override
             public void onError(Throwable e) {
-                LogHelper.d("Observer--onError");
+                LogUtil.d("Observer--onError");
             }
 
             @Override
             public void onComplete() {
-                LogHelper.d("Observer--onComplete");
+                LogUtil.d("Observer--onComplete");
             }
         });
 

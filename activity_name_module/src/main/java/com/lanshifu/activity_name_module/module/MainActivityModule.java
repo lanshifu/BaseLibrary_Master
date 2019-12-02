@@ -6,7 +6,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.lanshifu.activity_name_module.service.MyAccessServices;
 import com.lanshifu.activity_name_module.utils.AccessServiceUtil;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * Created by lanshifu on 2018/11/5.
@@ -26,9 +26,9 @@ public class MainActivityModule {
         }
 
         if ("com.lanshifu.activity_name_module".equals(pkgName)){
-            LogHelper.d("自动输入文本");
+            LogUtil.d("自动输入文本");
 
-            LogHelper.d(className);
+            LogUtil.d(className);
             if ("android.widget.EditText".equals(className)){
                 AccessServiceUtil.inputText(services,event,"自动输入文本");
             }

@@ -1,6 +1,6 @@
 package com.lanshifu.demo_module.ndk;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * Created by lanshifu on 2018/12/2.
@@ -22,11 +22,11 @@ public class JniTest {
     public native static void set(String test);
 
     public static void methodCallByJni(String msgFromJni){
-        LogHelper.d("jni 调用java方法 " + msgFromJni);
+        LogUtil.d("jni 调用java方法 " + msgFromJni);
     }
 
     public static void methodCallByJni(){
-        LogHelper.d("jni 调用java void无参方法 ");
+        LogUtil.d("jni 调用java void无参方法 ");
     }
 
 

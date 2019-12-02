@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -17,7 +18,7 @@ import android.view.WindowManager;
 
 import com.lanshifu.baselibrary.R;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ScreenUtils;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.widget.LoadingDialog;
@@ -56,6 +57,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * 设置layout前配置
      */
     protected void doBeforeSetcontentView() {
+        setTheme(R.style.AppTheme);
 
         // 无标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -242,18 +244,21 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected abstract void initView(Bundle savedInstanceState);
 
 
-    /** 防止快速点击启动多次activity --开始*/
+    /**
+     * 防止快速点击启动多次activity --开始
+     */
     @Override
     public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
-        if (startActivityCheck()){
+        if (startActivityCheck()) {
             super.startActivityForResult(intent, requestCode, options);
         }
     }
 
     private long mActivityJumpTime;
+
     private boolean startActivityCheck() {
-        if (mActivityJumpTime >= (System.currentTimeMillis() -500)){
-            LogHelper.d("");
+        if (mActivityJumpTime >= (System.currentTimeMillis() - 500)) {
+            LogUtil.d("屏蔽快速点击");
             return false;
         }
 

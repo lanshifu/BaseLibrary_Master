@@ -2,7 +2,7 @@ package com.lanshifu.activity_name_module.utils;
 
 import android.os.Build;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -44,7 +44,7 @@ public class CmdUtil {
      * 点击
      */
     public static void clickXY(int x, int y) {
-        LogHelper.d("clickXY: " + x + ", " + y);
+        LogUtil.d("clickXY: " + x + ", " + y);
         String cmd = String.format("input tap %s %s \n", x, y);
         exec(cmd);
     }

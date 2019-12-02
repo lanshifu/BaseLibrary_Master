@@ -13,7 +13,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.DensityUtil;
 
 /**
@@ -49,12 +49,12 @@ public class RoundImageView extends ImageView {
         Drawable drawable = getDrawable();
         Matrix mDrawMatrix = getImageMatrix();
         if (drawable == null) {
-            LogHelper.e("drawable == null");
+            LogUtil.e("drawable == null");
             return;
         }
 
         if (drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0) {
-            LogHelper.e("drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0");
+            LogUtil.e("drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0");
             return;
         }
         if (mDrawMatrix == null && getPaddingTop() == 0 && getPaddingLeft() == 0) {

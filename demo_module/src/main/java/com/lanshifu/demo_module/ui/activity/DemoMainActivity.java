@@ -5,26 +5,37 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.lanshifu.baselibrary.BuildConfig;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.app.MainApplication;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.baselibrary.notification.NotifyManager;
 import com.lanshifu.baselibrary.tools.avoidonresult.ActivityResultInfo;
@@ -32,6 +43,7 @@ import com.lanshifu.baselibrary.tools.avoidonresult.AvoidOnResult;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.VersionAdapterUtil;
 import com.lanshifu.commonservice.demo.DemoInfo;
+import com.lanshifu.demo_module.DemoApplication;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
 import com.lanshifu.demo_module.bean.FinalClass;
@@ -39,9 +51,8 @@ import com.lanshifu.demo_module.design_mode.ProducerConsumerTest;
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.lanshifu.demo_module.ndk.JniTest;
+import com.lanshifu.demo_module.util.ChannelUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.mars.xlog.Xlog;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.CountDownLatch;
@@ -85,7 +96,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             super.handleMessage(msg);
             if (mActivityWeakReference.get() != null) {
                 DemoMainActivity activity = mActivityWeakReference.get();
-                LogHelper.d(activity.age + "");
+                LogUtil.d(activity.age + "");
             }
         }
     }
@@ -103,6 +114,21 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     @Override
     protected void initView(Bundle bundle) {
 
+        LogUtil.d("进入MainActivity initView 耗时时间：" + (System.currentTimeMillis() - DemoApplication.applicationOncreateTIme));
+
+        ImageView imageView = new ImageView(this);
+        ViewTarget<ImageView, Drawable> into = Glide.with(this).load("").listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).into(imageView);
+
 
         setTitleText("demo组件");
         mHandler = new H(this);
@@ -114,7 +140,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         sb.append(",age = " + age + "");
         sb.append(",boy = " + boy + "");
 
-        LogHelper.d("param:" + sb.toString());
+        LogUtil.d("param:" + sb.toString());
 
         ToastUtil.showShortToast(sb.toString());
 
@@ -125,13 +151,13 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         FinalClass finalClass = new FinalClass();
         finalClass.staticName = "更改静态变量";
-        LogHelper.d("staticName == " + finalClass.staticName);
+        LogUtil.d("staticName == " + finalClass.staticName);
         finalClass.setName("12");
 
         //long 越界
         long l = Long.MAX_VALUE + 1000L;
-        LogHelper.d("Long.MAX_VALUE = " + Long.MAX_VALUE);
-        LogHelper.d("long越界 long = " + l);
+        LogUtil.d("Long.MAX_VALUE = " + Long.MAX_VALUE);
+        LogUtil.d("long越界 long = " + l);
 
 //        UETool.showUETMenu();
 
@@ -141,8 +167,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         Log.i(TAG, "initView: ");
 
 
-        long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
-        LogHelper.d("当前时间戳是："+time);
+        long time = System.currentTimeMillis() / 1000;//获取系统时间的10位的时间戳
+        LogUtil.d("当前时间戳是：" + time);
 
         ProducerConsumerTest test = new ProducerConsumerTest();
         test.Test();
@@ -151,7 +177,6 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
         mPresenter.rxjavaTest();
 
-        initXLog();
     }
 
     private void handlerThreadTest() {
@@ -162,16 +187,15 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         handler.post(() -> {
             try {
                 Thread.sleep(1000);
-                LogHelper.d("任务1执行完");
+                LogUtil.d("任务1执行完");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
 
         handler.post(() -> {
-            LogHelper.d("任务2执行完");
+            LogUtil.d("任务2执行完");
         });
-
 
 
     }
@@ -205,8 +229,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
-        LogHelper.d("onDestroy");
-        LogHelper.closeLog();
+        LogUtil.d("onDestroy");
+        LogUtil.closeLog();
     }
 
 
@@ -238,7 +262,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_notify2, R2.id.btn_get_config, R2.id.btn_block_canary, R2.id.btn_check_update
             , R2.id.btn_SnapHelper, R2.id.btn_sd_search, R2.id.btn_test_io, R2.id.btn_event_fit
             , R2.id.btn_rxjava2, R2.id.btn_hongyang_opne_api, R2.id.btn_flutter, R2.id.btn_camera2
-            , R2.id.btn_uid})
+            , R2.id.btn_uid, R2.id.btn_picture_select, R2.id.btn_xml2code, R2.id.btn_channel})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -252,7 +276,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         } else if (viewId == R.id.btn_installed_app) {
             startActivity(DemoInstalledAppListActivity.class);
         } else if (viewId == R.id.btn_crash) {
-            testCrash();
+            testCrash(123);
         } else if (viewId == R.id.btn_pdf_list) {
             startActivity(DemoPdfListActivity.class);
         } else if (viewId == R.id.btn_leak) {
@@ -268,7 +292,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                     .subscribe(new Consumer<ActivityResultInfo>() {
                         @Override
                         public void accept(ActivityResultInfo activityResultInfo) throws Exception {
-                            LogHelper.d(activityResultInfo.getData().getStringExtra("result"));
+                            LogUtil.d(activityResultInfo.getData().getStringExtra("result"));
                             showShortToast(activityResultInfo.getData().getStringExtra("result"));
                         }
                     });
@@ -282,83 +306,92 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             startActivity(DemoTouchEventActivity.class);
         } else if (viewId == R.id.btn_setting) {
             startActivity(DemoSettingActivity.class);
-        }else if (viewId == R.id.btn_expandable_textview) {
+        } else if (viewId == R.id.btn_expandable_textview) {
             startActivity(DemoExpandableTextViewActivity.class);
-        }else if (viewId == R.id.btn_litepal) {
+        } else if (viewId == R.id.btn_litepal) {
             startActivity(DemoLitepalActivity.class);
-        }else if (viewId == R.id.btn_behavior) {
+        } else if (viewId == R.id.btn_behavior) {
             startActivity(DemoBehavior1Activity.class);
-        }else if (viewId == R.id.btn_behavior2) {
+        } else if (viewId == R.id.btn_behavior2) {
             startActivity(DemoBehavior2Activity.class);
-        }else if (viewId == R.id.btn_bottom_sheet_behavior) {
+        } else if (viewId == R.id.btn_bottom_sheet_behavior) {
             startActivity(DemoBehavior3Activity.class);
-        }else if (viewId == R.id.btn_guide) {
+        } else if (viewId == R.id.btn_guide) {
             startActivity(DemoGuideActivity.class);
-        }else if (viewId == R.id.btn_webview) {
+        } else if (viewId == R.id.btn_webview) {
             startActivity(DemoWebViewActivity.class);
-        }else if (viewId == R.id.btn_shared_element) {
+        } else if (viewId == R.id.btn_shared_element) {
             startActivity(DemoSharedElementActivity.class);
 //            startZhifubao();
-        }else if (viewId == R.id.btn_map) {
+        } else if (viewId == R.id.btn_map) {
 //            try {
 //                returnUntilThreadFinish();
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
             toMapActivity();
-        }else if (viewId == R.id.btn_anim) {
+        } else if (viewId == R.id.btn_anim) {
             startActivity(DemoAnimateActivity.class);
-        }else if (viewId == R.id.btn_ndk) {
+        } else if (viewId == R.id.btn_ndk) {
             showShortToast(JniTest.get());
-        }else if (viewId == R.id.btn_unknow_resource) {
+        } else if (viewId == R.id.btn_unknow_resource) {
             boolean open = VersionAdapterUtil.checkUnknowAppAndroidO(DemoMainActivity.this);
-            if (!open){
-                VersionAdapterUtil.gotoOpenUnknowApp(DemoMainActivity.this,REQUEST_CODE_UNKNOW_APP);
-            }else {
+            if (!open) {
+                VersionAdapterUtil.gotoOpenUnknowApp(DemoMainActivity.this, REQUEST_CODE_UNKNOW_APP);
+            } else {
                 showShortToast("已打开，执行安装app操作");
             }
-        }else if (viewId == R.id.btn_notify1) {
+        } else if (viewId == R.id.btn_notify1) {
             NotifyManager.getInstance(DemoMainActivity.this)
-                    .showNormalNotify(DemoMainActivity.this,"普通通知","content",
-                            new Intent(DemoMainActivity.this,DemoMainActivity.class));
-        }else if (viewId == R.id.btn_notify2) {
+                    .showNormalNotify(DemoMainActivity.this, "普通通知", "content",
+                            new Intent(DemoMainActivity.this, DemoMainActivity.class));
+        } else if (viewId == R.id.btn_notify2) {
             NotifyManager.getInstance(DemoMainActivity.this)
-                    .showOtherNotify(DemoMainActivity.this,"即时消息通知","content2",
-                            new Intent(DemoMainActivity.this,DemoMainActivity.class));
-        }else if (viewId == R.id.btn_get_config) {
+                    .showOtherNotify(DemoMainActivity.this, "即时消息通知", "content2",
+                            new Intent(DemoMainActivity.this, DemoMainActivity.class));
+        } else if (viewId == R.id.btn_get_config) {
             mPresenter.initConfig();
-        }else if (viewId == R.id.btn_block_canary) {
+        } else if (viewId == R.id.btn_block_canary) {
             mPresenter.blockCanaryTest();
-        }else if (viewId == R.id.btn_check_update) {
-            Beta.checkUpgrade(false,false);
+            mPresenter.blockCanaryTest2();
+            mPresenter.blockCanaryTest3();
+        } else if (viewId == R.id.btn_check_update) {
+//            Beta.checkUpgrade(false,false);
 
-            ToastUtil.showSuccessToast(this,"成功谈通知","内容");
-        }else if (viewId == R.id.btn_SnapHelper) {
+            ToastUtil.showSuccessToast(this, "成功谈通知", "内容");
+        } else if (viewId == R.id.btn_SnapHelper) {
             startActivity(SnapHelperTestActivity.class);
-        }else if (viewId == R.id.btn_sd_search) {
+        } else if (viewId == R.id.btn_sd_search) {
             startActivity(DemoSdCardFindActivity.class);
-        }else if (viewId == R.id.btn_test_io) {
+        } else if (viewId == R.id.btn_test_io) {
 //            startActivity(DemoTestIOActivity.class);
-        }else if (viewId == R.id.btn_event_fit) {
+        } else if (viewId == R.id.btn_event_fit) {
             startActivity(DemoHandleTouchEventActivity.class);
-        }else if (viewId == R.id.btn_rxjava2) {
+        } else if (viewId == R.id.btn_rxjava2) {
             startActivity(DemoRxjavaActivity.class);
-        }else if (viewId == R.id.btn_hongyang_opne_api) {
+        } else if (viewId == R.id.btn_hongyang_opne_api) {
             startActivity(DemoHongyangOpenApiActivity.class);
-        }else if (viewId == R.id.btn_flutter) {
+        } else if (viewId == R.id.btn_flutter) {
             Intent intent = new Intent();
-            intent.setClass(this, DwmoFlutterActivity.class);
+            intent.setClass(this, DemoFlutterActivity.class);
             startActivity(intent);
-        }else if (viewId == R.id.btn_camera2) {
+        } else if (viewId == R.id.btn_camera2) {
             startActivity(DemoCamera2Activity.class);
-        }else if (viewId == R.id.btn_uid) {
-//            startActivity(DemoSurFaceViewActivity.class);
+        } else if (viewId == R.id.btn_uid) {
+            startActivity(DemoHookTestActivity.class);
+        } else if (viewId == R.id.btn_picture_select) {
+            startActivity(PictureSelectActivity.class);
+        } else if (viewId == R.id.btn_xml2code) {
+            startActivity(XML2CodeActivity.class);
+        }else if (viewId == R.id.btn_channel) {
+            String channel = ChannelUtil.getChannel(DemoMainActivity.this);
+            ToastUtil.showShortToast("渠道号："+channel);
         }
     }
 
-    private void testCrash(){
+    private void testCrash(int i) {
 //        int i = 3 / 0;
-        ToastUtil.showShortToast("bug已经被修复");
+        ToastUtil.showShortToast("bug已经被修复" + i);
     }
 
     private void requestPermission() {
@@ -371,10 +404,10 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
 
-                        if (!aBoolean){
+                        if (!aBoolean) {
                             Intent intent = getAppDetailSettingIntent(DemoMainActivity.this);
                             startActivity(intent);
-                            showLongToast("请打钩相关权限才能正常使用" );
+                            showLongToast("请打钩相关权限才能正常使用");
                         }
                     }
                 });
@@ -382,6 +415,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
     /**
      * 跳转到应用详情页面,权限被拒绝时调用
+     *
      * @param context
      * @return
      */
@@ -393,7 +427,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         return localIntent;
     }
 
-    public void startZhifubao(){
+    public void startZhifubao() {
         // Dalvik
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -407,7 +441,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     /**
      * 跳转去地图
      */
-    private void toMapActivity(){
+    private void toMapActivity() {
         ARouter.getInstance().build(RouterHub.MAP_MAIN_ACTIVITY)
                 .withBoolean("mSendLocation", true)
                 .withTransition(R.anim.slide_left_in, R.anim.slide_right_out) //动画
@@ -415,22 +449,22 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
                     @Override
                     public void onFound(Postcard postcard) {
-                        LogHelper.d("onFound");
+                        LogUtil.d("onFound");
                     }
 
                     @Override
                     public void onLost(Postcard postcard) {
-                        LogHelper.d("onLost");
+                        LogUtil.d("onLost");
                     }
 
                     @Override
                     public void onArrival(Postcard postcard) {
-                        LogHelper.d("onArrival");
+                        LogUtil.d("onArrival");
                     }
 
                     @Override
                     public void onInterrupt(Postcard postcard) {
-                        LogHelper.d("onInterrupt");
+                        LogUtil.d("onInterrupt");
                     }
                 });
     }
@@ -438,13 +472,13 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == REQUEST_CODE_MAP_ACTIVITY){
-                double latitude = data.getDoubleExtra("latitude",0);
-                double longitude = data.getDoubleExtra("longitude",0);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_MAP_ACTIVITY) {
+                double latitude = data.getDoubleExtra("latitude", 0);
+                double longitude = data.getDoubleExtra("longitude", 0);
                 String address = data.getStringExtra("address");
-                ToastUtil.showLongToast("latitude=" + latitude + ",longitude="+longitude + ",address ="+address);
-            }else if (requestCode == REQUEST_CODE_UNKNOW_APP){
+                ToastUtil.showLongToast("latitude=" + latitude + ",longitude=" + longitude + ",address =" + address);
+            } else if (requestCode == REQUEST_CODE_UNKNOW_APP) {
                 showShortToast("已打开，执行安装app操作");
             }
         }
@@ -452,10 +486,11 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
 
     /**
      * 等待线程执行完返回，会阻塞
+     *
      * @return
      */
     private int returnUntilThreadFinish() throws Exception {
-        LogHelper.d("等待子线程执行完...");
+        LogUtil.d("等待子线程执行完...");
         Thread.sleep(4000);
         int count = 10;
         //这是一个计时器，只有countDown 到0的时候才会走 await 之后的代码，会阻塞
@@ -468,9 +503,9 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     countDownLatch.countDown();
-                    LogHelper.d("子线程执行完。");
+                    LogUtil.d("子线程执行完。");
 
                 }
             }
@@ -481,11 +516,11 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         return 10;
     }
 
-    private void test(){
-        Handler handler = new Handler(){
+    private void test() {
+        Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (msg.what == 1){
+                if (msg.what == 1) {
                     //
                 }
             }
@@ -497,7 +532,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         //1
         handler.sendMessage(message);
         //2
-        handler.sendMessageDelayed(message,1000);
+        handler.sendMessageDelayed(message, 1000);
         //3
         handler.post(new Runnable() {
             @Override
@@ -508,38 +543,26 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
     }
 
 
-    private void initXLog(){
-        System.loadLibrary("c++_shared");
-        System.loadLibrary("marsxlog");
-
-        final String SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath();
-        final String logPath = SDCARD + "/marssample/log";
-
-        // this is necessary, or may crash for SIGBUS
-        final String cachePath = this.getFilesDir() + "/xlog";
-
-        //init xlog
-        if (BuildConfig.DEBUG) {
-            Xlog.appenderOpen(Xlog.LEVEL_DEBUG, Xlog.AppednerModeAsync, cachePath, logPath, "MarsSample", 0, "");
-            Xlog.setConsoleLogOpen(true);
-
-        } else {
-            Xlog.appenderOpen(Xlog.LEVEL_INFO, Xlog.AppednerModeAsync, cachePath, logPath, "MarsSample", 0, "");
-            Xlog.setConsoleLogOpen(false);
-        }
-
-        com.tencent.mars.xlog.Log.setLogImp(new Xlog());
-
-        com.tencent.mars.xlog.Log.d("lxb","测试xlog");
-        com.tencent.mars.xlog.Log.d("lxb","cachePath = " + cachePath);
-        com.tencent.mars.xlog.Log.d("lxb","SDCARD = " + SDCARD);
-
-    }
-
-
     private void test2() {
         Application application = getApplication();
         Context applicationContext = getApplicationContext();
     }
 
+
+    /**
+     * 获取渠道信息
+     */
+    private String getChannel() {
+        try {
+            PackageManager pm = getPackageManager();
+            ApplicationInfo appInfo = pm.getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            String channel = appInfo.metaData.getString("key"); // key为<meta-data>标签中的name
+            if (!TextUtils.isEmpty(channel)) {
+                return channel;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.lanshifu.baselibrary.R;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.swipeback.SlideBackView;
 import com.lanshifu.baselibrary.utils.DensityUtil;
 import com.lanshifu.baselibrary.utils.SystemUtil;
@@ -112,7 +112,7 @@ public abstract class BaseSlideBackActivity extends BaseActivity {
     }
 
     protected void slideBackSuccess() {
-        LogHelper.d("slideBackSuccess");
+        LogUtil.d("slideBackSuccess");
         finish();
     }
 }

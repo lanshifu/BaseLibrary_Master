@@ -2,7 +2,7 @@ package com.lanshifu.baselibrary.network.interceptor;
 
 import android.text.TextUtils;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,12 +98,12 @@ public final class HttpLoggingInterceptor implements Interceptor {
         HttpLoggingInterceptor.Logger DEFAULT = new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                LogHelper.d(message);
+                LogUtil.d(message);
             }
 
             @Override
             public void json(String message) {
-                LogHelper.json(message);
+                LogUtil.json(message);
             }
         };
 

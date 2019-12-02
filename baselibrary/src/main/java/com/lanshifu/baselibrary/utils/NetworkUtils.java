@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -184,8 +184,8 @@ public class NetworkUtils {
             proxyAddress = android.net.Proxy.getHost(context);
             proxyPort = android.net.Proxy.getPort(context);
         }
-        LogHelper.d("proxyAddress = " + proxyAddress);
-        LogHelper.d("proxyPort = " + proxyPort);
+        LogUtil.d("proxyAddress = " + proxyAddress);
+        LogUtil.d("proxyPort = " + proxyPort);
         return (!TextUtils.isEmpty(proxyAddress)) && (proxyPort != -1);
     }
 

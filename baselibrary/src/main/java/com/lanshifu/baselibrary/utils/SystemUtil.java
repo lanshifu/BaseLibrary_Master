@@ -17,6 +17,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Process;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -27,7 +28,7 @@ import android.telephony.SubscriptionManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lanxiaobin on 2017/9/8.
@@ -135,7 +138,7 @@ public class SystemUtil {
                 return "";
             }
         }
-        LogHelper.d("lxb ->mac:" +marshmallowMacAddress);
+        LogUtil.d("lxb ->mac:" +marshmallowMacAddress);
         return marshmallowMacAddress;
     }
 
@@ -331,15 +334,38 @@ public class SystemUtil {
         for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
             if (appProcess.processName.equals(context.getPackageName())) {
                 if (appProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                    LogHelper.d("处于后台" + appProcess.processName);
+                    LogUtil.d("处于后台" + appProcess.processName);
                     return true;
                 } else {
-                    LogHelper.d( "处于前台" + appProcess.processName);
+                    LogUtil.d( "处于前台" + appProcess.processName);
                     return false;
                 }
             }
         }
         return false;
+    }
+
+ 
+    public static String getProcessName(Context context){
+        ActivityManager activityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+
+        int myPid = Process.myPid();
+
+        if(appProcesses == null || appProcesses.size() == 0){
+            return null;
+        }
+
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(context.getPackageName())) {
+                if (appProcess.pid == myPid){
+                    return appProcess.processName;
+                }
+            }
+        }
+        return null;
     }
 
 
@@ -370,7 +396,7 @@ public class SystemUtil {
             int versioncode = info.versionCode;
             return versioncode;
         } catch (Exception e) {
-            LogHelper.e("lxb ->获取版本号失败>>>"+e.getMessage());
+            LogUtil.e("lxb ->获取版本号失败>>>"+e.getMessage());
         }
         return 0;
     }
@@ -524,5 +550,28 @@ public class SystemUtil {
         } catch (Throwable t) {
         }
 
+    }
+
+    public static boolean isVMMultidexCapable(){
+        return isVMMultidexCapable(System.getProperty("java.vm.version"));
+    }
+
+    //MultiDex 拷出来的的方法，判断VM是否支持多dex
+    public static boolean isVMMultidexCapable(String versionString) {
+        boolean isMultidexCapable = false;
+        if (versionString != null) {
+            Matcher matcher = Pattern.compile("(\\d+)\\.(\\d+)(\\.\\d+)?").matcher(versionString);
+            if (matcher.matches()) {
+                try {
+                    int major = Integer.parseInt(matcher.group(1));
+                    int minor = Integer.parseInt(matcher.group(2));
+                    isMultidexCapable = major > 2 || major == 2 && minor >= 1;
+                } catch (NumberFormatException var5) {
+                }
+            }
+        }
+
+        Log.i("MultiDex", "VM with version " + versionString + (isMultidexCapable ? " has multidex support" : " does not have multidex support"));
+        return isMultidexCapable;
     }
 }

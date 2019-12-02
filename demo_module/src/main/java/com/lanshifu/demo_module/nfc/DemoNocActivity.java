@@ -10,7 +10,7 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.demo_module.R;
 
 /**
@@ -79,7 +79,7 @@ public class DemoNocActivity extends BaseNfcActivity {
                 }
             }
         } catch (Exception e) {
-            LogHelper.e(e.getMessage());
+            LogUtil.e(e.getMessage());
         }
     }
 }

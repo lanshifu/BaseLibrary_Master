@@ -46,7 +46,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lanshifu.baselibrary.RouterHub;
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.ToastUtil;
 import com.lanshifu.baselibrary.utils.UIUtil;
 import com.lanshifu.baselibrary.widget.CommRecyclerView;
@@ -178,7 +178,7 @@ public class MapMainActivity extends BaseTitleBarActivity implements LocationSou
                     mDatas.get(i).setChecked(false);
                 }
                 mDatas.get(position).setChecked(true);
-                LogHelper.d("点击后的最终经纬度：  纬度" + mFinalChoosePosition.latitude + " 经度 "
+                LogUtil.d("点击后的最终经纬度：  纬度" + mFinalChoosePosition.latitude + " 经度 "
                         + mFinalChoosePosition.longitude);
                 mFinalChooseAddress = mDatas.get(position).getSnippet();
                 mIsHandDrag = false;
@@ -329,7 +329,7 @@ public class MapMainActivity extends BaseTitleBarActivity implements LocationSou
             if (amapLocation != null && amapLocation.getErrorCode() == 0) {
                 mIvCenterIcon.setVisibility(View.VISIBLE);
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
-                LogHelper.d("my location , mLat = " + amapLocation.getLatitude() + ", mLon = "
+                LogUtil.d("my location , mLat = " + amapLocation.getLatitude() + ", mLon = "
                         + amapLocation.getLongitude() + " , address = "
                         + amapLocation.getAddress());
                 mFinalChoosePosition = new LatLng(amapLocation.getLatitude(),
@@ -354,7 +354,7 @@ public class MapMainActivity extends BaseTitleBarActivity implements LocationSou
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
         mFinalChoosePosition = cameraPosition.target;
-        LogHelper.d("拖动地图 Finish changeCenterMarker 经度" + mFinalChoosePosition.longitude + "   纬度："
+        LogUtil.d("拖动地图 Finish changeCenterMarker 经度" + mFinalChoosePosition.longitude + "   纬度："
                 + mFinalChoosePosition.latitude);
         if (!mIsLocated) {
             // 未定位，不搜索兴趣点
@@ -489,7 +489,7 @@ public class MapMainActivity extends BaseTitleBarActivity implements LocationSou
                 ToastUtil.showShortToast("无附近消息");
             }
         }else{
-            LogHelper.e("查询周边位置失败 rcode = " + rcode);
+            LogUtil.e("查询周边位置失败 rcode = " + rcode);
             ToastUtil.showShortToast("查询周边位置失败");
         }
     }
@@ -551,7 +551,7 @@ public class MapMainActivity extends BaseTitleBarActivity implements LocationSou
                 mIsHandDrag = true;
                 mFinalChoosePosition = new LatLng(data.getDoubleExtra(MapSearchActivity.KEY_LATITUDE, 0),
                         data.getDoubleExtra(MapSearchActivity.KEY_LONGITUDE, 0));
-                LogHelper.d("点击后的最终经纬度：  纬度" + mFinalChoosePosition.latitude + " 经度 "
+                LogUtil.d("点击后的最终经纬度：  纬度" + mFinalChoosePosition.latitude + " 经度 "
                         + mFinalChoosePosition.longitude);
                 mFinalChooseAddress = data.getStringExtra(MapSearchActivity.KEY_SNIPPET);
                 // 点击之后，我利用代码指定的方式改变了地图中心位置，所以也会调用 onCameraChangeFinish

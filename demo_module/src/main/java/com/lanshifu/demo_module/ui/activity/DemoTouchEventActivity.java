@@ -7,7 +7,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.widget.SettingItemView;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
@@ -51,7 +51,7 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
             @Override
             public void onClick(View v) {
                 showShortToast("view 点击");
-                LogHelper.d("view onClick");
+                LogUtil.d("view onClick");
             }
         });
 
@@ -81,7 +81,7 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
             @Override
             public void onClick(View v) {
                 showShortToast("ViewGroup 点击");
-                LogHelper.d("ViewGroup onClick");
+                LogUtil.d("ViewGroup onClick");
             }
         });
 
@@ -139,13 +139,13 @@ public class DemoTouchEventActivity extends BaseTitleBarActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        LogHelper.d("Activity->dispatchTouchEvent:" + getEventName(ev));
+        LogUtil.d("Activity->dispatchTouchEvent:" + getEventName(ev));
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LogHelper.d("Activity->onTouchEvent:" + getEventName(event));
+        LogUtil.d("Activity->onTouchEvent:" + getEventName(event));
         return super.onTouchEvent(event);
     }
 

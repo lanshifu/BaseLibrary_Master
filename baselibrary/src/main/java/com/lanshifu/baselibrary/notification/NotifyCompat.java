@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.lanshifu.baselibrary.R;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  * Created by lanshifu on 2018/12/4.
@@ -26,7 +26,7 @@ public class NotifyCompat {
 
     public static void setONotifyChannel(NotificationManager manager, NotificationCompat.Builder builder, String channeId, String channelName) {
         if (TextUtils.isEmpty(channeId)|| TextUtils.isEmpty(channelName)){
-            LogHelper.e("NotifyCompatYc:  ".concat("安卓8.0的通知兼容库中 channeId 与 channelName 不能为empty"));
+            LogUtil.e("NotifyCompatYc:  ".concat("安卓8.0的通知兼容库中 channeId 与 channelName 不能为empty"));
         }
         if (Build.VERSION.SDK_INT >= 26) {
             //第三个参数设置通知的优先级别

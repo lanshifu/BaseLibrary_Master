@@ -1,1 +1,17 @@
 com/squareup/leakcanary/internal/LeakCanaryFileProvider.class
+com/lanshifu/baselibrary/crash/CaocInitProvider.class
+com/lanshifu/baselibrary/crash/CustomActivityOnCrash.class
+com/lanshifu/baselibrary/crash/CaocConfig.class
+com/lanshifu/demo_module/ui/activity/DemoSplashActivity.class
+androidx/core/content/FileProvider.class
+androidx/core/content/FileProvider$PathStrategy.class
+androidx/core/content/FileProvider$SimplePathStrategy.class
+androidx/core/content/ContextCompat.class
+com/lanshifu/baselibrary/utils/ToastUtil.class
+com/lanshifu/baselibrary/utils/StorageUtil.class
+
+com/tencent/bugly/beta/utils/BuglyFileProvider.class
+com/luck/picture/lib/PictureFileProvider.class
+com/lanshifu/demo_module/ui/activity/DemoSplashActivity$1.class
+com/lanshifu/demo_module/ui/activity/DemoSplashActivity$1$1.class
+com/lanshifu/demo_module/ui/activity/DemoMainActivity.class

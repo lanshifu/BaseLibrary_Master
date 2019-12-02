@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 
 /**
  *标题跟着随着列表往上滑动而出来和回去
@@ -50,11 +50,11 @@ public class SampleTitleBehavior extends CoordinatorLayout.Behavior<View> {
         if (deltaY == 0) {
             //列表顶部的位置减去标题textview底部的位置，就是滑动的最大距离
             deltaY = dependency.getY() - child.getHeight();
-            LogHelper.d("deltaY = " + deltaY);
+            LogUtil.d("deltaY = " + deltaY);
         }
 
         float dy = dependency.getY() - child.getHeight(); //  rv移动到tv上面去就是 负数，负数不setTranslationY（0）
-        LogHelper.d("dy = " + dy);
+        LogUtil.d("dy = " + dy);
         dy = dy < 0 ? 0 : dy;
 //        float y = -(dy / deltaY) * child.getHeight();
         float y = -(dy / deltaY) * child.getHeight();   //- 表示手指滑动方向相反 移动

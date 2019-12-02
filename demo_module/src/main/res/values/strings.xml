@@ -29,4 +29,9 @@
     <string name="label_animated_vector_drawables">Animated Vectors</string>
     <string name="label_interpolators">Interpolators</string>
 
+    <string name="title">我是标题</string>
+    <string name="right">RIGHT</string>
+    <string name="left">LEFT</string>
+    <string name="todo">TODO</string>
+
 </resources>

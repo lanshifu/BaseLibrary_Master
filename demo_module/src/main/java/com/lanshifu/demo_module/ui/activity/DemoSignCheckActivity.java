@@ -6,7 +6,7 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.demo_module.R;
 
 public class DemoSignCheckActivity extends BaseTitleBarActivity {
@@ -53,7 +53,7 @@ public class DemoSignCheckActivity extends BaseTitleBarActivity {
      */
     private boolean isOwnApp() {
         String signature = getSignature();
-        LogHelper.d("签名：" + signature);
+        LogUtil.d("签名：" + signature);
         return mSign.equals(signature);
     }
 

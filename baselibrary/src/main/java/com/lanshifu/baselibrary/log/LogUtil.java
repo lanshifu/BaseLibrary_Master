@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public final class LogHelper {
+public final class LogUtil {
     public static boolean mIsDebugMode = true;
 
     private static String TAG = "lxb";
@@ -47,8 +47,8 @@ public final class LogHelper {
 
         com.tencent.mars.xlog.Log.setLogImp(new Xlog());
 
-        LogHelper.d("测试xlog");
-        LogHelper.d("cachePath = " + cachePath);
+        LogUtil.d("测试xlog");
+        LogUtil.d("cachePath = " + cachePath);
     }
 
     public static void closeLog(){
@@ -61,7 +61,7 @@ public final class LogHelper {
 
 
     private static void log(String str, int level) {
-        log(str, level, null);
+        log("lxb-" + str, level, null);
     }
 
     private static void log(String logText, int level, Throwable throwable, StackTraceElement traceElement) {

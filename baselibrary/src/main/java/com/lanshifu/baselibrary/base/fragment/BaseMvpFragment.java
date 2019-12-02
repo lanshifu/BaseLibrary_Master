@@ -2,7 +2,7 @@ package com.lanshifu.baselibrary.base.fragment;
 
 import com.lanshifu.baselibrary.basemvp.BasePresenter;
 import com.lanshifu.baselibrary.basemvp.BaseView;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.utils.TUtil;
 
 /**
@@ -31,7 +31,7 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragm
         if(mPresenter != null){
             mPresenter.mContext = this.getActivity();
             if (bindView() == null){
-                LogHelper.e(">>> bindView() return null,子类没有重写此方法,如需使用mvp,请重写bindView()方法");
+                LogUtil.e(">>> bindView() return null,子类没有重写此方法,如需使用mvp,请重写bindView()方法");
             }
             mPresenter.setView(bindView());
         }

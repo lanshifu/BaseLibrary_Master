@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.lanshifu.baselibrary.base.activity.BaseTitleBarActivity;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.baselibrary.network.BaseObserver;
 import com.lanshifu.baselibrary.network.RxScheduler;
 import com.lanshifu.baselibrary.utils.ToastUtil;
@@ -103,7 +103,7 @@ public class DemoSdCardFindActivity extends BaseTitleBarActivity {
     boolean checkSD(){
         if (Environment.getExternalStorageState().equals( Environment.MEDIA_MOUNTED)){
             mFile = Environment.getExternalStorageDirectory();
-            LogHelper.d(mFile.getAbsolutePath());
+            LogUtil.d(mFile.getAbsolutePath());
             return true;
         }else {
             return false;
@@ -181,7 +181,7 @@ public class DemoSdCardFindActivity extends BaseTitleBarActivity {
                         String fileName = f.getName();
 //                                LogHelper.d("正在搜索 " + fileName);
                         if (f.getName().endsWith(type)){
-                            LogHelper.d(fileName);
+                            LogUtil.d(fileName);
                             result.add(fileName);
                         }
                     }
@@ -192,8 +192,8 @@ public class DemoSdCardFindActivity extends BaseTitleBarActivity {
 
         Long time = System.currentTimeMillis() - start;
         ToastUtil.showShortToast("搜索完成，耗时:" + time);
-        LogHelper.d("文件夹数："+dirCount);
-        LogHelper.d("文件数："+fileCount);
+        LogUtil.d("文件夹数："+dirCount);
+        LogUtil.d("文件数："+fileCount);
         StringBuilder sb = new StringBuilder();
         sb.append("搜索完成，耗时:" + time);
         sb.append("\n文件夹数："+dirCount);
@@ -209,7 +209,7 @@ public class DemoSdCardFindActivity extends BaseTitleBarActivity {
         if (!file.isDirectory()){
             String fileName = file.getName();
             if (fileName.endsWith(type)){
-                LogHelper.d(fileName);
+                LogUtil.d(fileName);
                 result.add(fileName);
             }
             return;

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.lanshifu.baselibrary.baserxjava.RxBus;
 import com.lanshifu.baselibrary.baserxjava.RxManager;
 import com.lanshifu.baselibrary.baserxjava.RxTag;
-import com.lanshifu.baselibrary.log.LogHelper;
+import com.lanshifu.baselibrary.log.LogUtil;
 import com.lanshifu.video_module.R;
 import com.lanshifu.video_module.bean.DownloadDurationBean;
 import com.lanshifu.video_module.db.DownloadVideoDB;
@@ -96,7 +96,7 @@ public class VidwoDownLoadItemView extends FrameLayout {
         mRxManager.on(RxTag.TAG_DOWNLOAD_DURAGION + mUrl, new Consumer<DownloadDurationBean>() {
             @Override
             public void accept(DownloadDurationBean downloadDurationBean) throws Exception {
-                LogHelper.d("收到进度通知" + downloadDurationBean.progress);
+                LogUtil.d("收到进度通知" + downloadDurationBean.progress);
                 mProgressBar.setStop(false);
                 mProgressBar.setProgress(downloadDurationBean.progress);
             }
@@ -105,7 +105,7 @@ public class VidwoDownLoadItemView extends FrameLayout {
         mRxManager.on(RxTag.TAG_DOWNLOAD_ERROR + mUrl, new Consumer<String>() {
             @Override
             public void accept(String string) throws Exception {
-                LogHelper.d("收到下载失败通知");
+                LogUtil.d("收到下载失败通知");
                 mProgressBar.setStop(true);
             }
         });
