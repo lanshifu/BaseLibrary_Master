@@ -21,6 +21,7 @@
         <activity android:name=".ui.activity.DemoExpandableTextViewActivity"/>
         <activity android:name=".ui.activity.DemoLitepalActivity"/>
 
+        <activity android:name=".ui.activity.DemoXXPermissionActivity" />
 
         <service android:name=".service.GuardService"
             android:process=":guard_service"/>

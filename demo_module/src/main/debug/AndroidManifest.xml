@@ -66,6 +66,7 @@
         <activity android:name=".ui.activity.PictureSelectActivity" />
         <activity android:name=".ui.activity.DemoHookTestActivity" />
         <activity android:name=".ui.activity.DemoSplashActivity" />
+        <activity android:name=".ui.activity.DemoXXPermissionActivity" />
         <activity
             android:name=".ui.activity.LoadDexActivity"
             android:process=":load_dex"
@@ -80,6 +81,7 @@
         <service
             android:name=".service.JobWakeUpService"
             android:process=":JobWakeUpService" />
+        <service android:name=".appupdate.download.DownloadService" />
     </application>
     <permission android:name="com.suntek.mway.carrier_configuation.permission.READ_CARRIER_CONFIG" />
     <uses-feature
@@ -106,5 +108,21 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <uses-permission android:name="com.suntek.mway.carrier_configuation.permission.READ_CARRIER_CONFIG" />
+
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+
+    <!-- 8.0两个新权限 -->
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
 
 </manifest>

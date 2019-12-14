@@ -2,6 +2,7 @@ package com.lanshifu.demo_module.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.lanshifu.demo_module.R;
@@ -9,7 +10,7 @@ import com.lanshifu.demo_module.R;
 //import com.zhangyue.we.x2c.ano.Xml;
 
 //@Xml(layouts = "activity_xml2_code")
-public class XML2CodeActivity extends AppCompatActivity {
+public class XML2CodeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

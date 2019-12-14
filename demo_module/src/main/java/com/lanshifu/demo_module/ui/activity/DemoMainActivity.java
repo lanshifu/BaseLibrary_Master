@@ -46,12 +46,14 @@ import com.lanshifu.commonservice.demo.DemoInfo;
 import com.lanshifu.demo_module.DemoApplication;
 import com.lanshifu.demo_module.R;
 import com.lanshifu.demo_module.R2;
+import com.lanshifu.demo_module.appupdate.AppUpdateManager;
 import com.lanshifu.demo_module.bean.FinalClass;
 import com.lanshifu.demo_module.design_mode.ProducerConsumerTest;
 import com.lanshifu.demo_module.mvp.presenter.DemoMainPresenter;
 import com.lanshifu.demo_module.mvp.view.DemoMainView;
 import com.lanshifu.demo_module.ndk.JniTest;
 import com.lanshifu.demo_module.util.ChannelUtil;
+import com.lanshifu.demo_module.xxpermission.XXPermissions;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.lang.ref.WeakReference;
@@ -147,7 +149,7 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         mPresenter.test();
         mPresenter.request();
 
-        requestPermission();
+//        requestPermission();
 
         FinalClass finalClass = new FinalClass();
         finalClass.staticName = "更改静态变量";
@@ -262,7 +264,8 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
             , R2.id.btn_notify2, R2.id.btn_get_config, R2.id.btn_block_canary, R2.id.btn_check_update
             , R2.id.btn_SnapHelper, R2.id.btn_sd_search, R2.id.btn_test_io, R2.id.btn_event_fit
             , R2.id.btn_rxjava2, R2.id.btn_hongyang_opne_api, R2.id.btn_flutter, R2.id.btn_camera2
-            , R2.id.btn_uid, R2.id.btn_picture_select, R2.id.btn_xml2code, R2.id.btn_channel})
+            , R2.id.btn_uid, R2.id.btn_picture_select, R2.id.btn_xml2code, R2.id.btn_channel
+            , R2.id.btn_xxpermission, R2.id.btn_appupdate})
     public void onViewClicked(View view) {
         int viewId = view.getId();
         if (viewId == R.id.btn_app_info) {
@@ -386,7 +389,26 @@ public class DemoMainActivity extends BaseTitleBarActivity<DemoMainPresenter> im
         }else if (viewId == R.id.btn_channel) {
             String channel = ChannelUtil.getChannel(DemoMainActivity.this);
             ToastUtil.showShortToast("渠道号："+channel);
+        }else if (viewId == R.id.btn_xxpermission) {
+            Intent intent = new Intent();
+            intent.setClass(this, DemoXXPermissionActivity.class);
+            startActivity(intent);
+        }else if (viewId == R.id.btn_appupdate) {
+            appUpdate();
         }
+    }
+
+    private static String[] arrayContent = new String[]{"1、实现apkUrl形式的版本更新功能", "2、实现stream形式的版本更新功能", "3、优化用户体验", "4、修复一些bug", "1、实现apkUrl形式的版本更新功能", "2、实现stream形式的版本更新功能", "3、优化用户体验", "4、修复一些bug", "1、实现apkUrl形式的版本更新功能", "2、实现stream形式的版本更新功能", "3、优化用户体验", "4、修复一些bug", "1、实现apkUrl形式的版本更新功能", "2、实现stream形式的版本更新功能", "3、优化用户体验", "4、修复一些bug"};
+
+    private void appUpdate(){
+        AppUpdateManager.Builder builder = new AppUpdateManager.Builder(DemoMainActivity.this);
+        //TODO github上的文件下载极慢（甚至连接失败），测试时可以更换为自己服务器上的文件链接
+//        builder.apkUrl("https://github.com/ZuoHailong/AppUpdate/blob/master/example/file/appupdate_example.apk")
+        builder.apkUrl("https://drumbeat-update-app.oss-cn-hangzhou.aliyuncs.com/SupplyChain/temp/appVivoMorocco-release.apk")
+//                .newVerName("2.2.2")
+                .updateForce(false)
+                .updateContent(arrayContent)
+                .build();
     }
 
     private void testCrash(int i) {

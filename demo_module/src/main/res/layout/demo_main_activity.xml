@@ -239,6 +239,15 @@
             android:id="@+id/btn_channel"
             style="@style/default_button"
             android:text="获取渠道号channel" />
+       <Button
+            android:id="@+id/btn_xxpermission"
+            style="@style/default_button"
+            android:text="权限" />
+
+       <Button
+            android:id="@+id/btn_appupdate"
+            style="@style/default_button"
+            android:text="app更新" />
 
 
         <include layout="@layout/demo_background_list" />

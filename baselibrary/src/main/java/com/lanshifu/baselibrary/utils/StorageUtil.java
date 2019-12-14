@@ -17,13 +17,13 @@ public class StorageUtil {
 
 	public static String getAppRootDir() {
 		String rootPath = "";
-		if (checkSDCard()) {
-			//外部存储可用
-			rootPath = mContext.getExternalFilesDir(null).getPath() +"/";
-		}else {
-			//外部存储不可用
+//		if (checkSDCard()) {
+//			//外部存储可用
+//			rootPath = mContext.getExternalFilesDir(null).getPath() +"/";
+//		}else {
+//			//外部存储不可用
 			rootPath = mContext.getCacheDir().getPath() +"/";
-		}
+//		}
 		return rootPath;
 	}
 

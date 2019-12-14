@@ -11,6 +11,7 @@ include ':app',
 //        ':map_module',
 //        ':reader',
 //        ':article_module',
+//          ':study_module',
           ':demo_module'
 
 
